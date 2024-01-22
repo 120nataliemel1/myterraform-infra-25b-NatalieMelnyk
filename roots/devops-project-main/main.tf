@@ -8,7 +8,7 @@ module "module1" {
 
 module "module2" {
   source = "../../dummy-module-2"
-  
+
   input_from_module1 = module.module1.greeting_message
   # ... any other required variables for module2
 }
