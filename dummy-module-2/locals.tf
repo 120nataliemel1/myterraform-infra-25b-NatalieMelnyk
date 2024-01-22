@@ -1,4 +1,3 @@
 locals {
-  cluster_name = "${var.project}-eks-${var.stage}"
-  owner_tag    = "${var.project}-team"
+  message = "${var.input_from_module1} has been processed in Module 2"
 }
