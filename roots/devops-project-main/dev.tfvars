@@ -10,6 +10,7 @@ iam_roles = {
     DevopsDevAccessRole = {
       principal_type = "AWS"
       principal = "arn:aws:iam:::root"
+      enable_secrets_deny = false
       action   = ["*"]
       resource = ["*"]
     }

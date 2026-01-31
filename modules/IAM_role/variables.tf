@@ -24,3 +24,9 @@ variable "principal" {
   type        = string
   description = "ARN of IAM user/role or service name"
 }
+
+variable "enable_secrets_deny" {
+  type = bool
+  description = "Conditional deny or allow for secrets"
+  default = true
+}

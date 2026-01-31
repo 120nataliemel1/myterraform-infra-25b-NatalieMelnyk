@@ -14,7 +14,7 @@ module "module2" {
 }
 
 module "iam_roles" {
-  source   = "../child/iam-roles"
+  source   = "../modules/IAM_role"
   for_each = var.iam_roles
 
   name     = each.key        
@@ -23,4 +23,5 @@ module "iam_roles" {
   service  = each.value.service
   action   = each.value.action
   resource = each.value.resource
+  enable_secrets_deny = each.value.enable_secrets_deny
 }
