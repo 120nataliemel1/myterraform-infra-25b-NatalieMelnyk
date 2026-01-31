@@ -14,7 +14,7 @@ module "module2" {
 }
 
 module "iam_roles" {
-  source   = "../../modules/IAM_role/IAM_role"
+  source   = "../../modules/IAM_role"
   for_each = var.iam_roles
 
   name     = each.key        
