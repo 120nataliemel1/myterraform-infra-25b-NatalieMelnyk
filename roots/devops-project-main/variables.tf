@@ -3,6 +3,6 @@ variable "greeting" {
 }
 
 variable "iam_roles" {
-  type = map
+  type        = map(any)
   description = "Map for iam role creation"
 }

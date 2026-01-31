@@ -5,7 +5,7 @@ variable "name" {
 
 
 variable "action" {
-  type = list(string)
+  type        = list(string)
   description = "IAM policy action"
 }
 
@@ -15,9 +15,9 @@ variable "resource" {
 }
 
 variable "principal_type" {
-  type    = string
+  type        = string
   description = "Either 'Service' or 'AWS'"
-  default = "Service"
+  default     = "Service"
 }
 
 variable "principal" {
@@ -26,7 +26,7 @@ variable "principal" {
 }
 
 variable "enable_secrets_deny" {
-  type = bool
+  type        = bool
   description = "Conditional deny or allow for secrets"
-  default = true
+  default     = true
 }

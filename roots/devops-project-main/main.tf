@@ -17,11 +17,11 @@ module "iam_roles" {
   source   = "../../modules/IAM_role"
   for_each = var.iam_roles
 
-  name     = each.key        
-  principal_type = each.value.principal_type
-  principal      = each.value.principal
-  service  = each.value.service
-  action   = each.value.action
-  resource = each.value.resource
+  name                = each.key
+  principal_type      = each.value.principal_type
+  principal           = each.value.principal
+  service             = each.value.service
+  action              = each.value.action
+  resource            = each.value.resource
   enable_secrets_deny = each.value.enable_secrets_deny
 }
