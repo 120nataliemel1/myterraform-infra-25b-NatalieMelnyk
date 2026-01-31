@@ -21,20 +21,24 @@ resource "aws_iam_role" "iam_role" {
   }
 }
 
-resource "aws_iam_policy" "iam_policy" {
-  name = "${var.name}-policy"
+data "aws_iam_policy_document" "role_policy" {
+  statement {
+    effect    = "Allow"
+    actions   = var.action
+    resources = var.resource
+  }
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = var.action
-      
-        Resource = var.resource
-      }
-    ]
-  })
+  statement {
+    count     = var.enable_secrets_deny ? 1 : 0
+    effect    = "Deny"
+    actions   = ["secretsmanager:*", "ssm:GetParameter*", "ssm:Describe*"]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "iam_policy" {
+  name   = "${var.name}-policy"
+  policy = data.aws_iam_policy_document.role_policy.json
 }
 
 
