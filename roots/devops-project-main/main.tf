@@ -82,4 +82,8 @@ module "devops_prod_role" {
   policy_json    = "DevopsProdAccessRole.json"
 }
 
-#--------------------------------------
+
+# Documentdb module
+module "documentdb" {
+  source = "../../documentdb-module"
+}
