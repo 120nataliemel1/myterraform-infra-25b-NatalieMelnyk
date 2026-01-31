@@ -18,3 +18,8 @@ environment               = "Dev"
 trusted_parent_account_id = ["arn:aws:iam::879500880845:root"]
 DeveloperAccessRolePolicy = "DeveloperDevAccessRole.json"
 DevopAccessRolePolicy     = "DevopsDevAccessRole.json"
+#DocumentDb 
+#temporary values before eks integration
+vpc_id             = "vpc-0a0dfbedde5134447"
+#private_subnet_ids = ["subnet-A", "subnet-B"]
+eks_node_sg_id     = "sg-0415e8ef8236558de"
