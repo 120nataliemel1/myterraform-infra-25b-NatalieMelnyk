@@ -29,11 +29,11 @@ data "aws_iam_policy_document" "role_policy" {
   }
 
   dynamic "statement" {
-  for_each = var.enable_secrets_deny ? [1] : []
-  content {
-    effect    = "Deny"
-    actions   = ["secretsmanager:*", "ssm:GetParameter*", "ssm:Describe*"]
-    resources = ["*"]
+    for_each = var.enable_secrets_deny ? [1] : []
+    content {
+      effect    = "Deny"
+      actions   = ["secretsmanager:*", "ssm:GetParameter*", "ssm:Describe*"]
+      resources = ["*"]
     }
   }
 }
