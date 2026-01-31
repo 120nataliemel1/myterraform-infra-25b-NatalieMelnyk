@@ -1,1 +1,16 @@
 greeting = "Hi"
+
+iam_roles = {
+    DeveloperDevAccessRole= {
+      principal_type = "AWS"
+      principal = "arn:aws:iam:::root"
+      action   = ["s3:*", "ec2:Describe*", "eks:DescribeCluster"]
+      resource = ["*"]
+    }
+    DevopsDevAccessRole = {
+      principal_type = "AWS"
+      principal = "arn:aws:iam:::root"
+      action   = ["*"]
+      resource = ["*"]
+    }
+}
