@@ -1,6 +1,6 @@
 resource "aws_vpc" "projectx_vpc" {
-  cidr_block       = var.vpc_cidr
-  enable_dns_support = true
+  cidr_block           = var.vpc_cidr
+  enable_dns_support   = true
   enable_dns_hostnames = true
 
   tags = {
@@ -17,9 +17,9 @@ resource "aws_internet_gateway" "igw" {
 }
 
 resource "aws_subnet" "public_subnet_1" {
-  vpc_id     = aws_vpc.projectx_vpc.id
-  cidr_block = var.public_subnet_cidrs[0]
-  availability_zone = var.azs[0]
+  vpc_id                  = aws_vpc.projectx_vpc.id
+  cidr_block              = var.public_subnet_cidrs[0]
+  availability_zone       = var.azs[0]
   map_public_ip_on_launch = true # instances/nodes launched in pub subnets automatically receive pub IPv4 add.
 
 
@@ -29,9 +29,9 @@ resource "aws_subnet" "public_subnet_1" {
 }
 
 resource "aws_subnet" "public_subnet_2" {
-  vpc_id     = aws_vpc.projectx_vpc.id     
-  cidr_block = var.public_subnet_cidrs[1]
-  availability_zone = var.azs[1]
+  vpc_id                  = aws_vpc.projectx_vpc.id
+  cidr_block              = var.public_subnet_cidrs[1]
+  availability_zone       = var.azs[1]
   map_public_ip_on_launch = true
 
 
@@ -41,9 +41,9 @@ resource "aws_subnet" "public_subnet_2" {
 }
 
 resource "aws_subnet" "public_subnet_3" {
-  vpc_id     = aws_vpc.projectx_vpc.id
-  cidr_block = var.public_subnet_cidrs[2]
-  availability_zone = var.azs[2]
+  vpc_id                  = aws_vpc.projectx_vpc.id
+  cidr_block              = var.public_subnet_cidrs[2]
+  availability_zone       = var.azs[2]
   map_public_ip_on_launch = true
 
 
@@ -53,8 +53,8 @@ resource "aws_subnet" "public_subnet_3" {
 }
 
 resource "aws_subnet" "private_subnet_1" {
-  vpc_id     = aws_vpc.projectx_vpc.id
-  cidr_block = var.private_subnet_cidrs[0]
+  vpc_id            = aws_vpc.projectx_vpc.id
+  cidr_block        = var.private_subnet_cidrs[0]
   availability_zone = var.azs[0]
 
   tags = {
@@ -63,8 +63,8 @@ resource "aws_subnet" "private_subnet_1" {
 }
 
 resource "aws_subnet" "private_subnet_2" {
-  vpc_id     = aws_vpc.projectx_vpc.id
-  cidr_block = var.private_subnet_cidrs[1]
+  vpc_id            = aws_vpc.projectx_vpc.id
+  cidr_block        = var.private_subnet_cidrs[1]
   availability_zone = var.azs[1]
 
   tags = {
@@ -73,8 +73,8 @@ resource "aws_subnet" "private_subnet_2" {
 }
 
 resource "aws_subnet" "private_subnet_3" {
-  vpc_id     = aws_vpc.projectx_vpc.id
-  cidr_block = var.private_subnet_cidrs[2]
+  vpc_id            = aws_vpc.projectx_vpc.id
+  cidr_block        = var.private_subnet_cidrs[2]
   availability_zone = var.azs[2]
 
   tags = {
