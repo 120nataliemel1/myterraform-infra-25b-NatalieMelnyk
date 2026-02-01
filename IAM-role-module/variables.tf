@@ -25,8 +25,7 @@ variable "principal" {
   description = "ARN of IAM user/role or service name"
 }
 
-variable "enable_secrets_deny" {
-  type        = bool
-  description = "Conditional deny or allow for secrets"
-  default     = true
+variable "policy_json" {
+  type        = string
+  description = "Path to policy json file"
 }

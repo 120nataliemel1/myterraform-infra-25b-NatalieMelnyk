@@ -21,26 +21,10 @@ resource "aws_iam_role" "iam_role" {
   }
 }
 
-data "aws_iam_policy_document" "role_policy" {
-  statement {
-    effect    = "Allow"
-    actions   = var.action
-    resources = var.resource
-  }
-
-  dynamic "statement" {
-    for_each = var.enable_secrets_deny ? [1] : []
-    content {
-      effect    = "Deny"
-      actions   = ["secretsmanager:*", "ssm:GetParameter*", "ssm:Describe*"]
-      resources = ["*"]
-    }
-  }
-}
 
 resource "aws_iam_policy" "iam_policy" {
   name   = "${var.name}-policy"
-  policy = data.aws_iam_policy_document.role_policy.json
+  policy = var.policy_json
 }
 
 
