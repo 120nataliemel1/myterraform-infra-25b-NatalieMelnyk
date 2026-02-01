@@ -1,0 +1,31 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GlobalReadOnly",
+      "Effect": "Allow",
+      "Action": [
+        "*:Describe*",
+        "*:List*",
+        "*:Get*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "EC2FullAccess",
+      "Effect": "Allow",
+      "Action": "ec2:*",
+      "Resource": "*"
+    },
+    {
+      "Sid": "DenySecrets",
+      "Effect": "Deny",
+      "Action": [
+        "secretsmanager:*",
+        "ssm:Describe*",
+        "ssm:GetParameter*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
