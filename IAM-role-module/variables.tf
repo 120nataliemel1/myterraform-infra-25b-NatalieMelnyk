@@ -3,17 +3,6 @@ variable "name" {
   description = "Name of the IAM role"
 }
 
-
-variable "action" {
-  type        = list(string)
-  description = "IAM policy action"
-}
-
-variable "resource" {
-  type        = list(string)
-  description = "Resources the policy applies to"
-}
-
 variable "principal_type" {
   type        = string
   description = "Either 'Service' or 'AWS'"
