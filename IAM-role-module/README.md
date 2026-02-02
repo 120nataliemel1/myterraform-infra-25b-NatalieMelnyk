@@ -31,7 +31,6 @@ This repository contains Terraform code to **define and manage AWS IAM roles and
 
 ## Example Usage in `main.tf`
 
-```hcl
 module "developer_iam_role" {
   source         = "../../IAM-role-module"
   environment    = var.environment
