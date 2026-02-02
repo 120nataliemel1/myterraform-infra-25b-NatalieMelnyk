@@ -90,4 +90,6 @@ module "documentdb" {
   vpc_id             = var.vpc_id
   private_subnet_ids = var.private_subnet_ids
   eks_node_sg_id     = var.eks_node_sg_id
+  environment = var.environment
+  name_prefix = var.name_prefix
 }
