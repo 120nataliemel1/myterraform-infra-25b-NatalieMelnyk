@@ -14,10 +14,14 @@ resource "aws_secretsmanager_secret" "docdb" {
 }
 # Add a version of the secret with actual credentials
 resource "aws_secretsmanager_secret_version" "docdb" {
-  secret_id     = aws_secretsmanager_secret.docdb.id
+  secret_id = aws_secretsmanager_secret.docdb.id
+
   secret_string = jsonencode({
     username = "proshop_admin"
     password = random_password.docdb_password.result
+    engine   = "documentdb"
+    host     = aws_docdb_cluster.this.endpoint
+    port     = 27017
   })
 }
 
