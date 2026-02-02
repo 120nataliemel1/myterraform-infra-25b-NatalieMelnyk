@@ -1,5 +1,5 @@
 resource "aws_iam_role" "iam_role" {
-  name = var.name
+  name = var.role_name
 
 
   assume_role_policy = jsonencode({
@@ -17,7 +17,8 @@ resource "aws_iam_role" "iam_role" {
   })
 
   tags = {
-    tag-key = var.name
+    Name        = var.role_name
+    environment = var.env
   }
 }
 

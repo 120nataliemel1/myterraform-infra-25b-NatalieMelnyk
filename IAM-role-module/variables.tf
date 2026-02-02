@@ -1,4 +1,4 @@
-variable "name" {
+variable "role_name" {
   type        = string
   description = "Name of the IAM role"
 }
@@ -16,5 +16,5 @@ variable "principal" {
 
 variable "policy_json" {
   type        = string
-  description = "Path to policy json file"
+  description = "Name policy json file"
 }

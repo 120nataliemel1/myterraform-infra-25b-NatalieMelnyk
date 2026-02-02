@@ -13,13 +13,39 @@ module "module2" {
   # ... any other required variables for module2
 }
 
-module "iam_roles" {
-  source   = "../../IAM-role-module"
-  for_each = var.iam_roles
 
-  name           = each.key
-  principal_type = each.value.principal_type
-  principal      = each.value.principal
-  policy_json    = each.value.policy_json
+module "developer_dev_role" {
+  source         = "../../iam_roles"
+  environment    = "dev"
+  principal_type = "AWS"
+  principal      = var.trusted_parent_account_id
+  role_name      = "DeveloperAccessRole"
+  policy_json    = "DeveloperDevAccessRole.json"
+}
 
+module "devops_dev_role" {
+  source         = "../../iam_roles"
+  environment    = "dev"
+  principal_type = "AWS"
+  principal      = var.trusted_parent_account_id
+  role_name      = "DevopsAccessRole"
+  policy_json    = "DevopsDevAccessRole.json"
+}
+
+module "developer_prod_role" {
+  source         = "../../iam_roles"
+  env            = "prod"
+  principal_type = "AWS"
+  principal      = var.trusted_parent_account_id
+  role_name      = "DevopsAccessRole"
+  policy_json    = "DeveloperProdAccessRole.json"
+}
+
+module "devops_prod_role" {
+  source         = "../../iam_roles"
+  env            = "prod"
+  principal_type = "AWS"
+  principal      = var.trusted_parent_account_id
+  role_name      = "DevopsAccessRole"
+  policy_json    = "DevopsProdAccessRole.json"
 }
