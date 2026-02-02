@@ -34,3 +34,9 @@ variable "instance_class" {
   type        = string
   default     = "db.t3.medium"
 }
+
+variable "instance_count" {
+  description = "Number of DocumentDB instances (1 primary + replicas)"
+  type        = number
+  default     = 1
+}
