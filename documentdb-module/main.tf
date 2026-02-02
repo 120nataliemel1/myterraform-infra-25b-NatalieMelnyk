@@ -34,3 +34,12 @@ resource "aws_docdb_cluster" "this" {
   apply_immediately       = true
   storage_encrypted       = false
 }
+
+# DocumentDB Cluster Instances
+resource "aws_docdb_cluster_instance" "this" {
+  count              = var.instance_count
+  identifier         = "${var.name_prefix}-${var.environment}-docdb-instance-${count.index + 1}"
+  cluster_identifier = aws_docdb_cluster.this.id
+  instance_class     = var.instance_class
+  apply_immediately  = true
+}
