@@ -1,2 +1,7 @@
 # DocumentDB Module
-#VPC ID, Private Subnet IDs, EKS Node Security Group ID are will be created latter and attached to this module.
+
+# Random password for DocumentDB admin user
+resource "random_password" "docdb_password" {
+  length  = 16
+  special = true
+}
