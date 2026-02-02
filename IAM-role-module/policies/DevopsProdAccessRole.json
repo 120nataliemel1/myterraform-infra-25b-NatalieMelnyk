@@ -19,7 +19,10 @@
         "sns:Get*",
         "sns:List*",
         "sqs:Get*",
-        "sqs:List*"
+        "sqs:List*",
+        "eks:Describe*",
+        "eks:List*",
+        "eks:AccessKubernetesApi"
       ],
       "Resource": "*"
     },
