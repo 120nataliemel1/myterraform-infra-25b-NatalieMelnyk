@@ -3,7 +3,7 @@ variable "greeting" {
 }
 
 variable "trusted_parent_account_id" {
-  type        = string
+  type        = list(string)
   description = "ARN of trusted account"
 }
 
