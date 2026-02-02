@@ -28,3 +28,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "instance_class" {
+  description = "Instance class for DocumentDB instances"
+  type        = string
+  default     = "db.t3.medium"
+}
