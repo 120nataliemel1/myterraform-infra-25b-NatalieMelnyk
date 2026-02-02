@@ -1,37 +1,69 @@
-# IAM-role
+# IAM-role Terraform Module
 
-This repository contains Terraform code to define and manage AWS IAM roles and policies.
+This repository contains Terraform code to **define and manage AWS IAM roles and policies** in a reusable and modular way.
+
+---
+
+## Module Overview
+
+- The **child module** builds IAM roles, creates policies, and attaches them to roles.  
+- Policies are stored in **JSON format** inside `IAM-role-module/policies`.  
+- Roles can be assumed by either an **AWS account/role/user** or an **AWS service**.
+
+---
 
 ## Guidelines
 
-1. In `.tfvars` you define a map of roles and their permissions.
-2. The root module uses `for_each` to call the IAM role module for each entry.
-3. The child module builds IAM roles, policies, and attaches them.
-4. Policies include an Allow block and (optionally) a Deny block for secrets. Default set to deny access to secrets.
+1. **Creating Policies**  
+   - Add new JSON policy files in the `IAM-role-module/policies` directory.  
+   - When using a policy in your module, reference the **file name only** (e.g., `"DeveloperProdAccessRole.json"`).  
 
-## Example `.tfvars` Files
+2. **Principal Type & Principal**  
+   - `principal_type` defines **who can assume the role**:  
+     - `"AWS"` → IAM user, role, or AWS account.  
+     - `"Service"` → AWS service like EC2, Lambda, etc.  
+   - `principal` is the **ARN or identifier** corresponding to the principal type.  
 
-iam_roles = {
-  DevopsDevAccessRole = {
-    principal_type      = "AWS"
-    principal           = "arn:aws:iam::123456789012:root"
-    action              = ["*"]
-    resource            = ["*"]
-    enable_secrets_deny = false
-  }
+3. **Environment Tagging**  
+   - Use the `environment` variable to differentiate roles across environments (`dev`, `prod`, etc.).  
+
+---
+
+## Example Usage in `main.tf`
+
+```hcl
+module "developer_iam_role" {
+  source         = "../../IAM-role-module"
+  environment    = var.environment
+  principal_type = "AWS"
+  principal      = var.trusted_parent_account_id
+  role_name      = "Developer${var.environment}AccessRole-ubuntu25b"
+  policy_json    = var.DeveloperAccessRolePolicy
 }
 
-## Example `main.tf` Files
+## Notes
 
-module "iam_roles" {
-  source   = "../modules/IAM_role"
-  for_each = var.iam_roles
+- **Policy JSON:**  
+  `policy_json` should match the filename of the policy stored in `IAM-role-module/policies`.
 
-  name     = each.key        
-  principal_type = each.value.principal_type
-  principal      = each.value.principal
-  service  = each.value.service
-  action   = each.value.action
-  resource = each.value.resource
-  enable_secrets_deny = each.value.enable_secrets_deny
-}
+- **Principal alignment:**  
+  `principal_type` and `principal` must match. Examples:  
+  - **AWS account:**  
+    ```hcl
+    principal_type = "AWS"
+    principal      = "arn:aws:iam::123456789012:root"
+    ```  
+  - **EC2 service:**  
+    ```hcl
+    principal_type = "Service"
+    principal      = "ec2.amazonaws.com"
+    ```
+
+- **Multiple accounts:**  
+  You can pass a **list of ARNs** to trust multiple accounts and dynamically generate principals in your module.
+
+- **Environment tagging:**  
+  Always use `environment` to tag roles consistently for dev, staging, and prod environments.
+
+- **Security best practices:**  
+  Prefer trusting **specific roles or users** instead of the account root whenever possible.
