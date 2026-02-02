@@ -17,7 +17,7 @@ module "module2" {
 
 module "developer_iam_role" {
   source         = "../../IAM-role-module"
-  env            = var.environment
+  environment    = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
   role_name      = "Developer${var.environment}AccessRole"
@@ -26,7 +26,7 @@ module "developer_iam_role" {
 
 module "devops_iam_role" {
   source         = "../../IAM-role-module"
-  env            = var.environment
+  environment    = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
   role_name      = "Devops${var.environment}AccessRole"
