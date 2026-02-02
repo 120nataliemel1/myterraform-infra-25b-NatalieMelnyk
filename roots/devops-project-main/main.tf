@@ -20,7 +20,7 @@ module "developer_iam_role" {
   environment    = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
-  role_name      = "Developer${var.environment}AccessRole"
+  role_name      = "Developer${var.environment}AccessRole-ubuntu25b"
   policy_json    = var.DeveloperAccessRolePolicy
 }
 
@@ -29,6 +29,6 @@ module "devops_iam_role" {
   environment    = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
-  role_name      = "Devops${var.environment}AccessRole"
+  role_name      = "Devops${var.environment}AccessRole-ubuntu25b"
   policy_json    = var.DevopAccessRolePolicy
 }
