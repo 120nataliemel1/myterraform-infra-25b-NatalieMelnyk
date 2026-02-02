@@ -14,7 +14,8 @@
       "Effect": "Allow",
       "Action": [
         "eks:Describe*",
-        "eks:List*"
+        "eks:List*",
+        "eks:AccessKubernetesApi"
       ],
       "Resource": "*"
     },
