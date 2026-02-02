@@ -17,9 +17,9 @@ module "iam_roles" {
   source   = "../../IAM-role-module"
   for_each = var.iam_roles
 
-  name                = each.key
-  principal_type      = each.value.principal_type
-  principal           = each.value.principal
-  policy_file         = each.value.policy_file
-  
+  name           = each.key
+  principal_type = each.value.principal_type
+  principal      = each.value.principal
+  policy_file    = each.value.policy_file
+
 }
