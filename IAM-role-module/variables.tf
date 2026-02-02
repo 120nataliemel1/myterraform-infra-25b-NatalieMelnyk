@@ -18,3 +18,8 @@ variable "policy_json" {
   type        = string
   description = "Name policy json file"
 }
+
+variable "environment" {
+  type        = string
+  description = "Environment where resourse is created"
+}
