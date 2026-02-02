@@ -10,7 +10,7 @@ variable "principal_type" {
 }
 
 variable "principal" {
-  type        = string
+  type        = list(string)
   description = "ARN of IAM user/role or service name"
 }
 
