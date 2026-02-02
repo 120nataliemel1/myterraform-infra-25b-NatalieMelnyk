@@ -15,7 +15,7 @@ module "module2" {
 
 
 module "developer_dev_role" {
-  source         = "../../iam_roles"
+  source         = "../../IAM-role-module"
   environment    = "dev"
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -24,7 +24,7 @@ module "developer_dev_role" {
 }
 
 module "devops_dev_role" {
-  source         = "../../iam_roles"
+  source         = "../../IAM-role-module"
   environment    = "dev"
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -33,7 +33,7 @@ module "devops_dev_role" {
 }
 
 module "developer_prod_role" {
-  source         = "../../iam_roles"
+  source         = "../../IAM-role-module"
   env            = "prod"
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -42,7 +42,7 @@ module "developer_prod_role" {
 }
 
 module "devops_prod_role" {
-  source         = "../../iam_roles"
+  source         = "../../IAM-role-module"
   env            = "prod"
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
