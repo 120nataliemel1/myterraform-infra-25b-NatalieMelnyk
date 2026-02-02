@@ -23,3 +23,12 @@ cidr_blocks = ["0.0.0.0/0"]
 Name = "${var.name_prefix}-documentdb-sg"
 })
 }`
+
+#DocumentDb Subnet Group
+resource "aws_docdb_subnet_group" "this" {
+  name       = "${var.name}-docdb-subnet-group"
+  subnet_ids = var.private_subnet_ids
+
+  tags = var.tags
+}
+
