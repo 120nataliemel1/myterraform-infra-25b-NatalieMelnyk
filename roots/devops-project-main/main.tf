@@ -20,7 +20,6 @@ module "iam_roles" {
   name                = each.key
   principal_type      = each.value.principal_type
   principal           = each.value.principal
-  action              = each.value.action
-  resource            = each.value.resource
-  enable_secrets_deny = each.value.enable_secrets_deny
+  policy_file         = each.value.policy_file
+  
 }

@@ -26,6 +26,6 @@ variable "principal" {
 }
 
 variable "policy_json" {
-  type        = string
+  type = string
   description = "Path to policy json file"
 }
