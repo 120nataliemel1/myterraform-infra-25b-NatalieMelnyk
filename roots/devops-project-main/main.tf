@@ -14,38 +14,21 @@ module "module2" {
 }
 
 
-module "developer_dev_role" {
+
+module "developer_iam_role" {
   source         = "../../IAM-role-module"
-  environment    = "dev"
+  env            = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
-  role_name      = "DeveloperAccessRole"
-  policy_json    = "DeveloperDevAccessRole.json"
+  role_name      = "Developer${var.environment}AccessRole"
+  policy_json    = var.DeveloperAccessRolePolicy
 }
 
-module "devops_dev_role" {
+module "devops_iam_role" {
   source         = "../../IAM-role-module"
-  environment    = "dev"
+  env            = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
-  role_name      = "DevopsAccessRole"
-  policy_json    = "DevopsDevAccessRole.json"
-}
-
-module "developer_prod_role" {
-  source         = "../../IAM-role-module"
-  env            = "prod"
-  principal_type = "AWS"
-  principal      = var.trusted_parent_account_id
-  role_name      = "DevopsAccessRole"
-  policy_json    = "DeveloperProdAccessRole.json"
-}
-
-module "devops_prod_role" {
-  source         = "../../IAM-role-module"
-  env            = "prod"
-  principal_type = "AWS"
-  principal      = var.trusted_parent_account_id
-  role_name      = "DevopsAccessRole"
-  policy_json    = "DevopsProdAccessRole.json"
+  role_name      = "Devops${var.environment}AccessRole"
+  policy_json    = var.DevopAccessRolePolicy
 }
