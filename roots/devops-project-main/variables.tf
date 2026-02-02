@@ -8,17 +8,17 @@ variable "trusted_parent_account_id" {
 }
 
 variable "DevopAccessRolePolicy" {
-  type = string
+  type        = string
   description = "Name of correct json file name"
 }
 
 
 variable "DeveloperAccessRolePolicy" {
-  type = string
+  type        = string
   description = "Name of correct json file name"
 }
 
 variable "environment" {
-  type = string
+  type        = string
   description = "Environment where resourse is created"
 }
