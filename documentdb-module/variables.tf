@@ -1,3 +1,7 @@
+variable "environment" {
+  description = "Environment name (dev/staging/prod)"
+  type        = string
+}
 
 variable "name_prefix" {
   description = "Prefix used for naming DocumentDB resources"
