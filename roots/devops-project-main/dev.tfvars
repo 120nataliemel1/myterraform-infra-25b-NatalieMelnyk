@@ -25,3 +25,7 @@ vpc_id             = "vpc-0a0dfbedde5134447"
 eks_node_sg_id     = "sg-0415e8ef8236558de"
 instance_class = "db.t3.medium"
 instance_count = 1
+tags = {
+  Project     = "proshop"
+  Environment = "dev"
+}
