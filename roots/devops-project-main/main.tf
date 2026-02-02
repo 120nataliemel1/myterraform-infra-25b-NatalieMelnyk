@@ -20,6 +20,6 @@ module "iam_roles" {
   name           = each.key
   principal_type = each.value.principal_type
   principal      = each.value.principal
-  policy_json    = each.value.policy_file
+  policy_json    = each.value.policy_json
 
 }
