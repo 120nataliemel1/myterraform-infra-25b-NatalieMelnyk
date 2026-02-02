@@ -18,7 +18,7 @@ resource "aws_iam_role" "iam_role" {
 
   tags = {
     Name        = var.role_name
-    environment = var.env
+    environment = var.environment
   }
 }
 
