@@ -1,3 +1,8 @@
+# Locals 
+locals {
+  documentdb_port = 27017
+}
+
 #Secutity Group for DocumentDB
 resource "aws_security_group" "documentdb" {
 name        = "${var.name_prefix}-documentdb-sg"
