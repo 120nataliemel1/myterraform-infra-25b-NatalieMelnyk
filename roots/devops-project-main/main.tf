@@ -92,4 +92,7 @@ module "documentdb" {
   eks_node_sg_id     = var.eks_node_sg_id
   environment = var.environment
   name_prefix = var.name_prefix
+  instance_count = var.instance_count
+  instance_class = var.instance_class
+  tags = var.tags
 }
