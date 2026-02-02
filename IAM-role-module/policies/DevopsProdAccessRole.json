@@ -5,9 +5,21 @@
       "Sid": "FullReadAccess",
       "Effect": "Allow",
       "Action": [
-        "Describe*",
-        "Get*",
-        "List*"
+        "s3:Get*",
+        "s3:List*",
+        "iam:Get*",
+        "iam:List*",
+        "rds:Describe*",
+        "lambda:Get*",
+        "lambda:List*",
+        "cloudwatch:Get*",
+        "cloudwatch:List*",
+        "dynamodb:Get*",
+        "dynamodb:List*",
+        "sns:Get*",
+        "sns:List*",
+        "sqs:Get*",
+        "sqs:List*"
       ],
       "Resource": "*"
     },
