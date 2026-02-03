@@ -1,6 +1,7 @@
 variable "greeting" {
   description = "A greeting phrase"
 }
+
 ##############################
 # AWS RDS MySQL Variables
 ##############################

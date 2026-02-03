@@ -1,8 +1,8 @@
 resource "aws_iam_policy" "external_dns" {
-    name = "${var.env}-external-dns-route53"
-    description = "Allow external-dns to manage Route53 records in approved hosted zones"
+  name        = "${var.env}-external-dns-route53"
+  description = "Allow external-dns to manage Route53 records in approved hosted zones"
 
-    policy = jsonencode({
+  policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
