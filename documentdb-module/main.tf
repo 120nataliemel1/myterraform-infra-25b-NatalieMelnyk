@@ -37,6 +37,7 @@ resource "aws_docdb_cluster" "this" {
   skip_final_snapshot    = true
   apply_immediately      = true
   storage_encrypted      = false
+  tls                    = false
 }
 
 # DocumentDB Cluster Instances
