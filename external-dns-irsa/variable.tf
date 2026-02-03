@@ -18,7 +18,7 @@ variable "namespace" {
   type        = string
 }
 
-variable "sa_name" {
+variable "service_account_name" {
   description = "ServiceAccount name for external-dns"
   type        = string
 }

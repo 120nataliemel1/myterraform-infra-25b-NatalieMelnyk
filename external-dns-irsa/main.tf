@@ -43,7 +43,7 @@ data "aws_iam_policy_document" "external_dns_trust" {
     condition {
       test     = "StringEquals"
       variable = "${replace(var.oidc_url, "https://", "")}:sub"
-      values   = ["system:serviceaccount:${var.namespace}:${var.sa_name}"]
+      values   = ["system:serviceaccount:${var.namespace}:${var.service_account_name}"]
     }
   }
 }
