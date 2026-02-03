@@ -26,7 +26,6 @@ module "vpc-module" {
 
 module "eks-module" {
   source = "../../eks-module"
-
   cluster_name = var.cluster_name
   vpc_id       = module.vpc-module.vpc_id
   subnets      = module.vpc-module.public_subnet_ids_ordered
