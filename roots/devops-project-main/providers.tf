@@ -4,10 +4,10 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket         = "project-x-state-bucket-staging"
-    key            = "terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraformlock"
+    bucket       = "383585068161-state-bucket-dev"
+    key          = "feature/MRP25BUBUN-14-mongodb.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
   }
 }
 
