@@ -1,5 +1,6 @@
 greeting = "Hi"
 
+<<<<<<< HEAD
 # AWS RDS MySQL Variables
 identifier                 = "versus-db-prod"
 engine                     = "mysql"
