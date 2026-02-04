@@ -51,6 +51,7 @@ resource "aws_docdb_cluster" "this" {
   skip_final_snapshot    = true
   apply_immediately      = true
   storage_encrypted      = false
+  cluster_parameter_group_name = aws_docdb_cluster_parameter_group.docdb_tls_disabled.name
 }
 
 # DocumentDB Cluster Instances
