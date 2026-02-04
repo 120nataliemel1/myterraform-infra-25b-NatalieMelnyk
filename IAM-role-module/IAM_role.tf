@@ -37,9 +37,4 @@ resource "aws_iam_policy" "iam_policy" {
 resource "aws_iam_role_policy_attachment" "attach" {
   role       = aws_iam_role.iam_role.name
   policy_arn = aws_iam_policy.iam_policy.arn
-
-  tags = {
-    Name        = "policy_attachment_${var.role_name}"
-    environment = var.environment
-  }
 }
