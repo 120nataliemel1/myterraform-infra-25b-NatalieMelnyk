@@ -25,6 +25,20 @@ resource "aws_secretsmanager_secret_version" "docdb" {
   })
 }
 
+#Custom parameter group for DocumentDB
+resource "aws_docdb_cluster_parameter_group" "docdb_tls_disabled" {
+  name        = "${var.name_prefix}-${var.environment}-docdb-param-group"
+  family      = "docdb5.0"
+  description = "Parameter group with TLS disabled for DocumentDB"
+
+  parameter {
+    name  = "tls"
+    value = "disabled"
+  }
+
+  tags = var.tags
+}
+
 # DocumentDB Cluster
 resource "aws_docdb_cluster" "this" {
   cluster_identifier     = "${var.name_prefix}-${var.environment}-docdb-cluster"
