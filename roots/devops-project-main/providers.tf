@@ -5,9 +5,10 @@ provider "aws" {
 terraform {
   backend "s3" {
     # bucket         = "project-x-state-bucket-staging"
-    key            = "terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraformlock"
+    bucket       = "terraform-remote-state-altynai"
+    key          = "dev/versus/terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
   }
 }
 

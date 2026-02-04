@@ -1,8 +1,7 @@
 variable "greeting" {
   description = "A greeting phrase"
 }
-
-variable "allocated_storage" {}
+variable "identifier" {}
 
 variable "engine" {}
 
@@ -18,24 +17,28 @@ variable "password" {}
 
 variable "parameter_group_name" {}
 
-variable "publicly_accessible" {
-  default = false
-}
+variable "publicly_accessible" {}
 
 variable "db_subnet_group_name" {}
 
-variable "vpc_security_group_ids" {
-  type = list(string)
-}
+variable "db_subnet_ids" { type = list(string) }
 
-variable "multi_az" {
-  default = false
-}
+variable "vpc_security_group_ids" { type = list(string) }
 
-variable "storage_type" {
-  default = "gp2"
-}
+variable "db_security_group_name" {}
 
-variable "tags" {
-  type = map(string)
-}
+variable "vpc_id" {}
+
+variable "app_security_group_id" {}
+
+variable "multi_az" {}
+
+variable "storage_type" {}
+
+variable "allocated_storage" {}
+
+variable "db_backup_retention_period" { type = number }
+
+variable "db_backup_window" {}
+
+variable "tags" { type = map(string) }

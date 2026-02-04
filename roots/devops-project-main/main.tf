@@ -16,18 +16,26 @@ module "module2" {
 module "rds_mysql" {
   source = "../../rds-mysql"
 
-  allocated_storage    = var.allocated_storage
-  engine               = var.engine
-  engine_version       = var.engine_version
-  instance_class       = var.instance_class
-  db_name              = var.db_name
-  username             = var.username
-  password             = var.password
-  parameter_group_name = var.parameter_group_name
-  publicly_accessible  = var.publicly_accessible
-  db_subnet_group_name = var.db_subnet_group_name
-  vpc_security_group_ids = var.vpc_security_group_ids
-  multi_az             = var.multi_az
-  storage_type         = var.storage_type
-  tags                 = var.tags
+  identifier                 = var.identifier
+  allocated_storage          = var.allocated_storage
+  engine                     = var.engine
+  engine_version             = var.engine_version
+  instance_class             = var.instance_class
+  db_name                    = var.db_name
+  username                   = var.username
+  db_password                = var.password
+  parameter_group_name       = var.parameter_group_name
+  publicly_accessible        = var.publicly_accessible
+  db_subnet_group_name       = var.db_subnet_group_name
+  db_subnet_ids              = var.db_subnet_ids
+  vpc_security_group_ids     = var.vpc_security_group_ids
+  db_security_group_name     = var.db_security_group_name
+  vpc_id                     = var.vpc_id
+  app_security_group_id      = var.app_security_group_id
+  multi_az                   = var.multi_az
+  storage_type               = var.storage_type
+  db_backup_retention_period = var.db_backup_retention_period
+  db_backup_window           = var.db_backup_window
+
+  tags = var.tags
 }
