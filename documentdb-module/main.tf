@@ -6,9 +6,14 @@ resource "random_password" "docdb_password" {
   special = true
 }
 
+# Random suffix for unique resource names
+resource "random_id" "suffix" {
+  byte_length = 3
+}
+
 # Secrets Manager secret to store DocumentDB credentials
 resource "aws_secretsmanager_secret" "docdb" {
-  name        = "${var.name_prefix}-${var.environment}-docdb-secret"
+  name        = "${var.name_prefix}-${var.environment}-docdb-secret-${random_id.suffix.hex}"
   description = "DocumentDB credentials for ${var.environment} environment"
   tags        = var.tags
 }
