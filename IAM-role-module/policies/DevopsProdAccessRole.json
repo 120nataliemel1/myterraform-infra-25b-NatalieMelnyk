@@ -1,0 +1,47 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "FullReadAccess",
+      "Effect": "Allow",
+      "Action": [
+        "s3:Get*",
+        "s3:List*",
+        "iam:Get*",
+        "iam:List*",
+        "rds:Describe*",
+        "lambda:Get*",
+        "lambda:List*",
+        "cloudwatch:Get*",
+        "cloudwatch:List*",
+        "dynamodb:Get*",
+        "dynamodb:List*",
+        "sns:Get*",
+        "sns:List*",
+        "sqs:Get*",
+        "sqs:List*",
+        "eks:Describe*",
+        "eks:List*",
+        "eks:AccessKubernetesApi"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "FullEC2Access",
+      "Effect": "Allow",
+      "Action": "ec2:*",
+      "Resource": "*"
+    },
+    {
+      "Sid": "DenySecrets",
+      "Effect": "Deny",
+      "Action": [
+        "secretsmanager:*",
+        "ssm:GetParameter*",
+        "ssm:GetParameters*",
+        "ssm:GetParameterHistory*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
