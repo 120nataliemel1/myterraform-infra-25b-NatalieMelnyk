@@ -14,9 +14,7 @@ module "module2" {
 }
 
 module "vpc-module" {
-
   source = "../../vpc-module"
-
   project_name         = var.project_name
   vpc_cidr             = var.vpc_cidr
   azs                  = var.azs
