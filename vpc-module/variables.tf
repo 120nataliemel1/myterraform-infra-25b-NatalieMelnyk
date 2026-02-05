@@ -21,4 +21,9 @@ variable "public_subnet_cidrs" {
 variable "private_subnet_cidrs" {
   type        = list(string)
   description = "List of CIDRs for private subnets (3 items)"
-} 
+}
+
+variable "env" {
+  type        = string
+  description = "Environment for the resources (ex: dev, prod)"
+}

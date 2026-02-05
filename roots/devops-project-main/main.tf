@@ -1,17 +1,17 @@
-# DO NOT REMOVE DUMMY MODULE references and their code, they should remain as examples
-# module "module1" {
-#   source = "../../dummy-module-1"
-#   # ... any required variables for module1
-#   greeting = var.greeting
+#DO NOT REMOVE DUMMY MODULE references and their code, they should remain as examples
+module "module1" {
+  source = "../../dummy-module-1"
+  # ... any required variables for module1
+  greeting = var.greeting
 
-# }
+}
 
-# module "module2" {
-#   source = "../../dummy-module-2"
+module "module2" {
+  source = "../../dummy-module-2"
 
-#   input_from_module1 = module.module1.greeting_message
-#   # ... any other required variables for module2
-# }
+  input_from_module1 = module.module1.greeting_message
+  # ... any other required variables for module2
+}
 
 module "vpc-module" {
 
@@ -22,10 +22,25 @@ module "vpc-module" {
   azs                  = var.azs
   public_subnet_cidrs  = var.public_subnet_cidrs
   private_subnet_cidrs = var.private_subnet_cidrs
-
+  env                  = var.env
 }
 
 # module "eks-module" {
-#   source = "../eks-module"
+#   source = "../../eks-module"
 
-#   }
+#   cluster_name      = var.cluster_name
+#   subnets           = module.vpc-module.public_subnet_ids
+#   ec2_types         = var.ec2_types
+#   gha_role_arn      = var.gha_role_arn
+#   oidc_provider_arn = var.oidc_provider_arn
+
+# }
+
+# module "hands-on-eks-module" {
+#   source = "../../hands-on-eks-module"
+
+#   cluster_name        = var.cluster_name
+#   public_subnet_cidrs = var.public_subnet_cidrs
+#   public_subnet_ids   = module.vpc-module.public_subnet_ids
+#   vpc_id              = module.vpc-module.vpc_id
+# }
