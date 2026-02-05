@@ -23,7 +23,7 @@ variable "private_subnet_cidrs" {
   description = "List of CIDRs for private subnets (3 items)"
 }
 
-variable "env" {
+variable "environment" {
   type        = string
   description = "Environment for the resources (ex: dev, prod)"
 }

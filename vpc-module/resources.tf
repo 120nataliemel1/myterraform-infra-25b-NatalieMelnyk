@@ -29,7 +29,7 @@ resource "aws_subnet" "public_subnet_1" {
     Name = "${var.project_name}-public_subnet_1"
     # Human-readable subnet name for console clarity & ops visibility
 
-    Environment = var.env
+    Environment = var.environment
     # Env identifier (dev/staging/prod) used for cost tracking, safety & shared infra clarity
 
     "kubernetes.io/cluster/${var.project_name}" = "shared"
@@ -51,7 +51,7 @@ resource "aws_subnet" "public_subnet_2" {
   tags = {
     Name = "${var.project_name}-public_subnet_2"
 
-    Environment                                 = var.env
+    Environment                                 = var.environment
     "kubernetes.io/cluster/${var.project_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
   }
@@ -67,7 +67,7 @@ resource "aws_subnet" "public_subnet_3" {
   tags = {
     Name = "${var.project_name}-public_subnet_3"
 
-    Environment                                 = var.env
+    Environment                                 = var.environment
     "kubernetes.io/cluster/${var.project_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
   }
@@ -82,7 +82,7 @@ resource "aws_subnet" "private_subnet_1" {
     Name = "${var.project_name}-private_subnet_1"
     # Human-readable name for ops and console clarity
 
-    Environment = var.env
+    Environment = var.environment
     # Environment identifier (dev/staging/prod) for shared infra and cost tracking
 
     "kubernetes.io/cluster/${var.project_name}" = "shared"
@@ -101,7 +101,7 @@ resource "aws_subnet" "private_subnet_2" {
   tags = {
     Name = "${var.project_name}-private_subnet_2"
 
-    Environment                                 = var.env
+    Environment                                 = var.environment
     "kubernetes.io/cluster/${var.project_name}" = "shared"
     "kubernetes.io/role/internal-elb"           = "1"
   }
@@ -115,7 +115,7 @@ resource "aws_subnet" "private_subnet_3" {
   tags = {
     Name = "${var.project_name}-private_subnet_3"
 
-    Environment                                 = var.env
+    Environment                                 = var.environment
     "kubernetes.io/cluster/${var.project_name}" = "shared"
     "kubernetes.io/role/internal-elb"           = "1"
   }

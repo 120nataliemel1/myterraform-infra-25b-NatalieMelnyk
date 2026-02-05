@@ -22,7 +22,7 @@ module "vpc-module" {
   azs                  = var.azs
   public_subnet_cidrs  = var.public_subnet_cidrs
   private_subnet_cidrs = var.private_subnet_cidrs
-  env                  = var.env
+  environment                  = var.environment
 }
 
 # module "eks-module" {
