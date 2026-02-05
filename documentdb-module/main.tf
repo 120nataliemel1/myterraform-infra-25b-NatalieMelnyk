@@ -53,6 +53,7 @@ resource "aws_docdb_cluster" "this" {
   master_password        = random_password.docdb_password.result
   db_subnet_group_name   = aws_docdb_subnet_group.this.name
   vpc_security_group_ids = [aws_security_group.documentdb.id]
+  db_cluster_parameter_group_name = aws_docdb_cluster_parameter_group.docdb_tls_disabled.name
   skip_final_snapshot    = true
   apply_immediately      = true
   storage_encrypted      = false
