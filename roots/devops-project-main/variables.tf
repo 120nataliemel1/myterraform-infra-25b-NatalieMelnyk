@@ -43,7 +43,23 @@ variable "oidc_provider_arn" {
   description = "IAM OIDC provider ARN for this EKS cluster"
 }
 
-variable "env" {
+variable "trusted_parent_account_id" {
+  type        = list(string)
+  description = "ARN of trusted account"
+}
+
+variable "DevopAccessRolePolicy" {
   type        = string
-  description = "Environment for the resources (ex: dev, prod)"
+  description = "Name of correct json file name"
+}
+
+
+variable "DeveloperAccessRolePolicy" {
+  type        = string
+  description = "Name of correct json file name"
+}
+
+variable "environment" {
+  type        = string
+  description = "Environment where resourse is created"
 }
