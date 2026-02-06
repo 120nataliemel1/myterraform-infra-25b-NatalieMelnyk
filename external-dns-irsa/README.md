@@ -1,6 +1,6 @@
 # ExternalDNS IRSA (Route53 – Least Privilege)
 
-This module creates the IAM setup required for **ExternalDNS** to manage DNS records in **specific Route53 hosted zones** using **IRSA**.
+This module creates **IAM Role for Service Accounts (IRSA)** that allows **external-dns running in Amazon EKS** to safely manage DNS records in **specific Route53 hosted zones**. 
 
 No AWS access keys.  
 No node-level permissions.  
@@ -8,59 +8,69 @@ Only one Kubernetes ServiceAccount is allowed to do this.
 
 ---
 
-## What this does
+## How it works (high level)
 
-1. Creates an IAM policy  
-   → allows ExternalDNS to change DNS records only in specific hosted zones.
-
-2. Creates an IAM role
-   → trusted by the EKS OIDC provider (IRSA)
-
-3. Attaches the policy to the role  
-   → the role gets the DNS permissions
-
-4. Outputs the role ARN  
-   → used in the Kubernetes ServiceAccount annotation
+1. Terraform reads the EKS cluster’s OIDC provider
+2. An IAM policy is created with permission to manage DNS records only in specific hosted zones
+3. An IAM role is created that:
+   - trusts the EKS OIDC provider
+   - can only be assumed by one Kubernetes ServiceAccount
+4. The policy is attached to the role
+5. Kubernetes uses this role via IRSA, not static credentials
 
 ---
 
-## Why IRSA
-
-IRSA allows AWS to trust a Kubernetes ServiceAccount via OIDC.
-
-This means:
-- Permissions are assigned at the pod level, not node
-- Only the ExternalDNS pod can use this role
-- Safer and easier to audit
+**Security notes (permissions explained)**
+- Uses IRSA instead of AWS access keys
+- IAM permissions are least-privilege
+- DNS access is restricted to specific hosted zones
+- Only one ServiceAccount can assume the role
+- Trust policy is tied to the cluster’s OIDC issuer
 
 ---
 
-## Permissions explained
+## Module responsibilities (child module)
+The external-dns-irsa module:
+- Creates an IAM policy for Route 53 access
+- Limits DNS access to only the hosted zones you pass in
+- Creates an IAM role with a trust policy for EKS OIDC
+- Restricts role assumption to:
+  - one namespace
+  - one ServiceAccount
+- Attaches the policy to the role
 
-- ExternalDNS can **create, update, and delete DNS records**
-- Only in the hosted zones listed in `hosted_zone_ids`
-- It can **list hosted zones** so AWS knows where to apply changes
-
-
-This follows the principle of **least privilege**.
-
----
+## Root module responsibilities
+**The root module:**
+- Reads the EKS cluster details
+- Fetches the OIDC provider ARN and URL
+- Passes environment-specific values into the module:
+  - environment name (dev, staging, prod)
+  - hosted zone IDs
+  - namespace and service account name
 
 ## Inputs
 
 | Variable | Description |
 |--------|------------|
-| `hosted_zone_ids` | Route53 hosted zone IDs ExternalDNS is allowed to manage |
-| `oidc_arn` | OIDC provider ARN for the EKS cluster |
-| `oidc_provider_url` | OIDC provider URL for the EKS cluster |
-| `namespace` | Kubernetes namespace where ExternalDNS runs |
-| `service_account` | Kubernetes ServiceAccount used by ExternalDNS |
+| `environment` | Environment name (dev, stage, prod) |
+| `hosted_zone_ids` | Route 53 hosted zone IDs external-dns can manage |
+| `cluster_name` | EKS cluster name |
+| `external_dns_namespace` | Kubernetes namespace where external-dns runs |
+| `external_dns_sa_name` | ServiceAccount name used by external-dns |
 
 ---
 
-## Outputs
+## Typical workflow
+1. Deploy EKS cluster
+2. Apply this Terraform module
+3. Install external-dns with a ServiceAccount annotated with the IAM role ARN
+4. external-dns automatically creates and updates Route 53 records
 
-| Output | Description |
-|------|------------|
-| `external_dns_role_arn` | IAM role ARN assumed by ExternalDNS |
-| `external_dns_policy_arn` | IAM policy ARN attached to the role |
+---
+
+## Why this matters
+This setup is:
+- production-safe
+- CI/CD-friendly
+- audit-friendly
+- reusable across environments

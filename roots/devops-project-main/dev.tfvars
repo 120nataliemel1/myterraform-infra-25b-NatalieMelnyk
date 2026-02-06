@@ -1,5 +1,6 @@
 greeting = "Hi"
 
+<<<<<<< HEAD
 # AWS RDS MySQL Variables
 identifier                = "versus-db-dev"
 engine                    = "mysql"
@@ -62,3 +63,10 @@ tags_proshop = {
   Project     = "proshop"
   Environment = "dev"
 }
+=======
+environment            = "dev"
+hosted_zone_ids        = ["Z09469413H61XF9MA5W6E"]
+cluster_name           = "temp-eks-cluster"
+external_dns_namespace = "external-dns"
+external_dns_sa_name   = "external-dns"
+>>>>>>> be1905f (rename env variable to environment and improve README)
