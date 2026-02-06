@@ -3,6 +3,7 @@
 ##############################
 
 resource "aws_db_instance" "rds_mysql_versus" {
+  identifier          = var.identifier
   engine              = var.engine
   engine_version      = var.engine_version
   instance_class      = var.instance_class
@@ -25,11 +26,9 @@ resource "aws_db_instance" "rds_mysql_versus" {
 resource "aws_db_subnet_group" "rds_mysql_versus_subnet_group" {
   name        = var.db_subnet_group_name
   description = "RDS subnet group for Versus app"
+  subnet_ids  = var.db_subnet_ids
 
-  subnet_ids = var.db_subnet_ids
-
-  tags = {
-  }
+  tags = var.tags
 }
 
 resource "aws_security_group" "rds_mysql_versus_sg" {
@@ -53,8 +52,7 @@ resource "aws_security_group" "rds_mysql_versus_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-  }
+  tags = var.tags
 }
 
 

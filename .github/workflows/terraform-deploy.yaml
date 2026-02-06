@@ -39,6 +39,14 @@ jobs:
           role-to-assume: ${{ vars.IAM_ROLE }}
           role-session-name: GitHubActionsRoleSession
           aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Debug - show module files
+        run: |
+          pwd
+          ls -la ../../rds-mysql
+          echo "---- rds-mysql variables ----"
+          sed -n '1,200p' ../../rds-mysql/variables.tf || true
+          sed -n '1,200p' ../../rds-mysql/variable.tf || true
 
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init

@@ -1,4 +1,4 @@
-
+variable "identifier" {}
 variable "engine" {}
 variable "engine_version" {}
 variable "instance_class" {}
