@@ -63,3 +63,9 @@ variable "environment" {
   type        = string
   description = "Environment where resourse is created"
 }
+
+variable "subnets" {
+  type        = list(string)
+  description = "List of public subnet IDs for EKS cluster VPC configuration"
+  
+}

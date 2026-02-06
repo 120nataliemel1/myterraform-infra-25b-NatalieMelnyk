@@ -115,7 +115,7 @@ resource "aws_subnet" "private_subnet_3" {
   tags = {
     Name = "${var.project_name}-private_subnet_3"
 
-    Environment                                 = var.environment
+    environment                                 = var.environment
     "kubernetes.io/cluster/${var.project_name}" = "shared"
     "kubernetes.io/role/internal-elb"           = "1"
   }
@@ -165,7 +165,6 @@ for_each = {
   subnet_id      = each.value
   route_table_id = aws_route_table.private_rt.id
 }
-
 
 # Private subnets and their route tables are used to host internal resources 
 # that should not be directly accessible from the internet. 

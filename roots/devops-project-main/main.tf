@@ -23,26 +23,16 @@ module "vpc-module" {
   environment          = var.environment
 }
 
-# module "eks-module" {
-#   source = "../../eks-module"
+module "eks_module" {
+  source = "../../eks_module"
 
-#   cluster_name      = var.cluster_name
-#   subnets           = module.vpc-module.public_subnet_ids
-#   ec2_types         = var.ec2_types
-#   gha_role_arn      = var.gha_role_arn
-#   oidc_provider_arn = var.oidc_provider_arn
+  cluster_name      = var.cluster_name
+  subnets           = module.vpc-module.public_subnet_ids
+  ec2_types         = var.ec2_types
+  gha_role_arn      = var.gha_role_arn
+  oidc_provider_arn = var.oidc_provider_arn
 
-# }
-
-# module "hands-on-eks-module" {
-#   source = "../../hands-on-eks-module"
-
-#   cluster_name        = var.cluster_name
-#   public_subnet_cidrs = var.public_subnet_cidrs
-#   public_subnet_ids   = module.vpc-module.public_subnet_ids
-#   vpc_id              = module.vpc-module.vpc_id
-# }
-
+}
 
 module "developer_iam_role" {
   source         = "../../IAM-role-module"
