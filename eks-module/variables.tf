@@ -15,3 +15,14 @@ variable "vpc_id" {
 
 } # no need to declare in dev.tfvars since we will get it from vpc-module output in root/main.tf
 
+variable "project_name" {
+  type        = string
+  description = "Project name for tagging and naming resources"
+  
+}
+
+variable "environment" {
+  type        = string
+  description = "Environment name (e.g., Dev, Prod) for tagging and naming resources"
+  
+}
