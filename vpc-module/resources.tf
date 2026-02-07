@@ -16,8 +16,6 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-
-
 resource "aws_subnet" "public_subnet_1" {
   vpc_id                  = aws_vpc.projectx_vpc.id
   cidr_block              = var.public_subnet_cidrs[0]
@@ -29,7 +27,7 @@ resource "aws_subnet" "public_subnet_1" {
     Name = "${var.project_name}-public_subnet_1"
     # Human-readable subnet name for console clarity & ops visibility
 
-    Environment = var.environment
+    environment = var.environment
     # Env identifier (dev/staging/prod) used for cost tracking, safety & shared infra clarity
 
     "kubernetes.io/cluster/${var.project_name}" = "shared"
@@ -51,7 +49,7 @@ resource "aws_subnet" "public_subnet_2" {
   tags = {
     Name = "${var.project_name}-public_subnet_2"
 
-    Environment                                 = var.environment
+    environment                                 = var.environment
     "kubernetes.io/cluster/${var.project_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
   }
@@ -67,7 +65,7 @@ resource "aws_subnet" "public_subnet_3" {
   tags = {
     Name = "${var.project_name}-public_subnet_3"
 
-    Environment                                 = var.environment
+    environment                                 = var.environment
     "kubernetes.io/cluster/${var.project_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
   }
@@ -82,7 +80,7 @@ resource "aws_subnet" "private_subnet_1" {
     Name = "${var.project_name}-private_subnet_1"
     # Human-readable name for ops and console clarity
 
-    Environment = var.environment
+    environment = var.environment
     # Environment identifier (dev/staging/prod) for shared infra and cost tracking
 
     "kubernetes.io/cluster/${var.project_name}" = "shared"
@@ -101,7 +99,7 @@ resource "aws_subnet" "private_subnet_2" {
   tags = {
     Name = "${var.project_name}-private_subnet_2"
 
-    Environment                                 = var.environment
+    environment                                 = var.environment
     "kubernetes.io/cluster/${var.project_name}" = "shared"
     "kubernetes.io/role/internal-elb"           = "1"
   }
@@ -156,12 +154,12 @@ resource "aws_route_table" "private_rt" {
 
 # Associate private subnets with private route table
 resource "aws_route_table_association" "rta_private" {
-for_each = {
+  for_each = {
     "private-1" = aws_subnet.private_subnet_1.id
     "private-2" = aws_subnet.private_subnet_2.id
     "private-3" = aws_subnet.private_subnet_3.id
-  }  
-  
+  }
+
   subnet_id      = each.value
   route_table_id = aws_route_table.private_rt.id
 }

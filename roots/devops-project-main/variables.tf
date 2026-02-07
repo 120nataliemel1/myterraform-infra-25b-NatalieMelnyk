@@ -2,9 +2,18 @@ variable "greeting" {
   description = "A greeting phrase"
 }
 
+### General/Global Variables ###
+
 variable "project_name" {
   type = string
 }
+
+variable "environment" {
+  type        = string
+  description = "Environment where resourse is created"
+}
+
+###### VPC variables ######
 
 variable "vpc_cidr" {
   type = string
@@ -22,16 +31,28 @@ variable "private_subnet_cidrs" {
   type = list(string)
 }
 
+### EKS Cluster Variables (control plane configuration) ###
+
 variable "cluster_name" {
   type        = string
   description = "EKS cluster name"
 }
+
+variable "subnets" {
+  type        = list(string)
+  description = "List of public subnet IDs for EKS cluster VPC configuration"
+
+}
+
+### EKS Worker / Compute Variables (nodes, LT, ASG) ###
 
 variable "ec2_types" {
   type        = list(string)
   description = "Instance types for EKS worker nodes"
   default     = ["t3.medium"]
 }
+
+### IAM / Security Variables (roles, trust, access) ###
 
 variable "gha_role_arn" {
   type        = string
@@ -57,15 +78,4 @@ variable "DevopAccessRolePolicy" {
 variable "DeveloperAccessRolePolicy" {
   type        = string
   description = "Name of correct json file name"
-}
-
-variable "environment" {
-  type        = string
-  description = "Environment where resourse is created"
-}
-
-variable "subnets" {
-  type        = list(string)
-  description = "List of public subnet IDs for EKS cluster VPC configuration"
-  
 }
