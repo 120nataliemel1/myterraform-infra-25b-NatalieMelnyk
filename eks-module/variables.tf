@@ -18,11 +18,11 @@ variable "vpc_id" {
 variable "project_name" {
   type        = string
   description = "Project name for tagging and naming resources"
-  
+
 }
 
 variable "environment" {
   type        = string
   description = "Environment name (e.g., Dev, Prod) for tagging and naming resources"
-  
+
 }

@@ -31,7 +31,10 @@ module "eks-module" {
   # ec2_types         = var.ec2_types
   # gha_role_arn      = var.gha_role_arn
   # oidc_provider_arn = var.oidc_provider_arn
-  vpc_id = module.vpc-module.vpc_id
+  vpc_id       = module.vpc-module.vpc_id
+  project_name = var.project_name
+  environment  = var.environment
+
 
 }
 
