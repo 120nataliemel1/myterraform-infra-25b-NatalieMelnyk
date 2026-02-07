@@ -27,6 +27,7 @@ resource "aws_secretsmanager_secret_version" "docdb" {
     engine   = "documentdb"
     host     = aws_docdb_cluster.this.endpoint
     port     = 27017
+    MONGO_URI = "mongodb://proshop_admin:${random_password.docdb_password.result}@${aws_docdb_cluster.this.endpoint}:27017/?tls=false"
   })
 }
 
