@@ -83,4 +83,5 @@ resource "aws_launch_template" "worker_nodes_lt" {
     cluster_name = var.cluster_name
   }))
 
+
 }
