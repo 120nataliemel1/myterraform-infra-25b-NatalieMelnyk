@@ -22,12 +22,13 @@ resource "aws_secretsmanager_secret_version" "docdb" {
   secret_id = aws_secretsmanager_secret.docdb.id
 
   secret_string = jsonencode({
-    username = "proshop_admin"
+    username = var.master_username
     password = random_password.docdb_password.result
     engine   = "documentdb"
     host     = aws_docdb_cluster.this.endpoint
     port     = 27017
-    MONGO_URI = "mongodb://proshop_admin:${random_password.docdb_password.result}@${aws_docdb_cluster.this.endpoint}:27017/?tls=false"
+    MONGO_URI = "mongodb://proshop_admin:${random_password.docdb_password.result}@${aws_docdb_cluster.this.endpoint}:27017/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false&directConnection=true"
+    # MONGO_URI = "mongodb://proshop_admin:${random_password.docdb_password.result}@${aws_docdb_cluster.this.endpoint}:27017/?tls=false"
   })
 }
 
@@ -50,7 +51,7 @@ resource "aws_docdb_cluster" "this" {
   cluster_identifier     = "${var.name_prefix}-${var.environment}-docdb-cluster"
   engine                 = "docdb"
   engine_version         = "5.0.0"
-  master_username        = "proshop_admin"
+  master_username        = var.master_username
   master_password        = random_password.docdb_password.result
   db_subnet_group_name   = aws_docdb_subnet_group.this.name
   vpc_security_group_ids = [aws_security_group.documentdb.id]
