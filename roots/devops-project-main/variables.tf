@@ -89,5 +89,5 @@ variable "tags" {
   type = map(string)
 }
 variable "master_username" {
-  type        = string
+  type = string
 }
