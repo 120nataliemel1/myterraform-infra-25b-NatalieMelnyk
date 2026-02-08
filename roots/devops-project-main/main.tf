@@ -93,4 +93,5 @@ module "documentdb" {
   instance_count     = var.instance_count
   instance_class     = var.instance_class
   tags               = var.tags
+  master_username    = var.master_username
 }

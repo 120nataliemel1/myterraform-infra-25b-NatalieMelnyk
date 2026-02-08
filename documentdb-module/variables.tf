@@ -40,3 +40,8 @@ variable "instance_count" {
   type        = number
   default     = 1
 }
+
+variable "master_username" {
+  description = "Master username for DocumentDB cluster"
+  type        = string
+}

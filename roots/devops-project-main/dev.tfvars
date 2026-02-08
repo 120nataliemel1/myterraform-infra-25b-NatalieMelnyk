@@ -19,6 +19,7 @@ trusted_parent_account_id = ["arn:aws:iam::879500880845:root"]
 DeveloperAccessRolePolicy = "DeveloperDevAccessRole.json"
 DevopAccessRolePolicy     = "DevopsDevAccessRole.json"
 #DocumentDb 
+master_username    = "proshop_admin"
 name_prefix        = "proshop"
 environment        = "dev"
 vpc_id             = "vpc-0a0dfbedde5134447"

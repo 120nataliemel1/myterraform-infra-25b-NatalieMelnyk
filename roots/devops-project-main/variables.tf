@@ -88,3 +88,6 @@ variable "instance_class" {
 variable "tags" {
   type = map(string)
 }
+variable "master_username" {
+  type        = string
+}
