@@ -13,6 +13,9 @@ module "module2" {
   # ... any other required variables for module2
 }
 
+###########################################
+# RDS MySQL
+###########################################
 module "rds_mysql" {
   source = "../../rds-mysql"
 
@@ -23,7 +26,7 @@ module "rds_mysql" {
   instance_class             = var.instance_class
   db_name                    = var.db_name
   username                   = var.username
-  db_password                = var.password
+  db_password                = var.db_password
   parameter_group_name       = var.parameter_group_name
   publicly_accessible        = var.publicly_accessible
   db_subnet_group_name       = var.db_subnet_group_name
@@ -36,6 +39,20 @@ module "rds_mysql" {
   storage_type               = var.storage_type
   db_backup_retention_period = var.db_backup_retention_period
   db_backup_window           = var.db_backup_window
+
+  tags = var.tags
+}
+
+###########################################
+# CloudWatch Alarms for RDS
+###########################################
+module "rds_cloudwatch" {
+  source = "../../rds-cloudwatch"
+
+  alarm_name      = var.alarm_name
+  identifier      = module.rds_mysql.identifier
+  cpu_threshold   = var.cpu_threshold
+  rds_cpu_alerts  = var.rds_cpu_alerts
 
   tags = var.tags
 }
