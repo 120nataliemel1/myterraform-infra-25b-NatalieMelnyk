@@ -48,3 +48,41 @@ resource "aws_iam_instance_profile" "workers_instance_profile" {
   name = "${var.cluster_name}-workers-instance-profile"
   role = aws_iam_role.workers_role.name
 }
+
+
+# Cluster role & policy attachment:
+# EKS Cluster requires an IAM Role with specific permissions to manage AWS resources on behalf of the cluster.
+# This role is used by EKS to create and manage resources such as EC2 instances, load balancers, and security groups. 
+# The assume_role_policy defines the trust relationship, allowing EKS to assume this role. 
+# The attached policy grants the necessary permissions for EKS to manage cluster resources effectively.
+resource "aws_iam_role" "cluster" {
+  name = "${var.cluster_name}-iam-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "sts:AssumeRole",
+          "sts:TagSession"
+        ]
+        Effect = "Allow"
+        Principal = {
+          Service = "eks.amazonaws.com"
+        }
+      },
+    ]
+  })
+}
+
+# The AmazonEKSClusterPolicy is an AWS managed policy that provides the necessary permissions for EKS to manage cluster resources effectively. 
+# By attaching this policy to the IAM role, you ensure that EKS has the required permissions to create and manage resources such as EC2 instances, load balancers, and security groups on behalf of the cluster.
+resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  role       = aws_iam_role.cluster.name
+}
+
+
+resource "aws_iam_role_policy_attachment" "eks_service_policy_attachment" {
+  role       = aws_iam_role.cluster.name
+  policy_arn = "arniam:policy/AmazonEKSServicePolicy"
+}
