@@ -27,7 +27,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_cpu_high" {
 # SNS Topic for RDS Alerts
 resource "aws_sns_topic" "rds_alerts" {
   name = var.rds_cpu_alerts
-  
+
   tags = var.tags
 }
 

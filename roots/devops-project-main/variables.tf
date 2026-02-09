@@ -116,15 +116,15 @@ variable "tags" {
 variable "alarm_name" {
   type        = string
   description = "Name of the CloudWatch alarm"
-  
+
 }
 
 variable "cpu_threshold" {
-  type        = number
-  default     = 80
+  type    = number
+  default = 80
 }
 
 variable "rds_cpu_alerts" {
-    type        = string
-    description = "Name of the SNS topic for RDS CPU alerts"
+  type        = string
+  description = "Name of the SNS topic for RDS CPU alerts"
 }

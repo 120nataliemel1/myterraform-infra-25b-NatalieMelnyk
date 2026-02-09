@@ -20,7 +20,7 @@ resource "aws_db_instance" "rds_mysql_versus" {
   backup_retention_period = var.db_backup_retention_period
   backup_window           = var.db_backup_window
   skip_final_snapshot     = true
-  
+
   tags = var.tags
 }
 
@@ -29,7 +29,7 @@ resource "aws_db_subnet_group" "rds_mysql_versus_subnet_group" {
   name        = var.db_subnet_group_name
   description = "RDS subnet group for Versus app"
   subnet_ids  = var.db_subnet_ids
-  
+
   tags = var.tags
 }
 

@@ -9,8 +9,8 @@ variable "identifier" {
 }
 
 variable "cpu_threshold" {
-  type        = number
-  default     = 80
+  type    = number
+  default = 80
 }
 
 variable "tags" {
@@ -19,6 +19,6 @@ variable "tags" {
 }
 
 variable "rds_cpu_alerts" {
-    type        = string
-    description = "Name of the SNS topic for RDS CPU alerts"
+  type        = string
+  description = "Name of the SNS topic for RDS CPU alerts"
 }
