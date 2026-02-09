@@ -50,7 +50,7 @@ module "rds_cloudwatch" {
   source = "../../rds-cloudwatch"
 
   alarm_name     = var.alarm_name
-  identifier     = module.rds_mysql.identifier
+  identifier     = var.identifier
   cpu_threshold  = var.cpu_threshold
   rds_cpu_alerts = var.rds_cpu_alerts
 
