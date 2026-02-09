@@ -8,8 +8,8 @@ data "aws_ssm_parameter" "eks_worker_ami" {
 
 }
 
-resource "aws_launch_template" "worker_nodes_lt" {
-  name = "${var.cluster_name}-worker-nodes-lt"
+resource "aws_launch_template" "workers_lt" {
+  name = "${var.cluster_name}-workers-lt"
 
 
   # Root disk mapping:

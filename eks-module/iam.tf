@@ -81,8 +81,8 @@ resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
   role       = aws_iam_role.cluster.name
 }
 
-
+# Historically used for extra EKS service permissions (some teams still attach it). Not strictly required for basic EKS cluster functionality, but it provides additional permissions for EKS to manage AWS resources on behalf of the cluster.
 resource "aws_iam_role_policy_attachment" "eks_service_policy_attachment" {
   role       = aws_iam_role.cluster.name
-  policy_arn = "arniam:policy/AmazonEKSServicePolicy"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
 }
