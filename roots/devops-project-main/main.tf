@@ -13,25 +13,25 @@ module "module2" {
   # ... any other required variables for module2
 }
 
-module "vpc-module" {
-  source               = "../../vpc-module"
-  project_name         = var.project_name
-  vpc_cidr             = var.vpc_cidr
-  azs                  = var.azs
-  public_subnet_cidrs  = var.public_subnet_cidrs
-  private_subnet_cidrs = var.private_subnet_cidrs
-  environment          = var.environment
-}
+# module "vpc-module" {
+#   source               = "../../vpc-module"
+#   project_name         = var.project_name
+#   vpc_cidr             = var.vpc_cidr
+#   azs                  = var.azs
+#   public_subnet_cidrs  = var.public_subnet_cidrs
+#   private_subnet_cidrs = var.private_subnet_cidrs
+#   environment          = var.environment
+# }
 
 module "eks-module" {
   source = "../../eks-module"
 
   cluster_name = var.cluster_name
-  subnets      = module.vpc-module.public_subnet_ids
+  subnets      = ["subnet-0c1651187b7e07eb7", "subnet-092ceddef016127c7", "subnet-0dae3b8246e24c351"]
   # ec2_types         = var.ec2_types
   # gha_role_arn      = var.gha_role_arn
   # oidc_provider_arn = var.oidc_provider_arn
-  vpc_id           = module.vpc-module.vpc_id
+  vpc_id           = "vpc-0ebb2e27ffc0e0584"
   project_name     = var.project_name
   environment      = var.environment
   k8s_version      = var.k8s_version
