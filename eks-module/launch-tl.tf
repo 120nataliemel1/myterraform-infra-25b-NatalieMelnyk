@@ -46,6 +46,10 @@ resource "aws_launch_template" "workers_lt" {
 
   #   key_name = <<< YOUR_KEY_PAIR_NAME >>>
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   # Metadata security:
   # This locks down the EC2 metadata service (IMDSv2 required) to help protect AWS creds.
   # Hop limit 1 keeps metadata local to the instance. Tags are enabled for easier debugging/ops.
@@ -72,6 +76,14 @@ resource "aws_launch_template" "workers_lt" {
       Name         = "${var.cluster_name}-instance"
       project_name = var.project_name
       environment  = var.environment
+      "kubernetes.io/cluster/${var.cluster_name}" = "owned"
+    }
+  }
+
+  tag_specifications {
+    resource_type = "network-interface"
+    tags = {
+      "kubernetes.io/cluster/${var.cluster_name}" = "owned"
     }
   }
 

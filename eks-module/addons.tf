@@ -53,6 +53,7 @@ data "aws_eks_cluster" "this" {
 # Trust anchor for IRSA (OIDC provider derived from the cluster issuer URL)
 data "aws_iam_openid_connect_provider" "this" {
   url = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
+  client_id_list = ["sts.amazonaws.com"] # standard IRSA audience
 }
 
 # IRSA trust policy: allow ONLY the EBS CSI service account to assume this role
@@ -87,6 +88,8 @@ resource "aws_iam_role" "ebs_csi_irsa_role" {
   name               = "${var.cluster_name}-ebs-csi-irsa-role"
   assume_role_policy = data.aws_iam_policy_document.ebs_csi_assume_role.json
 }
+# look into ebs csi add on check access-entries.terraform #############################
+
 
 # Attach AWS-managed policy that grants required EBS permissions
 resource "aws_iam_role_policy_attachment" "ebs_csi_policy_attach" {
@@ -94,9 +97,35 @@ resource "aws_iam_role_policy_attachment" "ebs_csi_policy_attach" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
 }
 
+# resource "aws_iam_role" "ebs_csi_irsa_role" {
+#   name = "${var.cluster_name}-ebs-csi-irsa-role"
+
+#   assume_role_policy = jsonencode({
+#     Version = "2012-10-17",
+#     Statement = [{
+#       Effect = "Allow",
+#       Principal = {
+#         Federated = aws_iam_openid_connect_provider.eks_oidc_provider.arn
+#       },
+#       Action = "sts:AssumeRoleWithWebIdentity",
+#       Condition = {
+#         StringEquals = {
+#           "${replace(aws_iam_openid_connect_provider.eks_oidc_provider.url, "https://", "")}:sub" = "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+#         }
+#       }
+#     }]
+#   })
+# }
+
+# resource "aws_iam_role_policy_attachment" "ebs_csi_irsa_policy" {
+#   role       = aws_iam_role.ebs_csi_irsa_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+# }
+
 # Note: the EBS CSI addon must be created after the IRSA role and policy are in place, otherwise it will fail to create. This is because the addon needs to link to the IRSA role at creation time. The "depends_on" in the addon resource ensures this order.
 # EBS CSI Driver: allows Kubernetes to dynamically provision EBS volumes (PVCs) using the AWS EBS CSI driver. This addon enables Kubernetes to manage EBS volumes as persistent storage for applications running in the cluster. With this addon, you can create PersistentVolumeClaims (PVCs) that automatically provision EBS volumes and attach them to your pods as needed.
 # EBS CSI add-on itself (wired to the IRSA role above)
+
 resource "aws_eks_addon" "ebs_csi" {
   cluster_name = aws_eks_cluster.projectx_cluster.name
   addon_name   = "aws-ebs-csi-driver"

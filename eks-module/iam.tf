@@ -41,6 +41,21 @@ resource "aws_iam_role_policy_attachment" "workers_role-AmazonEC2ContainerRegist
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
+resource "aws_iam_role_policy_attachment" "ecr_poweruser_policy_attachment" {
+  role       = aws_iam_role.workers_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser"
+}
+
+resource "aws_iam_role_policy_attachment" "elb_policy_attachment" {
+  role       = aws_iam_role.workers_role.name
+  policy_arn = "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "ec2_full_access_attachment" {
+  role       = aws_iam_role.workers_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+}
+
 # The “wrapper” EC2 needs to actually use the IAM role. This is done by creating an instance profile and associating it with the role. 
 # The instance profile allows EC2 instances to assume the IAM role when they are launched, granting them the permissions defined in the role's policies.
 # Launch Templates attach an instance profile, not the role directly.

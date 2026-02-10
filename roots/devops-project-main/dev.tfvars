@@ -13,7 +13,10 @@ oidc_provider_arn = "arn:aws:iam::383585068161:oidc-provider/oidc.eks.us-east-1.
 
 cluster_name = "projectx_cluster_ubuntu25b"
 ec2_types    = ["t3.medium"]
-
+k8s_version = "1.34"
+min_size = 1
+max_size = 5
+desired_capacity = 2
 
 environment               = "Dev"
 trusted_parent_account_id = ["arn:aws:iam::879500880845:root"]

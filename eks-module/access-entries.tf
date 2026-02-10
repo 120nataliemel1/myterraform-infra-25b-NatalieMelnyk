@@ -4,6 +4,12 @@
 # without relying on the legacy aws-auth ConfigMap.
 ############################################
 
+resource "aws_eks_access_entry" "nodes_entry" {
+  cluster_name  = aws_eks_cluster.projectx_cluster.name
+  principal_arn = aws_iam_role.workers_role.arn
+  type          = "EC2_LINUX"
+}
+
 # 1) AWS SSO AdministratorAccess role
 # This is your human/admin identity (via AWS SSO) that should have full cluster admin.
 resource "aws_eks_access_entry" "sso_admin" {
@@ -100,3 +106,4 @@ resource "aws_eks_access_policy_association" "github_eks_deploy_cluster_admin" {
     type = "cluster"
   }
 }
+
