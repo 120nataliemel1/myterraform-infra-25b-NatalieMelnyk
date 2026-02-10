@@ -47,7 +47,7 @@ variable "subnets" {
 variable "k8s_version" {
   type        = string
   description = "Kubernetes version for the EKS cluster (e.g., 1.34)"
-  
+
 }
 
 ### EKS Worker / Compute Variables (nodes, LT, ASG) ###
@@ -62,21 +62,21 @@ variable "desired_capacity" {
   type        = number
   description = "Desired number of worker nodes in the EKS cluster"
   default     = 2
-  
+
 }
 
 variable "max_size" {
   type        = number
   description = "Maximum number of worker nodes in the EKS cluster"
   default     = 5
-  
+
 }
 
 variable "min_size" {
   type        = number
   description = "Minimum number of worker nodes in the EKS cluster"
   default     = 1
-  
+
 }
 
 ### IAM / Security Variables (roles, trust, access) ###

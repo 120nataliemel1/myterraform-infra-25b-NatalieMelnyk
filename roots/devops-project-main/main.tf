@@ -31,12 +31,12 @@ module "eks-module" {
   # ec2_types         = var.ec2_types
   # gha_role_arn      = var.gha_role_arn
   # oidc_provider_arn = var.oidc_provider_arn
-  vpc_id       = module.vpc-module.vpc_id
-  project_name = var.project_name
-  environment  = var.environment
-  k8s_version = var.k8s_version
-  min_size = var.min_size
-  max_size = var.max_size
+  vpc_id           = module.vpc-module.vpc_id
+  project_name     = var.project_name
+  environment      = var.environment
+  k8s_version      = var.k8s_version
+  min_size         = var.min_size
+  max_size         = var.max_size
   desired_capacity = var.desired_capacity
 }
 

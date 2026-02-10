@@ -3,8 +3,8 @@
 # It uses a mixed instances policy to allow for a combination of On-Demand and Spot instances, optimizing for cost while maintaining availability.
 resource "aws_autoscaling_group" "workers_asg" {
   name             = "${var.cluster_name}-workers-asg"
-  min_size         = var.min_size # keep at least 1 node so the cluster always has compute
-  max_size         = var.max_size # cap to control cost / match requirement
+  min_size         = var.min_size         # keep at least 1 node so the cluster always has compute
+  max_size         = var.max_size         # cap to control cost / match requirement
   desired_capacity = var.desired_capacity # target baseline nodes for platform tools and workloads to run on
 
   # Public Subnet IDs where the ASG will launch instances. Launch workers across multiple public subnets/AZs for high availability.
@@ -24,7 +24,7 @@ resource "aws_autoscaling_group" "workers_asg" {
       }
 
       # Allowed worker instance types (ASG will choose based on availability)   
-      override { instance_type = "t3.medium" } 
+      override { instance_type = "t3.medium" }
       override { instance_type = "t4g.medium" }
       override { instance_type = "t3a.medium" }
     }
@@ -38,8 +38,8 @@ resource "aws_autoscaling_group" "workers_asg" {
 
     # Enforce 20% On-Demand / 80% Spot (Spot portion is implied by the 20% rule)
     instances_distribution {
-      on_demand_base_capacity                  = 0                    # no guaranteed On-Demand “base” capacity, so all capacity is flexible for spot optimization
-      on_demand_percentage_above_base_capacity = 20                   # 20% of desired capacity is On-Demand, the rest can be Spot
+      on_demand_base_capacity                  = 0              # no guaranteed On-Demand “base” capacity, so all capacity is flexible for spot optimization
+      on_demand_percentage_above_base_capacity = 20             # 20% of desired capacity is On-Demand, the rest can be Spot
       spot_allocation_strategy                 = "lowest-price" # pick the cheapest available Spot instance types from the overrides list to fill the remaining capacity after the On-Demand portion is allocated
       # spot_allocation_strategy                 = 80% spot happens automatically bcs: base on-demand = 0: 20% on-demand above base remaining capacity becomes spot
       # spot_max_price                           = "0.03" # Optional: set a max spot price
@@ -67,6 +67,6 @@ resource "aws_autoscaling_group" "workers_asg" {
     value               = var.environment
     propagate_at_launch = true
   }
-  
-  depends_on = [ aws_launch_template.workers_lt ]
+
+  depends_on = [aws_launch_template.workers_lt]
 }
