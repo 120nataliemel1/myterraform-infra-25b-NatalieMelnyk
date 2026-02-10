@@ -38,7 +38,6 @@ resource "aws_iam_policy" "karpenter_controller_policy" {
   policy = data.aws_iam_policy_document.karpenter_controller_permissions.json
 }
 
-data "aws_partition" "current" {}
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_policy_document" "karpenter_controller_permissions" {
