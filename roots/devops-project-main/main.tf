@@ -193,7 +193,8 @@ data "aws_iam_openid_connect_provider" "eks_cluster" {
 }
 
 module "karpenter_irsa" {
-  source = "../../karpenter-irsa"
+  source = "../../karpenter"
+
   environment          = var.environment
   region               = var.region
   cluster_name         = var.cluster_name

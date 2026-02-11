@@ -39,3 +39,7 @@ resource "aws_iam_role_policy_attachment" "ssm_core" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
+resource "aws_iam_instance_profile" "karpenter_node_instance_profile" {
+  name = "${var.environment}-karpenter-node-instance-profile"
+  role = aws_iam_role.karpenter_node_role.name
+}
