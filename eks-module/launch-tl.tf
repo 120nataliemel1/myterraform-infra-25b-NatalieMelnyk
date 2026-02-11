@@ -9,7 +9,8 @@ data "aws_ssm_parameter" "eks_worker_ami" {
 }
 
 resource "aws_launch_template" "workers_lt" {
-  name = "${var.cluster_name}-workers-lt"
+  name_prefix = "${var.cluster_name}-workers-lt-"
+
 
 
   # Root disk mapping:
@@ -29,7 +30,7 @@ resource "aws_launch_template" "workers_lt" {
   #     }
   #   }
 
-  disable_api_stop = true
+  # disable_api_stop = true
   ebs_optimized    = true
 
   # This allows EC2 instances launched with this template to assume the IAM role defined in the instance profile, granting them the necessary permissions to function as EKS worker nodes.
@@ -76,16 +77,19 @@ resource "aws_launch_template" "workers_lt" {
       Name                                        = "${var.cluster_name}-instance"
       project_name                                = var.project_name
       environment                                 = var.environment
-      "kubernetes.io/cluster/${var.cluster_name}" = "owned"
+      # "kubernetes.io/cluster/${var.cluster_name}" = "owned"
     }
   }
 
   tag_specifications {
-    resource_type = "network-interface"
-    tags = {
-      "kubernetes.io/cluster/${var.cluster_name}" = "owned"
-    }
+  resource_type = "network-interface"
+  tags = {
+    project_name = var.project_name
+    environment  = var.environment
+    # "kubernetes.io/cluster/${var.cluster_name}" = "owned"
   }
+}
+
 
   # User data:
   # Startup script that bootstraps each EC2 instance as an EKS worker. 

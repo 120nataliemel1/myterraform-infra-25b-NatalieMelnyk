@@ -53,3 +53,8 @@ variable "min_size" {
   default     = 1
 
 }
+
+variable "enable_addons" {
+  type    = bool
+  default = false
+}

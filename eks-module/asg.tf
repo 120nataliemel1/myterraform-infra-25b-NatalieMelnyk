@@ -25,7 +25,7 @@ resource "aws_autoscaling_group" "workers_asg" {
 
       # Allowed worker instance types (ASG will choose based on availability)   
       override { instance_type = "t3.medium" }
-      override { instance_type = "t4g.medium" }
+      override { instance_type = "m5.large" }
       override { instance_type = "t3a.medium" }
     }
 

@@ -8,6 +8,8 @@
 resource "aws_eks_addon" "vpc_cni" {
   cluster_name = aws_eks_cluster.projectx_cluster.name # target cluster
   addon_name   = "vpc-cni"                             # official addon name
+  count       = var.enable_addons ? 1 : 0
+
 
   # Best practice: avoid hardcoding unless you must pin versions.
   addon_version = data.aws_eks_addon_version.vpc_cni.version
@@ -21,6 +23,8 @@ resource "aws_eks_addon" "vpc_cni" {
 resource "aws_eks_addon" "coredns" {
   cluster_name = aws_eks_cluster.projectx_cluster.name
   addon_name   = "coredns"
+  count       = var.enable_addons ? 1 : 0
+
 
   addon_version = data.aws_eks_addon_version.coredns.version
 
@@ -33,6 +37,8 @@ resource "aws_eks_addon" "coredns" {
 resource "aws_eks_addon" "kube_proxy" {
   cluster_name = aws_eks_cluster.projectx_cluster.name
   addon_name   = "kube-proxy"
+  count       = var.enable_addons ? 1 : 0
+
 
   addon_version = data.aws_eks_addon_version.kube_proxy.version
 
@@ -50,10 +56,23 @@ data "aws_eks_cluster" "this" {
   name = aws_eks_cluster.projectx_cluster.name
 }
 
-# Trust anchor for IRSA (OIDC provider derived from the cluster issuer URL)
-data "aws_iam_openid_connect_provider" "this" {
-  url = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
-  #   client_id_list = ["sts.amazonaws.com"] # standard IRSA audience
+# # Trust anchor for IRSA (OIDC provider derived from the cluster issuer URL)
+# data "aws_iam_openid_connect_provider" "this" {
+#   url = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
+#   #   client_id_list = ["sts.amazonaws.com"] # standard IRSA audience
+# }
+
+data "tls_certificate" "oidc" {
+  url = aws_eks_cluster.projectx_cluster.identity[0].oidc[0].issuer
+  depends_on = [aws_eks_cluster.projectx_cluster]
+}
+
+resource "aws_iam_openid_connect_provider" "this" {
+  url             = aws_eks_cluster.projectx_cluster.identity[0].oidc[0].issuer
+  client_id_list  = ["sts.amazonaws.com"]
+  thumbprint_list = [data.tls_certificate.oidc.certificates[0].sha1_fingerprint]
+  depends_on = [aws_eks_cluster.projectx_cluster]
+
 }
 
 # IRSA trust policy: allow ONLY the EBS CSI service account to assume this role
@@ -64,7 +83,9 @@ data "aws_iam_policy_document" "ebs_csi_assume_role" {
 
     principals {
       type        = "Federated"
-      identifiers = [data.aws_iam_openid_connect_provider.this.arn]
+    #   identifiers = [data.aws_iam_openid_connect_provider.this.arn]
+    identifiers = [aws_iam_openid_connect_provider.this.arn]
+
     }
 
     # Lock it to ONLY the EBS CSI controller service account
@@ -129,6 +150,8 @@ resource "aws_iam_role_policy_attachment" "ebs_csi_policy_attach" {
 resource "aws_eks_addon" "ebs_csi" {
   cluster_name = aws_eks_cluster.projectx_cluster.name
   addon_name   = "aws-ebs-csi-driver"
+  count       = var.enable_addons ? 1 : 0
+
 
   addon_version = data.aws_eks_addon_version.ebs_csi.version
 
