@@ -220,5 +220,5 @@ data "aws_iam_policy_document" "karpenter_controller_permissions" {
 
 resource "aws_iam_role_policy_attachment" "karpenter_controller" {
   role       = aws_iam_role.karpenter_controller_role.name
-  policy_arn = aws_iam_policy.karpenter_controller_permissions.arn
+  policy_arn = aws_iam_policy.karpenter_controller_policy.arn
 }
