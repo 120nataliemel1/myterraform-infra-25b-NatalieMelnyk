@@ -38,7 +38,7 @@ module "eks-module" {
   min_size         = var.min_size
   max_size         = var.max_size
   desired_capacity = var.desired_capacity
-  enable_addons = var.enable_addons
+  enable_addons    = var.enable_addons
 }
 
 # module "developer_iam_role" {
