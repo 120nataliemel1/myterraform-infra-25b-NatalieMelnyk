@@ -95,14 +95,11 @@ resource "aws_launch_template" "workers_lt" {
   # Startup script that bootstraps each EC2 instance as an EKS worker. 
   # It runs on first boot and tells the node which cluster to join. (“You are an EKS worker — here’s the cluster you belong to. Join it.” Without this, the EC2 instances would start… but never join the EKS cluster.)
   # Required because we are using self-managed ASG workers (not managed node groups). (AWS will NOT auto-join nodes for you)
-user_data = base64encode(<<-EOT
-    #!/bin/bash
-    set -o xtrace
-    /etc/eks/bootstrap.sh ${var.cluster_name} \
-      --apiserver-endpoint '${aws_eks_cluster.projectx_cluster.endpoint}' \
-      --b64-cluster-ca '${aws_eks_cluster.projectx_cluster.certificate_authority[0].data}' \
-      --kubelet-extra-args '--node-labels=node.kubernetes.io/lifecycle=normal'
-  EOT
-  )
+  user_data = base64encode(templatefile("${path.module}/userdata-workers.sh.tpl", {
+    cluster_name     = var.cluster_name
+    cluster_endpoint = aws_eks_cluster.projectx_cluster.endpoint
+    cluster_ca_b64   = aws_eks_cluster.projectx_cluster.certificate_authority[0].data
+    service_cidr     = data.aws_eks_cluster.projectx.kubernetes_network_config[0].service_ipv4_cidr
+  }))
 }
 
