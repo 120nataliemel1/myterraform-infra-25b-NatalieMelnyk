@@ -56,11 +56,11 @@ resource "aws_autoscaling_group" "workers_asg" {
 
   # The "kubernetes.io/cluster/${var.cluster_name}" tag 
   # is used by Kubernetes to identify which nodes belong to which cluster, enabling proper node registration and management within the EKS cluster.
-  tag {
-    key                 = "kubernetes.io/cluster/${var.cluster_name}"
-    value               = "owned"
-    propagate_at_launch = true
-  }
+  # tag {
+  #   key                 = "kubernetes.io/cluster/${var.cluster_name}"
+  #   value               = "owned"
+  #   propagate_at_launch = true
+  # }
 
   tag {
     key                 = "environment"
