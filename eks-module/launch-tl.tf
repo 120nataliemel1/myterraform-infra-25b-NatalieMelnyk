@@ -101,3 +101,4 @@ resource "aws_launch_template" "workers_lt" {
 
 
 }
+

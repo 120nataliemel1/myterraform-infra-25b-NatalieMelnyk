@@ -1,7 +1,19 @@
 #!/bin/bash
-set -euo pipefail
+set -euxo pipefail
 
-echo "[INFO] Bootstrapping EKS worker node into cluster: ${cluster_name}" | tee /var/log/user-data.log
+# --------------------------------------------
+# AL2023 EKS worker bootstrap (nodeadm)
+# bootstrap.sh is NOT available on AL2023 EKS AMIs.
+# nodeadm reads a NodeConfig and joins the cluster.
+# --------------------------------------------
 
-# Join the EKS cluster
-/etc/eks/bootstrap.sh ${cluster_name} | tee -a /var/log/user-data.log
+cat > /etc/nodeadm/config.yaml <<EOF
+apiVersion: node.eks.aws/v1alpha1
+kind: NodeConfig
+spec:
+  cluster:
+    name: ${cluster_name}
+EOF
+
+# Initialize + join the EKS cluster
+nodeadm init -c /etc/nodeadm/config.yaml
