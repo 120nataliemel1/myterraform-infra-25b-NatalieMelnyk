@@ -107,3 +107,7 @@ variable "DeveloperAccessRolePolicy" {
   description = "Name of correct json file name"
 }
 
+variable "enable_addons" {
+  type    = bool
+  default = false
+}
