@@ -86,7 +86,7 @@ data "aws_iam_policy_document" "karpenter_controller_permissions" {
 
     actions = ["iam:PassRole"]
     resources = [
-      "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/KarpenterNodeRole-${var.cluster_name}"
+      aws_iam_role.karpenter_node_role.arn
     ]
   }
 
@@ -96,7 +96,7 @@ data "aws_iam_policy_document" "karpenter_controller_permissions" {
 
     actions = ["eks:DescribeCluster"]
     resources = [
-      "arn:${data.aws_partition.current.partition}:eks:${var.region}:${data.aws_caller_identity.current.account_id}:cluster/${var.cluster_name}"
+      aws
     ]
   }
 
