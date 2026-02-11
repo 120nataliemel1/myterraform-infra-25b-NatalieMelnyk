@@ -1,21 +1,29 @@
 #!/bin/bash
 set -euxo pipefail
 
-# Ensure nodeadm directory exists (CRITICAL)
+# AL2023 EKS nodes use nodeadm (bootstrap.sh is removed)
 mkdir -p /etc/nodeadm
 
-# Write nodeadm config
 cat > /etc/nodeadm/config.yaml <<EOF
 apiVersion: node.eks.aws/v1alpha1
 kind: NodeConfig
 spec:
   cluster:
-    name: projectx_cluster_ubuntu25b
-    apiServerEndpoint: https://829739FADD590C43AF80E6342A5FDD5D.gr7.us-east-1.eks.amazonaws.com
-    certificateAuthorityData: <BASE64_CA_FROM_EKS>
-    cidr: 10.0.0.0/16
+    name: ${cluster_name}
+    apiServerEndpoint: ${cluster_endpoint}
+    certificateAuthorityData: ${cluster_ca_b64}
+  kubelet:
+    extraArgs:
+      node-labels: "node.kubernetes.io/lifecycle=normal"
+  # Optional but good if your PM explicitly wants CIDR:
+  # clusterDNS can be derived from service CIDR, but nodeadm can accept it.
+  # If you know the service CIDR, pass it; otherwise omit this whole section.
+  networking:
+    serviceCIDR: ${service_cidr}
 EOF
 
-# Start nodeadm (systemd-managed)
-systemctl daemon-reexec
-systemctl restart nodeadm
+systemctl daemon-reload || true
+systemctl restart nodeadm-config.service || true
+systemctl restart nodeadm-run.service || true
+
+
