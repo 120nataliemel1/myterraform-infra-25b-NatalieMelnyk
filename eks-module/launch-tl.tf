@@ -102,4 +102,3 @@ resource "aws_launch_template" "workers_lt" {
     service_cidr     = data.aws_eks_cluster.projectx.kubernetes_network_config[0].service_ipv4_cidr
   }))
 }
-
