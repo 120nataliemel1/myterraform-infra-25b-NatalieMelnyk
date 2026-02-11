@@ -99,8 +99,8 @@ user_data = base64encode(<<-EOT
     #!/bin/bash
     set -o xtrace
     /etc/eks/bootstrap.sh ${var.cluster_name} \
-      --apiserver-endpoint '${aws_eks_cluster.projectx_cluster_ubuntu25b.endpoint}' \
-      --b64-cluster-ca '${aws_eks_cluster.projectx_cluster_ubuntu25b.certificate_authority[0].data}' \
+      --apiserver-endpoint '${aws_eks_cluster.projectx_cluster.endpoint}' \
+      --b64-cluster-ca '${aws_eks_cluster.projectx_cluster.certificate_authority[0].data}' \
       --kubelet-extra-args '--node-labels=node.kubernetes.io/lifecycle=normal'
   EOT
   )
