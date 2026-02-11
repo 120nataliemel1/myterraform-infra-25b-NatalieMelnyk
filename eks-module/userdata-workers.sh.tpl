@@ -1,13 +1,11 @@
-user_data = base64encode(<<-EOT
 apiVersion: node.eks.aws/v1alpha1
 kind: NodeConfig
 spec:
   cluster:
     name: "${cluster_name}"
-    apiServerEndpoint: ${aws_eks_cluster.projectx_cluster.endpoint}
-    certificateAuthorityData: ${aws_eks_cluster.projectx_cluster.certificate_authority[0].data}
+    apiServerEndpoint: "${cluster_endpoint}"
+    certificateAuthority: "${cluster_ca_b64}"
   kubelet:
     extraArgs:
       node-labels: "node.kubernetes.io/lifecycle=normal"
-EOT
-)
+
