@@ -86,11 +86,6 @@ variable "gha_role_arn" {
   description = "IAM role ARN used by GitHub Actions (OIDC) to deploy to EKS"
 }
 
-variable "oidc_provider_arn" {
-  type        = string
-  description = "IAM OIDC provider ARN for this EKS cluster"
-}
-
 variable "trusted_parent_account_id" {
   type        = list(string)
   description = "ARN of trusted account"

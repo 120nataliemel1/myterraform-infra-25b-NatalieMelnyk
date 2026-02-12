@@ -59,7 +59,3 @@ variable "enable_addons" {
   default = false
 }
 
-variable "oidc_provider_arn" {
-  type        = string
-  description = "Existing EKS OIDC provider ARN for IRSA"
-}
