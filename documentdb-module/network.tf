@@ -31,7 +31,7 @@ resource "aws_security_group" "documentdb" {
 
 #DocumentDb Subnet Group
 resource "aws_docdb_subnet_group" "this" {
-  name       = "${var.name_prefix}-docdb-subnet-group"
+  name       = "${var.name_prefix}-${var.environment}-docdb-subnet-group"
   subnet_ids = var.private_subnet_ids
 
   tags = merge(var.tags, {
