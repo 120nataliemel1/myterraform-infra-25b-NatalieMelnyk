@@ -18,8 +18,8 @@ vpc_id                     = "vpc-0a0dfbedde5134447"
 app_security_group_id      = "sg-0275f7f3204636960"
 multi_az                   = true
 storage_type               = "gp3"
-allocated_storage          = 20
-db_backup_retention_period = 1
+allocated_storage          = 100
+db_backup_retention_period = 30
 db_backup_window           = "02:00-04:00"
 
 tags = {
