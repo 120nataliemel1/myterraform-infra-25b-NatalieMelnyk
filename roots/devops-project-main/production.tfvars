@@ -6,13 +6,14 @@ DeveloperAccessRolePolicy = "DeveloperProdAccessRole.json"
 DevopsAccessRolePolicy    = "DevopsProdAccessRole.json"
 
 #DocumentDb 
+master_username    = "proshop_admin"
 name_prefix        = "proshop"
 environment        = "prod"
-vpc_id             = "vpc-0a0dfbedde5134447"
-private_subnet_ids = ["subnet-0860a697936586558", "subnet-0942387a6e8da1501", "subnet-038a521ea0dc16ebb"]
-eks_node_sg_id     = "sg-0415e8ef8236558de"
+vpc_id             = "vpc-0ebb2e27ffc0e0584"
+private_subnet_ids = ["subnet-0655f403f4ce810b2", "subnet-0bbe4b27c245a2d1f", "subnet-0733500c197e996ee"]
+eks_node_sg_id     = "sg-0f3035691ecb601b4"
 instance_class     = "db.t3.medium"
-instance_count     = 3
+instance_count     = 1
 tags = {
   Project     = "proshop"
   Environment = "prod"

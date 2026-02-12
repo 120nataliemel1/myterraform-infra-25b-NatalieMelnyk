@@ -1,6 +1,7 @@
 greeting = "Hi"
 
 #DocumentDb 
+master_username    = "proshop_admin"
 name_prefix        = "proshop"
 environment        = "stage"
 vpc_id             = "vpc-0a0dfbedde5134447"
