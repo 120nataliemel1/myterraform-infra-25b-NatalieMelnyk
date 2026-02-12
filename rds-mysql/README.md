@@ -169,20 +169,15 @@ The CI/CD pipeline (`.github/workflows/terraform-deploy.yml`) runs all Terraform
 Once the RDS instance is running, verify connectivity from inside the EKS cluster:
 
 ```bash
-# 1. Exec into a running pod
-kubectl exec -it <pod-name> -n <namespace> -- /bin/bash
+# 1. Enter Running Application Pod
+kubectl get pods -n versus-app
+kubectl exec -it <backend-pod-name> -n versus-app -- /bin/sh
 
-# 2. Install MySQL client
-apt-get update && apt-get install -y default-mysql-client
+# 2.Install MySQL Client Inside Pod
+apk add mysql-client
 
 # 3. Connect to the RDS instance
-mysql -h <rds-endpoint> -P 3306 -u <db-username> -p
-```
-
-Retrieve the RDS endpoint from Terraform outputs or the AWS Console. Retrieve credentials from AWS Secrets Manager:
-
-```bash
-aws secretsmanager get-secret-value --secret-id versus-db-credentials --query SecretString --output text
+mysql -h versus-db-dev.cd0tsmgxxcdk.us-east-1.rds.amazonaws.com -u admin -p
 ```
 
 ---
