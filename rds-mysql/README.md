@@ -15,15 +15,15 @@ No off-the-shelf Terraform modules are used — all modules are custom-built.
 │                        AWS Account                       │
 │                                                          │
 │  ┌─────────────────── EKS VPC ────────────────────────┐  │
-│  │                                                     │  │
-│  │   ┌──────────────┐        ┌──────────────────────┐  │  │
-│  │   │  EKS Cluster │        │    Private Subnets    │  │  │
-│  │   │  (Versus App)│───────▶│  ┌──────────────────┐ │  │  │
-│  │   └──────────────┘        │  │   RDS MySQL 8.4  │ │  │  │
-│  │                           │  │   (t4g.micro)     │ │  │  │
-│  │                           │  └──────────────────┘ │  │  │
-│  │                           └──────────────────────┘  │  │
-│  └─────────────────────────────────────────────────────┘  │
+│  │                                                    │  │
+│  │   ┌──────────────┐        ┌──────────────────────┐ │  │
+│  │   │  EKS Cluster │        │    Private Subnets   │ │  │
+│  │   │  (Versus App)│───────▶│  ┌──────────────────┐│ │  │
+│  │   └──────────────┘        │  │   RDS MySQL 8.4  ││ │  │
+│  │                           │  │   (t4g.micro)    ││ │  │
+│  │                           │  └──────────────────┘│ │  │
+│  │                           └──────────────────────┘ │  │
+│  └────────────────────────────────────────────────────┘  │
 │                                                          │
 │  ┌──────────────────┐   ┌─────────────────────────────┐  │
 │  │  Secrets Manager │   │  CloudWatch Alarm (CPU>80%) │  │
@@ -48,12 +48,12 @@ No off-the-shelf Terraform modules are used — all modules are custom-built.
 .
 
 ├── modules/
-│   ├── rds/
+│   ├── rds-mysql/
 │   │   ├── main.tf            # RDS instance, sg ,security group
 │   │   ├── variables.tf       # Module input variables
 │   │   └──  outputs.tf        # Module outputs(endpoint,port,etc.)  
 │   │   └── README.md        
-│   └── cloudwatch/
+│   └── rds-cloudwatch/
 │       ├── main.tf            # CloudWatch alarm definition
 │       ├── variables.tf       # Alarm thresholds, SNS topic ARN, etc.
 │       └── outputs.tf         # Alarm ARN output
@@ -146,7 +146,7 @@ The CI/CD pipeline (`.github/workflows/terraform-deploy.yml`) runs all Terraform
 
 1. Create a feature branch:
    ```bash
-   git checkout -b feature/rds-setup
+   git checkout -b feature/rds
    ```
 
 2. Make your changes, commit, and push:
