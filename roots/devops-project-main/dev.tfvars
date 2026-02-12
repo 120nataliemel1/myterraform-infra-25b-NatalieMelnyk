@@ -9,7 +9,7 @@ private_subnet_cidrs = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
 subnets              = ["public_subnet_1", "public_subnet_2", "public_subnet_3"]
 
 gha_role_arn      = "arn:aws:iam::383585068161:role/GitHubActionsTerraformIAMrole"
-oidc_provider_arn = "arn:aws:iam::383585068161:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/54DB0C2CC3725BB99B9E8454511E946E"
+oidc_provider_arn = "arn:aws:iam::383585068161:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/829739FADD590C43AF80E6342A5FDD5D"
 
 cluster_name     = "projectx_cluster_ubuntu25b"
 ec2_types        = ["t3.medium", "t3a.medium", "m5.large"]
@@ -23,4 +23,4 @@ trusted_parent_account_id = ["arn:aws:iam::879500880845:root"]
 DeveloperAccessRolePolicy = "DeveloperDevAccessRole.json"
 DevopAccessRolePolicy     = "DevopsDevAccessRole.json"
 
-enable_addons = false
+enable_addons = true

@@ -62,18 +62,18 @@ data "aws_eks_cluster" "this" {
 #   #   client_id_list = ["sts.amazonaws.com"] # standard IRSA audience
 # }
 
-data "tls_certificate" "oidc" {
-  url        = aws_eks_cluster.projectx_cluster.identity[0].oidc[0].issuer
-  depends_on = [aws_eks_cluster.projectx_cluster]
-}
+# data "tls_certificate" "oidc" {
+#   url        = aws_eks_cluster.projectx_cluster.identity[0].oidc[0].issuer
+#   depends_on = [aws_eks_cluster.projectx_cluster]
+# }
 
-resource "aws_iam_openid_connect_provider" "this" {
-  url             = aws_eks_cluster.projectx_cluster.identity[0].oidc[0].issuer
-  client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = [data.tls_certificate.oidc.certificates[0].sha1_fingerprint]
-  depends_on      = [aws_eks_cluster.projectx_cluster]
+# resource "aws_iam_openid_connect_provider" "this" {
+#   url             = aws_eks_cluster.projectx_cluster.identity[0].oidc[0].issuer
+#   client_id_list  = ["sts.amazonaws.com"]
+#   thumbprint_list = [data.tls_certificate.oidc.certificates[0].sha1_fingerprint]
+#   depends_on      = [aws_eks_cluster.projectx_cluster]
 
-}
+# }
 
 # IRSA trust policy: allow ONLY the EBS CSI service account to assume this role
 data "aws_iam_policy_document" "ebs_csi_assume_role" {
@@ -84,7 +84,7 @@ data "aws_iam_policy_document" "ebs_csi_assume_role" {
     principals {
       type = "Federated"
       #   identifiers = [data.aws_iam_openid_connect_provider.this.arn]
-      identifiers = [aws_iam_openid_connect_provider.this.arn]
+      identifiers = [var.oidc_provider_arn]
 
     }
 

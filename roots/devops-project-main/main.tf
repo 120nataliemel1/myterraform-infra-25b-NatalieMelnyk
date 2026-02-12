@@ -30,15 +30,15 @@ module "eks-module" {
   subnets      = ["subnet-0c1651187b7e07eb7", "subnet-092ceddef016127c7", "subnet-0dae3b8246e24c351"]
   # ec2_types         = var.ec2_types
   # gha_role_arn      = var.gha_role_arn
-  # oidc_provider_arn = var.oidc_provider_arn
-  vpc_id           = "vpc-0ebb2e27ffc0e0584"
-  project_name     = var.project_name
-  environment      = var.environment
-  k8s_version      = var.k8s_version
-  min_size         = var.min_size
-  max_size         = var.max_size
-  desired_capacity = var.desired_capacity
-  enable_addons    = var.enable_addons
+  oidc_provider_arn = var.oidc_provider_arn
+  vpc_id            = "vpc-0ebb2e27ffc0e0584"
+  project_name      = var.project_name
+  environment       = var.environment
+  k8s_version       = var.k8s_version
+  min_size          = var.min_size
+  max_size          = var.max_size
+  desired_capacity  = var.desired_capacity
+  enable_addons     = var.enable_addons
 }
 
 # module "developer_iam_role" {
