@@ -99,7 +99,7 @@ resource "aws_launch_template" "workers_lt" {
     cluster_name     = var.cluster_name
     cluster_endpoint = aws_eks_cluster.projectx_cluster.endpoint
     cluster_ca_b64   = aws_eks_cluster.projectx_cluster.certificate_authority[0].data
-    # service_cidr     = data.aws_eks_cluster.projectx.kubernetes_network_config[0].service_ipv4_cidr
+    service_cidr     = aws_eks_cluster.projectx_cluster.kubernetes_network_config[0].service_ipv4_cidr
   }))
 }
 

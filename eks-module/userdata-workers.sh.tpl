@@ -1,11 +1,17 @@
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="BOUNDARY"
+
+--BOUNDARY
+Content-Type: application/node.eks.aws
+
+---
 apiVersion: node.eks.aws/v1alpha1
 kind: NodeConfig
 spec:
   cluster:
-    name: "${cluster_name}"
-    apiServerEndpoint: "${cluster_endpoint}"
-    certificateAuthority: "${cluster_ca_b64}"
-  kubelet:
-    extraArgs:
-      node-labels: "node.kubernetes.io/lifecycle=normal"
+    name: ${cluster_name}
+    apiServerEndpoint: ${cluster_endpoint}
+    certificateAuthority: ${cluster_ca_b64}
+    cidr: ${service_cidr}
 
+--BOUNDARY--
