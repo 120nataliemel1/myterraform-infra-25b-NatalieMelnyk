@@ -38,12 +38,6 @@ variable "cluster_name" {
   description = "EKS cluster name"
 }
 
-variable "subnets" {
-  type        = list(string)
-  description = "List of public subnet IDs for EKS cluster VPC configuration"
-
-}
-
 variable "k8s_version" {
   type        = string
   description = "Kubernetes version for the EKS cluster (e.g., 1.34)"
@@ -80,11 +74,6 @@ variable "min_size" {
 }
 
 ### IAM / Security Variables (roles, trust, access) ###
-
-variable "gha_role_arn" {
-  type        = string
-  description = "IAM role ARN used by GitHub Actions (OIDC) to deploy to EKS"
-}
 
 variable "trusted_parent_account_id" {
   type        = list(string)

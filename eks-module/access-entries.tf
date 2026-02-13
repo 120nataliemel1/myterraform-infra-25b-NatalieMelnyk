@@ -4,9 +4,9 @@
 
 # Worker nodes -> cluster auth (replaces aws-auth role mapping)
 resource "aws_eks_access_entry" "nodes_entry" {
-  cluster_name      = aws_eks_cluster.projectx_cluster.name
-  principal_arn     = aws_iam_role.workers_role.arn
-  type              = "EC2_LINUX"
+  cluster_name  = aws_eks_cluster.projectx_cluster.name
+  principal_arn = aws_iam_role.workers_role.arn
+  type          = "EC2_LINUX"
 }
 
 # Human admin (AWS SSO role) -> cluster-admin
