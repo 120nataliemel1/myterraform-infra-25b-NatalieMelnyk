@@ -54,10 +54,10 @@ variable "db_subnet_ids" {
   description = "List of subnet IDs for the DB subnet group"
 }
 
-variable "vpc_security_group_ids" {
-  type        = list(string)
-  description = "Security group IDs attached to the RDS instance"
-}
+# variable "vpc_security_group_ids" {
+#   type        = list(string)
+#   description = "Security group IDs attached to the RDS instance"
+# }
 
 variable "db_security_group_name" {
   type        = string
