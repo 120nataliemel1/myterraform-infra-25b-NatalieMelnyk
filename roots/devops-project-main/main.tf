@@ -17,7 +17,7 @@ module "module2" {
 # RDS MySQL
 ###########################################
 module "rds_mysql" {
-  source = "../../rds-mysql"
+  source = "../../rds-mysql-module"
 
   identifier                 = var.identifier
   allocated_storage          = var.allocated_storage
@@ -47,7 +47,7 @@ module "rds_mysql" {
 # CloudWatch Alarms for RDS
 ###########################################
 module "rds_cloudwatch" {
-  source = "../../rds-cloudwatch"
+  source = "../../rds-cloudwatch-module"
 
   alarm_name     = var.alarm_name
   identifier     = var.identifier
