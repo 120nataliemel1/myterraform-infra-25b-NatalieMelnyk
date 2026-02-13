@@ -62,6 +62,11 @@ output "endpoint" {
   value = aws_db_instance.rds_mysql_versus.endpoint
 }
 
+# Output the RDS SG ID for reference in root module
+output "rds_security_group_id" {
+  value = aws_security_group.rds_mysql_versus_sg.id
+}
+
 # Retrieve the database password from AWS Secrets Manager
 data "aws_secretsmanager_secret_version" "db_password" {
   secret_id = var.db_password

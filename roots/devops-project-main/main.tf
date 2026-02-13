@@ -31,7 +31,7 @@ module "rds_mysql" {
   publicly_accessible        = var.publicly_accessible
   db_subnet_group_name       = var.db_subnet_group_name
   db_subnet_ids              = var.db_subnet_ids
-  vpc_security_group_ids     = var.vpc_security_group_ids
+  vpc_security_group_ids     = module.rds_mysql.rds_security_group_id
   db_security_group_name     = var.db_security_group_name
   vpc_id                     = var.vpc_id
   app_security_group_id      = var.app_security_group_id
