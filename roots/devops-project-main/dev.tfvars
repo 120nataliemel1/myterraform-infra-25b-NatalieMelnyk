@@ -14,7 +14,7 @@ cluster_name = "kubernetes_cluster"
 ec2_types    = ["t3.medium"]
 
 
-environment               = "Dev"
+environment               = "dev"
 trusted_parent_account_id = ["arn:aws:iam::879500880845:root"]
 DeveloperAccessRolePolicy = "DeveloperDevAccessRole.json"
 DevopAccessRolePolicy     = "DevopsDevAccessRole.json"

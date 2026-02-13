@@ -1,6 +1,6 @@
 greeting = "Hi"
 
-environment               = "Prod"
+environment               = "prod"
 trusted_parent_account_id = ["arn:aws:iam::879500880845:root"]
 DeveloperAccessRolePolicy = "DeveloperProdAccessRole.json"
 DevopsAccessRolePolicy    = "DevopsProdAccessRole.json"
