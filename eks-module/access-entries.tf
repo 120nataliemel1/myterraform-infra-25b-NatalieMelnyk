@@ -7,7 +7,6 @@ resource "aws_eks_access_entry" "nodes_entry" {
   cluster_name      = aws_eks_cluster.projectx_cluster.name
   principal_arn     = aws_iam_role.workers_role.arn
   type              = "EC2_LINUX"
-  kubernetes_groups = ["system:bootstrappers", "system:nodes"]
 }
 
 # Human admin (AWS SSO role) -> cluster-admin
