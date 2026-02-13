@@ -1,3 +1,5 @@
+# VPC + IGW #############
+
 resource "aws_vpc" "projectx_vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_support   = true
@@ -16,108 +18,54 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-resource "aws_subnet" "public_subnet_1" {
-  vpc_id                  = aws_vpc.projectx_vpc.id
-  cidr_block              = var.public_subnet_cidrs[0]
-  availability_zone       = var.azs[0]
-  map_public_ip_on_launch = true # instances/nodes launched in pub subnets automatically receive pub IPv4 addresses
+## Subnets ##########
 
+locals {
+  public_subnets = {
+    public_1 = { cidr = var.public_subnet_cidrs[0], az = var.azs[0] }
+    public_2 = { cidr = var.public_subnet_cidrs[1], az = var.azs[1] }
+    public_3 = { cidr = var.public_subnet_cidrs[2], az = var.azs[2] }
+  }
 
-  tags = {
-    Name = "${var.project_name}-public_subnet_1"
-    # Human-readable subnet name for console clarity & ops visibility
-
-    environment = var.environment
-    # Env identifier (dev/staging/prod) used for cost tracking, safety & shared infra clarity
-
-    "kubernetes.io/cluster/${var.project_name}" = "shared"
-    # Allows the EKS cluster to use this subnet without owning or deleting it (required for shared VPCs)
-
-    "kubernetes.io/role/elb" = "1"
-    # Marks this subnet as eligible for public-facing AWS load balancers created by Kubernetes (ALB/NLB)
-
+  private_subnets = {
+    private_1 = { cidr = var.private_subnet_cidrs[0], az = var.azs[0] }
+    private_2 = { cidr = var.private_subnet_cidrs[1], az = var.azs[1] }
+    private_3 = { cidr = var.private_subnet_cidrs[2], az = var.azs[2] }
   }
 }
 
-resource "aws_subnet" "public_subnet_2" {
+resource "aws_subnet" "public" {
+  for_each = local.public_subnets
+
   vpc_id                  = aws_vpc.projectx_vpc.id
-  cidr_block              = var.public_subnet_cidrs[1]
-  availability_zone       = var.azs[1]
+  cidr_block              = each.value.cidr
+  availability_zone       = each.value.az
   map_public_ip_on_launch = true
 
-
   tags = {
-    Name = "${var.project_name}-public_subnet_2"
-
+    Name                                        = "${var.project_name}-${each.key}"
     environment                                 = var.environment
-    "kubernetes.io/cluster/${var.project_name}" = "shared"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = "1"
   }
 }
 
-resource "aws_subnet" "public_subnet_3" {
-  vpc_id                  = aws_vpc.projectx_vpc.id
-  cidr_block              = var.public_subnet_cidrs[2]
-  availability_zone       = var.azs[2]
-  map_public_ip_on_launch = true
+resource "aws_subnet" "private" {
+  for_each = local.private_subnets
 
-
-  tags = {
-    Name = "${var.project_name}-public_subnet_3"
-
-    environment                                 = var.environment
-    "kubernetes.io/cluster/${var.project_name}" = "shared"
-    "kubernetes.io/role/elb"                    = "1"
-  }
-}
-
-resource "aws_subnet" "private_subnet_1" {
   vpc_id            = aws_vpc.projectx_vpc.id
-  cidr_block        = var.private_subnet_cidrs[0]
-  availability_zone = var.azs[0]
+  cidr_block        = each.value.cidr
+  availability_zone = each.value.az
 
   tags = {
-    Name = "${var.project_name}-private_subnet_1"
-    # Human-readable name for ops and console clarity
-
-    environment = var.environment
-    # Environment identifier (dev/staging/prod) for shared infra and cost tracking
-
-    "kubernetes.io/cluster/${var.project_name}" = "shared"
-    # Allows the EKS cluster to use this subnet without owning it (required for shared VPCs)
-
-    "kubernetes.io/role/internal-elb" = "1"
-    # Marks this subnet for INTERNAL load balancers and private EKS traffic
-  }
-}
-
-resource "aws_subnet" "private_subnet_2" {
-  vpc_id            = aws_vpc.projectx_vpc.id
-  cidr_block        = var.private_subnet_cidrs[1]
-  availability_zone = var.azs[1]
-
-  tags = {
-    Name = "${var.project_name}-private_subnet_2"
-
+    Name                                        = "${var.project_name}-${each.key}"
     environment                                 = var.environment
-    "kubernetes.io/cluster/${var.project_name}" = "shared"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/internal-elb"           = "1"
   }
 }
 
-resource "aws_subnet" "private_subnet_3" {
-  vpc_id            = aws_vpc.projectx_vpc.id
-  cidr_block        = var.private_subnet_cidrs[2]
-  availability_zone = var.azs[2]
-
-  tags = {
-    Name = "${var.project_name}-private_subnet_3"
-
-    environment                                 = var.environment
-    "kubernetes.io/cluster/${var.project_name}" = "shared"
-    "kubernetes.io/role/internal-elb"           = "1"
-  }
-}
+# Route tables + Route table associations #############
 
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.projectx_vpc.id
@@ -133,17 +81,12 @@ resource "aws_route_table" "public_rt" {
 }
 
 resource "aws_route_table_association" "public" {
-  for_each = {
-    "public-1" = aws_subnet.public_subnet_1.id
-    "public-2" = aws_subnet.public_subnet_2.id
-    "public-3" = aws_subnet.public_subnet_3.id
-  }
+  for_each = aws_subnet.public
 
-  subnet_id      = each.value
+  subnet_id      = each.value.id
   route_table_id = aws_route_table.public_rt.id
 }
 
-# This is the private route table without any routes to IGW or NAT Gateways
 resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.projectx_vpc.id
 
@@ -152,19 +95,9 @@ resource "aws_route_table" "private_rt" {
   }
 }
 
-# Associate private subnets with private route table
-resource "aws_route_table_association" "rta_private" {
-  for_each = {
-    "private-1" = aws_subnet.private_subnet_1.id
-    "private-2" = aws_subnet.private_subnet_2.id
-    "private-3" = aws_subnet.private_subnet_3.id
-  }
+resource "aws_route_table_association" "private" {
+  for_each = aws_subnet.private
 
-  subnet_id      = each.value
+  subnet_id      = each.value.id
   route_table_id = aws_route_table.private_rt.id
 }
-
-# Private subnets and their route tables are used to host internal resources 
-# that should not be directly accessible from the internet. 
-# In this project, they provide a secure network layer for future services 
-# like EKS worker nodes or databases, ensuring traffic stays internal unless explicitly allowed.
