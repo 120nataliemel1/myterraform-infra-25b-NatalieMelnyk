@@ -64,9 +64,6 @@ variable "environment" {
   description = "Environment where resourse is created"
 }
 # DocumentDB Module Variables
-variable "environment" {
-  type = string
-}
 variable "name_prefix" {
   type = string
 }
