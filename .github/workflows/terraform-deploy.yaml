@@ -52,7 +52,7 @@ jobs:
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: terraform plan -input=false -var-file=${ENVIRONMENT_STAGE}.tf
+        run: terraform plan -input=false -var-file=${ENVIRONMENT_STAGE}.tfvars
 
       # Build infrastructure according to Terraform configuration files
       - name: Terraform Apply
