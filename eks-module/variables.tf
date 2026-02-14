@@ -56,3 +56,7 @@ variable "ec2_types" {
   type        = list(string)
   description = "Worker node instance types for ASG mixed instances policy"
 }
+
+variable "vpc_cidr" {
+  type = string
+}

@@ -1,5 +1,3 @@
-# VPC + IGW #############
-
 resource "aws_vpc" "projectx_vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_support   = true
@@ -17,8 +15,6 @@ resource "aws_internet_gateway" "igw" {
     Name = "${var.project_name}-igw"
   }
 }
-
-## Subnets ##########
 
 locals {
   public_subnets = {
@@ -64,8 +60,6 @@ resource "aws_subnet" "private" {
     "kubernetes.io/role/internal-elb"           = "1"
   }
 }
-
-# Route tables + Route table associations #############
 
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.projectx_vpc.id

@@ -1,14 +1,11 @@
-# EKS Control Plane
 resource "aws_eks_cluster" "projectx_cluster" {
   name                      = var.cluster_name
   version                   = var.k8s_version
   role_arn                  = aws_iam_role.cluster.arn
   enabled_cluster_log_types = ["api", "audit"]
 
-  # Use API-based access (EKS Access Entries)
   access_config {
-    authentication_mode                         = "API_AND_CONFIG_MAP"
-    bootstrap_cluster_creator_admin_permissions = true
+    authentication_mode = "API"
   }
 
   vpc_config {

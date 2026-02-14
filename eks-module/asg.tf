@@ -1,13 +1,9 @@
-# EKS worker Auto Scaling Group (self-managed nodes)
 resource "aws_autoscaling_group" "workers_asg" {
-  name             = "${var.cluster_name}-workers-asg"
-  min_size         = var.min_size
-  max_size         = var.max_size
-  desired_capacity = var.desired_capacity
-
-  vpc_zone_identifier       = var.subnets
-  health_check_type         = "EC2"
-  health_check_grace_period = 300
+  name                = "${var.cluster_name}-workers-asg"
+  min_size            = var.min_size
+  max_size            = var.max_size
+  desired_capacity    = var.desired_capacity
+  vpc_zone_identifier = var.subnets
 
   mixed_instances_policy {
     launch_template {
@@ -32,6 +28,12 @@ resource "aws_autoscaling_group" "workers_asg" {
   }
 
   tag {
+    key                 = "kubernetes.io/cluster/${var.cluster_name}"
+    value               = "owned"
+    propagate_at_launch = true
+  }
+
+  tag {
     key                 = "Name"
     value               = "${var.cluster_name}-worker-node"
     propagate_at_launch = true
@@ -44,8 +46,6 @@ resource "aws_autoscaling_group" "workers_asg" {
   }
 
   depends_on = [aws_launch_template.workers_lt]
-
-
 }
 
 
