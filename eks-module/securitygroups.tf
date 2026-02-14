@@ -1,7 +1,7 @@
 # Node SG (worker instances)
 resource "aws_security_group" "eks_node_sg" {
   name        = "${var.cluster_name}-node-sg"
-  description = "EKS worker nodes SG"
+  description = "Security group for EKS self-managed nodes"
   vpc_id      = var.vpc_id
 
   tags = {
@@ -15,7 +15,7 @@ resource "aws_security_group" "eks_node_sg" {
 # Cluster SG (control plane ENIs)
 resource "aws_security_group" "cluster_sg" {
   name        = "${var.cluster_name}-cluster-sg"
-  description = "EKS control plane SG"
+  description = "Security group for EKS cluster control plane"
   vpc_id      = var.vpc_id
 
   tags = {
