@@ -28,12 +28,6 @@ variable "username" {
   description = "Master database username"
 }
 
-# variable "db_password" {
-#   type        = string
-#   description = "Master database password"
-#   sensitive   = true
-# }
-
 variable "parameter_group_name" {
   type        = string
   description = "DB parameter group name"

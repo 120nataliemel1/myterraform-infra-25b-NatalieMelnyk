@@ -3,13 +3,12 @@
 ##############################
 
 resource "aws_db_instance" "rds_mysql_versus" {
-  identifier     = var.identifier
-  engine         = var.engine
-  engine_version = var.engine_version
-  instance_class = var.instance_class
-  db_name        = var.db_name
-  username       = var.username
-  #password                = jsondecode(data.aws_secretsmanager_secret_version.db_password.secret_string)["db_password"]
+  identifier              = var.identifier
+  engine                  = var.engine
+  engine_version          = var.engine_version
+  instance_class          = var.instance_class
+  db_name                 = var.db_name
+  username                = var.username
   password                = random_password.db_password.result
   parameter_group_name    = var.parameter_group_name
   publicly_accessible     = var.publicly_accessible
@@ -34,7 +33,8 @@ resource "random_password" "db_password" {
 
 # Store the generated password in AWS Secrets Manager
 resource "aws_secretsmanager_secret" "db_secret" {
-  name = "${var.identifier}-credentials"
+  name        = "${var.identifier}-credentials"
+  description = "Access to database for Versus application"
 
   tags = var.tags
 }
@@ -46,6 +46,8 @@ resource "aws_secretsmanager_secret_version" "db_secret_version" {
   secret_string = jsonencode({
     username = var.username
     password = random_password.db_password.result
+    host     = aws_db_instance.rds_mysql_versus.endpoint
+    port     = aws_db_instance.rds_mysql_versus.port
   })
 }
 
@@ -91,8 +93,3 @@ output "endpoint" {
 output "rds_security_group_id" {
   value = aws_security_group.rds_mysql_versus_sg.id
 }
-
-# # Retrieve the database password from AWS Secrets Manager
-# data "aws_secretsmanager_secret_version" "db_password" {
-#   secret_id = var.db_password
-# }

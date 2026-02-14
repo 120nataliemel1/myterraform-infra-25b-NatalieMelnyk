@@ -1,13 +1,12 @@
 greeting = "Hi"
 
 # AWS RDS MySQL Variables
-identifier     = "versus-db-staging"
-engine         = "mysql"
-engine_version = "8.4"
-instance_class = "db.r6g.xlarge"
-db_name        = "versus"
-username       = "admin"
-#db_password                = "versus/staging"
+identifier                 = "versus-db-staging"
+engine                     = "mysql"
+engine_version             = "8.4"
+instance_class             = "db.r6g.xlarge"
+db_name                    = "versus"
+username                   = "admin"
 parameter_group_name       = "default.mysql8.4"
 publicly_accessible        = false
 db_subnet_group_name       = "staging-subnet-group"
