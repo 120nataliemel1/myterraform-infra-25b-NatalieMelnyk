@@ -46,8 +46,9 @@ resource "aws_secretsmanager_secret_version" "db_secret_version" {
   secret_string = jsonencode({
     username = var.username
     password = random_password.db_password.result
-    host     = aws_db_instance.rds_mysql_versus.endpoint
+    host     = aws_db_instance.rds_mysql_versus.address
     port     = aws_db_instance.rds_mysql_versus.port
+    db_name  = var.db_name
   })
 }
 
