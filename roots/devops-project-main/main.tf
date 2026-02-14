@@ -29,16 +29,14 @@ module "eks-module" {
   source = "../../eks-module"
 
   cluster_name = var.cluster_name
-  # subnets      = module.vpc-module.public_subnet_ids_ordered # uncomment before MR
-  # vpc_id       = module.vpc-module.vpc_id # uncomment before MR
-
-  vpc_id = "vpc-0ebb2e27ffc0e0584"
+  vpc_id       = "vpc-0ebb2e27ffc0e0584"
   subnets = [
     "subnet-0c1651187b7e07eb7",
     "subnet-092ceddef016127c7",
     "subnet-0dae3b8246e24c351",
   ]
 
+  vpc_cidr     = var.vpc_cidr
   ec2_types    = var.ec2_types
   project_name = var.project_name
   environment  = var.environment
