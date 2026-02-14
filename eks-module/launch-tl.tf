@@ -15,7 +15,6 @@ resource "aws_launch_template" "workers_lt" {
     create_before_destroy = true
   }
 
-  # AL2023 uses nodeadm for bootstrap instead of bootstrap.sh
   user_data = base64encode(<<-EOT
 ---
 apiVersion: node.eks.aws/v1alpha1

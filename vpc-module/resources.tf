@@ -52,6 +52,8 @@ resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.projectx_vpc.id
   cidr_block        = each.value.cidr
   availability_zone = each.value.az
+  map_public_ip_on_launch = false
+
 
   tags = {
     Name                                        = "${var.project_name}-${each.key}"

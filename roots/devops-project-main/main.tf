@@ -13,7 +13,6 @@ module "module2" {
   # ... any other required variables for module2
 }
 
-
 # module "vpc-module" {
 #   source               = "../../vpc-module"
 #   project_name         = var.project_name
@@ -47,7 +46,6 @@ module "eks-module" {
   desired_capacity = var.desired_capacity
   enable_addons    = var.enable_addons
 }
-
 
 # module "developer_iam_role" {
 #   source         = "../../IAM-role-module"
