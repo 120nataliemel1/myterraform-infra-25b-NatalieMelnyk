@@ -26,7 +26,7 @@ module "rds_mysql" {
   instance_class             = var.instance_class
   db_name                    = var.db_name
   username                   = var.username
-  db_password                = var.db_password
+  #db_password                = var.db_password
   parameter_group_name       = var.parameter_group_name
   publicly_accessible        = var.publicly_accessible
   db_subnet_group_name       = var.db_subnet_group_name
@@ -37,6 +37,7 @@ module "rds_mysql" {
   multi_az                   = var.multi_az
   storage_type               = var.storage_type
   db_backup_retention_period = var.db_backup_retention_period
+  deletion_protection        = var.deletion_protection
   db_backup_window           = var.db_backup_window
 
   tags = var.tags

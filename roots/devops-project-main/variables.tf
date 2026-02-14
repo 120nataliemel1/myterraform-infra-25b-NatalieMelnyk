@@ -34,11 +34,11 @@ variable "username" {
   description = "Master database username"
 }
 
-variable "db_password" {
-  type        = string
-  description = "Master database password"
-  sensitive   = true
-}
+# variable "db_password" {
+#   type        = string
+#   description = "Master database password"
+#   sensitive   = true
+# }
 
 variable "parameter_group_name" {
   type        = string
@@ -93,6 +93,11 @@ variable "allocated_storage" {
 variable "db_backup_retention_period" {
   type        = number
   description = "Number of days to retain backups"
+}
+
+variable "deletion_protection" {
+  type        = bool
+  description = "Enable deletion protection for RDS"
 }
 
 variable "db_backup_window" {

@@ -9,7 +9,8 @@ resource "aws_db_instance" "rds_mysql_versus" {
   instance_class          = var.instance_class
   db_name                 = var.db_name
   username                = var.username
-  password                = jsondecode(data.aws_secretsmanager_secret_version.db_password.secret_string)["db_password"]
+  #password                = jsondecode(data.aws_secretsmanager_secret_version.db_password.secret_string)["db_password"]
+  password                = random_password.db_password.result
   parameter_group_name    = var.parameter_group_name
   publicly_accessible     = var.publicly_accessible
   db_subnet_group_name    = var.db_subnet_group_name
@@ -18,10 +19,34 @@ resource "aws_db_instance" "rds_mysql_versus" {
   storage_type            = var.storage_type
   allocated_storage       = var.allocated_storage
   backup_retention_period = var.db_backup_retention_period
+  deletion_protection     = var.deletion_protection
   backup_window           = var.db_backup_window
   skip_final_snapshot     = true
 
   tags = var.tags
+}
+
+# Generate a random password for the RDS instance
+resource "random_password" "db_password" {
+  length  = 12
+  special = false
+}
+
+# Store the generated password in AWS Secrets Manager
+resource "aws_secretsmanager_secret" "db_secret" {
+  name = "${var.identifier}-credentials"
+
+  tags = var.tags
+}
+
+# Create a new version of the secret with the database credentials
+resource "aws_secretsmanager_secret_version" "db_secret_version" {
+  secret_id = aws_secretsmanager_secret.db_secret.id
+
+  secret_string = jsonencode({
+    username = var.username
+    password = random_password.db_password.result
+  })
 }
 
 # Db subnet group and security group for RDS instance
@@ -67,7 +92,7 @@ output "rds_security_group_id" {
   value = aws_security_group.rds_mysql_versus_sg.id
 }
 
-# Retrieve the database password from AWS Secrets Manager
-data "aws_secretsmanager_secret_version" "db_password" {
-  secret_id = var.db_password
-}
+# # Retrieve the database password from AWS Secrets Manager
+# data "aws_secretsmanager_secret_version" "db_password" {
+#   secret_id = var.db_password
+# }

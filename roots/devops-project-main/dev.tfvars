@@ -7,7 +7,7 @@ engine_version             = "8.4"
 instance_class             = "db.t4g.micro"
 db_name                    = "versus"
 username                   = "admin"
-db_password                = "versus/dev"
+#db_password                = "versus/dev"
 parameter_group_name       = "default.mysql8.4"
 publicly_accessible        = false
 db_subnet_group_name       = "dev-subnet-group"
@@ -19,6 +19,7 @@ multi_az                   = false
 storage_type               = "gp3"
 allocated_storage          = 20
 db_backup_retention_period = 1
+deletion_protection        = false
 db_backup_window           = "02:00-04:00"
 
 tags = {

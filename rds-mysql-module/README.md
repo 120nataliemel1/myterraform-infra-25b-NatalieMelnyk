@@ -87,12 +87,12 @@ This custom module provisions the following resources:
 
 | Variable | Dev | Staging | Production |
 |---|---|---|---|
-| `instance_class` | db.t4g.micro | db.t4g.micro | db.t4g.micro (or larger) |
+| `instance_class` | db.t4g.micro | db.r6g.xlarge | db.r6g.2xlarge  |
 | `multi_az` | `false` | `true` | `true` |
-| `backup_retention_period` | 1 | 1 | 30 |
+| `backup_retention_period` | 1 | 3 | 7 |
 | `deletion_protection` | `false` | `true` | `true` |
 | `storage_encrypted` | `true` | `true` | `true` |
-| `allocated_storage` | 20 | 20 | 100 |
+| `allocated_storage` | 20 | 100 | 200 |
 
 ### `modules/cloudwatch` — CloudWatch Alarm Child Module
 
