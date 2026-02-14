@@ -1,12 +1,12 @@
 greeting = "Hi"
 
 # AWS RDS MySQL Variables
-identifier                 = "versus-db-dev"
-engine                     = "mysql"
-engine_version             = "8.4"
-instance_class             = "db.t4g.micro"
-db_name                    = "versus"
-username                   = "admin"
+identifier     = "versus-db-dev"
+engine         = "mysql"
+engine_version = "8.4"
+instance_class = "db.t4g.micro"
+db_name        = "versus"
+username       = "admin"
 #db_password                = "versus/dev"
 parameter_group_name       = "default.mysql8.4"
 publicly_accessible        = false

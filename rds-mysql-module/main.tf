@@ -3,12 +3,12 @@
 ##############################
 
 resource "aws_db_instance" "rds_mysql_versus" {
-  identifier              = var.identifier
-  engine                  = var.engine
-  engine_version          = var.engine_version
-  instance_class          = var.instance_class
-  db_name                 = var.db_name
-  username                = var.username
+  identifier     = var.identifier
+  engine         = var.engine
+  engine_version = var.engine_version
+  instance_class = var.instance_class
+  db_name        = var.db_name
+  username       = var.username
   #password                = jsondecode(data.aws_secretsmanager_secret_version.db_password.secret_string)["db_password"]
   password                = random_password.db_password.result
   parameter_group_name    = var.parameter_group_name

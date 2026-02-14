@@ -19,13 +19,13 @@ module "module2" {
 module "rds_mysql" {
   source = "../../rds-mysql-module"
 
-  identifier                 = var.identifier
-  allocated_storage          = var.allocated_storage
-  engine                     = var.engine
-  engine_version             = var.engine_version
-  instance_class             = var.instance_class
-  db_name                    = var.db_name
-  username                   = var.username
+  identifier        = var.identifier
+  allocated_storage = var.allocated_storage
+  engine            = var.engine
+  engine_version    = var.engine_version
+  instance_class    = var.instance_class
+  db_name           = var.db_name
+  username          = var.username
   #db_password                = var.db_password
   parameter_group_name       = var.parameter_group_name
   publicly_accessible        = var.publicly_accessible
