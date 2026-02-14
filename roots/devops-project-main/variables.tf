@@ -67,7 +67,7 @@ variable "environment" {
 variable "name_prefix" {
   type = string
 }
-variable "eks_node_sg_id" {
+variable "node_security_group_id" {
   type = string
 }
 variable "instance_count" {

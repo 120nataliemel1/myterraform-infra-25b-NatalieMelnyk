@@ -18,7 +18,7 @@ variable "private_subnet_ids" {
   type        = list(string)
 }
 
-variable "eks_node_sg_id" {
+variable "node_security_group_id" {
   description = "Security group ID of EKS worker nodes allowed to access DocumentDB"
   type        = string
 }
