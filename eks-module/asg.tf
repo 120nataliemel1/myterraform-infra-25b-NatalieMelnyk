@@ -38,6 +38,12 @@ resource "aws_autoscaling_group" "workers_asg" {
   }
 
   tag {
+    key                 = "kubernetes.io/cluster/${var.cluster_name}"
+    value               = "owned"
+    propagate_at_launch = true
+  }
+
+  tag {
     key                 = "environment"
     value               = var.environment
     propagate_at_launch = true
@@ -45,6 +51,9 @@ resource "aws_autoscaling_group" "workers_asg" {
 
   depends_on = [aws_launch_template.workers_lt]
 
+
 }
+
+
 
 
