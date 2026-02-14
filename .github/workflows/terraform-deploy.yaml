@@ -58,6 +58,9 @@ jobs:
       # - name: Terraform Apply
       #   run: terraform apply -auto-approve -input=false -var-file=${ENVIRONMENT_STAGE}.tfvars
 
+      - name: terraform force-unlock
+        run: terraform force-unlock 62208f6b-029c-bc0f-8ae2-e909a1136524
+        
       - name: Terraform Destroy
         run: terraform destroy -auto-approve -input=false -var-file=${ENVIRONMENT_STAGE}.tfvars
 
