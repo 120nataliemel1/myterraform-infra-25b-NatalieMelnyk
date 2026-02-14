@@ -40,15 +40,15 @@ resource "aws_eks_addon" "vpc_cni" {
   resolve_conflicts_on_update = "OVERWRITE"
 }
 
-resource "aws_eks_addon" "coredns" {
-  count         = var.enable_addons ? 1 : 0
-  cluster_name  = aws_eks_cluster.projectx_cluster.name
-  addon_name    = "coredns"
-  addon_version = data.aws_eks_addon_version.coredns.version
+# resource "aws_eks_addon" "coredns" {
+#   count         = var.enable_addons ? 1 : 0
+#   cluster_name  = aws_eks_cluster.projectx_cluster.name
+#   addon_name    = "coredns"
+#   addon_version = data.aws_eks_addon_version.coredns.version
 
-  resolve_conflicts_on_create = "OVERWRITE"
-  resolve_conflicts_on_update = "OVERWRITE"
-}
+#   resolve_conflicts_on_create = "OVERWRITE"
+#   resolve_conflicts_on_update = "OVERWRITE"
+# }
 
 resource "aws_eks_addon" "kube_proxy" {
   count         = var.enable_addons ? 1 : 0
@@ -108,15 +108,15 @@ resource "aws_iam_role_policy_attachment" "ebs_csi_irsa_policy" {
 }
 
 # EBS CSI managed add-on (uses IRSA role)
-resource "aws_eks_addon" "ebs_csi" {
-  count         = var.enable_addons ? 1 : 0
-  cluster_name  = aws_eks_cluster.projectx_cluster.name
-  addon_name    = "aws-ebs-csi-driver"
-  addon_version = data.aws_eks_addon_version.ebs_csi.version
+# resource "aws_eks_addon" "ebs_csi" {
+#   count         = var.enable_addons ? 1 : 0
+#   cluster_name  = aws_eks_cluster.projectx_cluster.name
+#   addon_name    = "aws-ebs-csi-driver"
+#   addon_version = data.aws_eks_addon_version.ebs_csi.version
 
-  service_account_role_arn    = aws_iam_role.ebs_csi_irsa_role.arn
-  resolve_conflicts_on_create = "OVERWRITE"
-  resolve_conflicts_on_update = "OVERWRITE"
+#   service_account_role_arn    = aws_iam_role.ebs_csi_irsa_role.arn
+#   resolve_conflicts_on_create = "OVERWRITE"
+#   resolve_conflicts_on_update = "OVERWRITE"
 
-  depends_on = [aws_iam_role_policy_attachment.ebs_csi_irsa_policy]
-}
+#   depends_on = [aws_iam_role_policy_attachment.ebs_csi_irsa_policy]
+# }
