@@ -95,3 +95,8 @@ variable "enable_addons" {
   type    = bool
   default = false
 }
+
+variable "cluster_name" {
+  type        = string
+  description = "Name of the EKS cluster"
+}
