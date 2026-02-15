@@ -31,10 +31,7 @@ resource "aws_eks_access_policy_association" "github_terraform_cluster_admin" {
   principal_arn = "arn:aws:iam::383585068161:role/GitHubActionsTerraformIAMrole"
   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
 
-  access_scope {
-    type       = "namespace"
-    namespaces = ["cicd-namespace"]
-  }
+  access_scope { type = "cluster" }
 
   depends_on = [aws_eks_access_entry.github_terraform]
 }
