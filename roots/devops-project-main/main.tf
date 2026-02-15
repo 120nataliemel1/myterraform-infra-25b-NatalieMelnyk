@@ -62,7 +62,7 @@ module "devops_iam_role" {
   policy_json    = var.DevopAccessRolePolicy
 }
 
-FOR TEST PURPOSES ONLY NEXT IAM ROLE BLOCKS FOR PRODUCTION NEED TO BE REMOVED WHEN WE HAVE PRODUCTION ACCOUNT
+# FOR TEST PURPOSES ONLY NEXT IAM ROLE BLOCKS FOR PRODUCTION NEED TO BE REMOVED WHEN WE HAVE PRODUCTION ACCOUNT
 
 module "developer_prod_role" {
   source         = "../../IAM-role-module"
@@ -83,7 +83,7 @@ module "devops_prod_role" {
 }
 
 module "documentdb" {
-  source = "../../documentdb-module"
+  source             = "../../documentdb-module"
   vpc_id             = module.vpc-module.vpc_id
   private_subnet_ids = module.vpc-module.private_subnet_ids
   eks_node_sg_id     = module.eks-module.node_security_group_id
