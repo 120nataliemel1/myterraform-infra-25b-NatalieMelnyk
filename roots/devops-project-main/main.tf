@@ -13,82 +13,80 @@ module "module2" {
   # ... any other required variables for module2
 }
 
-# module "vpc-module" {
-#   source               = "../../vpc-module"
-#   project_name         = var.project_name
-#   vpc_cidr             = var.vpc_cidr
-#   azs                  = var.azs
-#   public_subnet_cidrs  = var.public_subnet_cidrs
-#   private_subnet_cidrs = var.private_subnet_cidrs
-#   environment          = var.environment
-# }
+module "vpc-module" {
+  source               = "../../vpc-module"
+  project_name         = var.project_name
+  vpc_cidr             = var.vpc_cidr
+  azs                  = var.azs
+  public_subnet_cidrs  = var.public_subnet_cidrs
+  private_subnet_cidrs = var.private_subnet_cidrs
+  environment          = var.environment
+}
 
-# module "eks-module" {
-#   source = "../../eks-module"
+module "eks-module" {
+  source = "../../eks-module"
 
-#   cluster_name      = var.cluster_name
-#   subnets           = module.vpc-module.public_subnet_ids
-#   ec2_types         = var.ec2_types
-#   gha_role_arn      = var.gha_role_arn
-#   oidc_provider_arn = var.oidc_provider_arn
+  cluster_name      = var.cluster_name
+  subnets           = module.vpc-module.public_subnet_ids
+  ec2_types         = var.ec2_types
+  gha_role_arn      = var.gha_role_arn
+  oidc_provider_arn = var.oidc_provider_arn
 
-# }
+}
 
-# module "hands-on-eks-module" {
-#   source = "../../hands-on-eks-module"
+module "hands-on-eks-module" {
+  source = "../../hands-on-eks-module"
 
-#   cluster_name        = var.cluster_name
-#   public_subnet_cidrs = var.public_subnet_cidrs
-#   public_subnet_ids   = module.vpc-module.public_subnet_ids
-#   vpc_id              = module.vpc-module.vpc_id
-# }
+  cluster_name        = var.cluster_name
+  public_subnet_cidrs = var.public_subnet_cidrs
+  public_subnet_ids   = module.vpc-module.public_subnet_ids
+  vpc_id              = module.vpc-module.vpc_id
+}
 
 
-# module "developer_iam_role" {
-#   source         = "../../IAM-role-module"
-#   environment    = var.environment
-#   principal_type = "AWS"
-#   principal      = var.trusted_parent_account_id
-#   role_name      = "Developer${var.environment}AccessRole-ubuntu25b"
-#   policy_json    = var.DeveloperAccessRolePolicy
-# }
+module "developer_iam_role" {
+  source         = "../../IAM-role-module"
+  environment    = var.environment
+  principal_type = "AWS"
+  principal      = var.trusted_parent_account_id
+  role_name      = "Developer${var.environment}AccessRole-ubuntu25b"
+  policy_json    = var.DeveloperAccessRolePolicy
+}
 
-# module "devops_iam_role" {
-#   source         = "../../IAM-role-module"
-#   environment    = var.environment
-#   principal_type = "AWS"
-#   principal      = var.trusted_parent_account_id
-#   role_name      = "Devops${var.environment}AccessRole-ubuntu25b"
-#   policy_json    = var.DevopAccessRolePolicy
-# }
+module "devops_iam_role" {
+  source         = "../../IAM-role-module"
+  environment    = var.environment
+  principal_type = "AWS"
+  principal      = var.trusted_parent_account_id
+  role_name      = "Devops${var.environment}AccessRole-ubuntu25b"
+  policy_json    = var.DevopAccessRolePolicy
+}
 
-#FOR TEST PURPOSES ONLY NEXT IAM ROLE BLOCKS FOR PRODUCTION NEED TO BE REMOVED WHEN WE HAVE PRODUCTION ACCOUNT
+FOR TEST PURPOSES ONLY NEXT IAM ROLE BLOCKS FOR PRODUCTION NEED TO BE REMOVED WHEN WE HAVE PRODUCTION ACCOUNT
 
-# module "developer_prod_role" {
-#   source         = "../../IAM-role-module"
-#   environment    = "Prod"
-#   principal_type = "AWS"
-#   principal      = var.trusted_parent_account_id
-#   role_name      = "DeveloperProdAccessRole-ubuntu25b"
-#   policy_json    = "DeveloperProdAccessRole.json"
-# }
+module "developer_prod_role" {
+  source         = "../../IAM-role-module"
+  environment    = "Prod"
+  principal_type = "AWS"
+  principal      = var.trusted_parent_account_id
+  role_name      = "DeveloperProdAccessRole-ubuntu25b"
+  policy_json    = "DeveloperProdAccessRole.json"
+}
 
-# module "devops_prod_role" {
-#   source         = "../../IAM-role-module"
-#   environment    = "Prod"
-#   principal_type = "AWS"
-#   principal      = var.trusted_parent_account_id
-#   role_name      = "DevopsProdAccessRole-ubuntu25b"
-#   policy_json    = "DevopsProdAccessRole.json"
-# }
+module "devops_prod_role" {
+  source         = "../../IAM-role-module"
+  environment    = "Prod"
+  principal_type = "AWS"
+  principal      = var.trusted_parent_account_id
+  role_name      = "DevopsProdAccessRole-ubuntu25b"
+  policy_json    = "DevopsProdAccessRole.json"
+}
 
 module "documentdb" {
   source = "../../documentdb-module"
-  # vpc_id             = module.vpc-module.vpc_id
-  # private_subnet_ids = module.vpc-module.private_subnet_ids
-  # eks_node_sg_id     = module.eks-module.node_security_group_id
-  vpc_id = "vpc-0ebb2e27ffc0e0584"
-  private_subnet_ids = ["subnet-0bbe4b27c245a2d1f"]
+  vpc_id             = module.vpc-module.vpc_id
+  private_subnet_ids = module.vpc-module.private_subnet_ids
+  eks_node_sg_id     = module.eks-module.node_security_group_id
   environment        = var.environment
   name_prefix        = var.name_prefix
   instance_count     = var.instance_count
