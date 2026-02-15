@@ -84,13 +84,3 @@ resource "aws_security_group" "rds_mysql_versus_sg" {
 
   tags = var.tags
 }
-
-# Output the RDS endpoint for application connectivity
-output "endpoint" {
-  value = aws_db_instance.rds_mysql_versus.endpoint
-}
-
-# Output the RDS SG ID for reference in root module
-output "rds_security_group_id" {
-  value = aws_security_group.rds_mysql_versus_sg.id
-}
