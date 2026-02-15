@@ -33,7 +33,7 @@ resource "random_password" "db_password" {
 
 # Store the generated password in AWS Secrets Manager
 resource "aws_secretsmanager_secret" "db_secret" {
-  name        = "${var.identifier}-credentials"
+  name        = "${var.identifier}-mysql-credentials"
   description = "Access to database for Versus application"
 
   tags = var.tags
