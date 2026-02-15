@@ -14,7 +14,7 @@ resource "aws_security_group" "documentdb" {
     from_port       = local.documentdb_port
     to_port         = local.documentdb_port
     protocol        = "tcp"
-    cidr_blocks     = [0.0.0.0/0] # No CIDR blocks, we will use security group references
+    cidr_blocks     = ["0.0.0.0/0"] # No CIDR blocks, we will use security group references
     # security_groups = [var.node_security_group_id]
   }
 
