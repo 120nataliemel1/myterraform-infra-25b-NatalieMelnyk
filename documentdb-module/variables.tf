@@ -18,10 +18,10 @@ variable "private_subnet_ids" {
   type        = list(string)
 }
 
-variable "node_security_group_id" {
-  description = "Security group ID of EKS worker nodes allowed to access DocumentDB"
-  type        = string
-}
+# variable "node_security_group_id" {
+#   description = "Security group ID of EKS worker nodes allowed to access DocumentDB"
+#   type        = string
+# }
 
 variable "tags" {
   description = "Common tags applied to all DocumentDB resources"
