@@ -84,9 +84,11 @@ module "module2" {
 
 module "documentdb" {
   source = "../../documentdb-module"
-  vpc_id             = module.vpc-module.vpc_id
-  private_subnet_ids = module.vpc-module.private_subnet_ids
-  eks_node_sg_id     = module.eks-module.node_security_group_id
+  # vpc_id             = module.vpc-module.vpc_id
+  # private_subnet_ids = module.vpc-module.private_subnet_ids
+  # eks_node_sg_id     = module.eks-module.node_security_group_id
+  vpc_id = "vpc-0ebb2e27ffc0e0584"
+  private_subnet_ids = ["subnet-0bbe4b27c245a2d1f"]
   environment        = var.environment
   name_prefix        = var.name_prefix
   instance_count     = var.instance_count
