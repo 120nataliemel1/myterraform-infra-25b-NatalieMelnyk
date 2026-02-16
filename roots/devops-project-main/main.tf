@@ -80,14 +80,14 @@ module "devops_prod_role" {
 }
 
 module "documentdb" {
-  source             = "../../documentdb-module"
-  vpc_id             = module.vpc-module.vpc_id
-  private_subnet_ids = module.vpc-module.private_subnet_ids
-  eks_node_sg_id     = module.eks-module.node_security_group_id
-  environment        = var.environment
-  name_prefix        = var.name_prefix
-  instance_count     = var.instance_count
-  instance_class     = var.mongo_db_instance_class
-  tags               = var.tags_proshop
-  master_username    = var.master_username
+  source                  = "../../documentdb-module"
+  vpc_id                  = module.vpc-module.vpc_id
+  private_subnet_ids      = module.vpc-module.private_subnet_ids
+  node_security_group_id  = module.eks-module.node_security_group_id
+  environment             = var.environment
+  name_prefix             = var.name_prefix
+  instance_count          = var.instance_count
+  mongo_db_instance_class = var.mongo_db_instance_class
+  tags_proshop            = var.tags_proshop
+  master_username         = var.master_username
 }

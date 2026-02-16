@@ -26,7 +26,6 @@ min_size         = 1
 max_size         = 5
 desired_capacity = 2
 
-environment   = "staging"
 enable_addons = true
 
 trusted_parent_account_id = ["arn:aws:iam::879500880845:root"]

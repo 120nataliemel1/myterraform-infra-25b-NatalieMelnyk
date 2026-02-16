@@ -24,7 +24,7 @@ resource "aws_security_group" "documentdb" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = merge(var.tags, {
+  tags = merge(var.tags_proshop, {
     Name = "${var.name_prefix}-documentdb-sg"
   })
 }
@@ -34,7 +34,7 @@ resource "aws_docdb_subnet_group" "this" {
   name       = "${var.name_prefix}-${var.environment}-docdb-subnet-group"
   subnet_ids = var.private_subnet_ids
 
-  tags = merge(var.tags, {
+  tags = merge(var.tags_proshop, {
     Name = "${var.name_prefix}-docdb-subnet-group"
   })
 }

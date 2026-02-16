@@ -111,3 +111,7 @@ variable "enable_addons" {
   type    = bool
   default = false
 }
+
+variable "instance_count" {
+  type = number
+}

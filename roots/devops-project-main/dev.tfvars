@@ -23,10 +23,10 @@ DeveloperAccessRolePolicy = "DeveloperDevAccessRole.json"
 DevopAccessRolePolicy     = "DevopsDevAccessRole.json"
 
 #DocumentDb 
-master_username = "proshop_admin"
-name_prefix     = "proshop"
+master_username         = "proshop_admin"
+name_prefix             = "proshop"
 mongo_db_instance_class = "db.t3.medium"
-instance_count = 1
+instance_count          = 1
 tags_proshop = {
   Project     = "proshop"
   Environment = "dev"
