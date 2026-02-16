@@ -1,5 +1,36 @@
 greeting = "Hi"
 
+# AWS RDS MySQL Variables
+identifier                 = "versus-db-dev"
+engine                     = "mysql"
+engine_version             = "8.4"
+versus_app_instance_class  = "db.t4g.micro"
+db_name                    = "versus"
+username                   = "admin"
+parameter_group_name       = "default.mysql8.4"
+publicly_accessible        = false
+db_subnet_group_name       = "dev-subnet-group"
+db_subnet_ids              = ["subnet-0d43516578e7d7c7b", "subnet-06054cb3cddc77fe3", "subnet-053709f833b94529c"]
+db_security_group_name     = "versus-dev-rds-mysql-sg"
+vpc_id                     = "vpc-0ebb2e27ffc0e0584"
+app_security_group_id      = "sg-011baa13c24c54a02"
+multi_az                   = false
+storage_type               = "gp3"
+allocated_storage          = 20
+db_backup_retention_period = 1
+deletion_protection        = false
+db_backup_window           = "02:00-04:00"
+
+tags_versus_app = {
+  Project = "Versus"
+  Owner   = "312-school-Altynai"
+  Env     = "development"
+}
+
+# AWS RDS MySQL CloudWatch Alarm Variables
+alarm_name     = "versus-dev-rds-cpu-high"
+cpu_threshold  = 80
+rds_cpu_alerts = "versus-dev-rds-cpu-alerts"
 project_name = "projectx_ubuntu25b"
 cluster_name = "projectx_cluster_ubuntu25b"
 
