@@ -10,12 +10,12 @@ module "module2" {
   source = "../../dummy-module-2"
 
   input_from_module1 = module.module1.greeting_message
-  # ... any other required variables for module2
+  #  ... any other required variables for module2
 }
 
 module "vpc-module" {
-  count                = var.enable_condition ? 1 : 0
   source               = "../../vpc-module"
+  count                = var.enable_condition ? 1 : 0
   project_name         = var.project_name
   vpc_cidr             = var.vpc_cidr
   azs                  = var.azs
@@ -25,9 +25,8 @@ module "vpc-module" {
 }
 
 module "eks-module" {
-  count  = var.enable_condition ? 1 : 0
-  source = "../../eks-module"
-
+  source            = "../../eks-module"
+  count             = var.enable_condition ? 1 : 0
   cluster_name      = var.cluster_name
   subnets           = module.vpc-module.public_subnet_ids
   ec2_types         = var.ec2_types
@@ -37,9 +36,8 @@ module "eks-module" {
 }
 
 module "hands-on-eks-module" {
-  count  = var.enable_condition ? 1 : 0
-  source = "../../hands-on-eks-module"
-
+  source              = "../../hands-on-eks-module"
+  count               = var.enable_condition ? 1 : 0
   cluster_name        = var.cluster_name
   public_subnet_cidrs = var.public_subnet_cidrs
   public_subnet_ids   = module.vpc-module.public_subnet_ids
@@ -48,8 +46,8 @@ module "hands-on-eks-module" {
 
 
 module "developer_iam_role" {
-  count          = var.enable_condition ? 1 : 0
   source         = "../../IAM-role-module"
+  count          = var.enable_condition ? 1 : 0
   environment    = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -58,8 +56,8 @@ module "developer_iam_role" {
 }
 
 module "devops_iam_role" {
-  count          = var.enable_condition ? 1 : 0
   source         = "../../IAM-role-module"
+  count          = var.enable_condition ? 1 : 0
   environment    = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -68,8 +66,8 @@ module "devops_iam_role" {
 }
 
 module "developer_prod_role" {
-  count          = var.enable_condition ? 1 : 0
   source         = "../../IAM-role-module"
+  count          = var.enable_condition ? 1 : 0
   environment    = "Prod"
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -78,8 +76,8 @@ module "developer_prod_role" {
 }
 
 module "devops_prod_role" {
-  count          = var.enable_condition ? 1 : 0
   source         = "../../IAM-role-module"
+  count          = var.enable_condition ? 1 : 0
   environment    = "Prod"
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -88,8 +86,8 @@ module "devops_prod_role" {
 }
 
 module "documentdb" {
-  count              = var.enable_condition ? 1 : 0
   source             = "../../documentdb-module"
+  count              = var.enable_condition ? 1 : 0
   vpc_id             = module.vpc-module.vpc_id
   private_subnet_ids = module.vpc-module.private_subnet_ids
   eks_node_sg_id     = module.eks-module.node_security_group_id
