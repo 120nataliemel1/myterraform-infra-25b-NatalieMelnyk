@@ -28,8 +28,8 @@ module "eks-module" {
   source = "../../eks-module"
 
   cluster_name = var.cluster_name
-  vpc_id       = module.vpc-module[0].vpc_id
-  subnets      = module.vpc-module[0].public_subnet_ids_ordered
+  vpc_id       = module.vpc-module.vpc_id
+  subnets      = module.vpc-module.public_subnet_ids_ordered
 
   vpc_cidr     = var.vpc_cidr
   ec2_types    = var.ec2_types
