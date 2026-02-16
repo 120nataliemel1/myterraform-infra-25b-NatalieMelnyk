@@ -96,7 +96,7 @@ variable "name_prefix" {
   type = string
 }
 variable "mongo_db_instance_class" {
-  type = number
+  type = string
 }
 variable "tags_proshop" {
   type = map(string)
