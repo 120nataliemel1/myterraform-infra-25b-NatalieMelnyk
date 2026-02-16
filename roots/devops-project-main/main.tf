@@ -27,7 +27,7 @@ module "vpc-module" {
 
 module "eks-module" {
   source = "../../eks-module"
-  count                = var.enable_condition ? 1 : 0
+  count  = var.enable_condition ? 1 : 0
 
   cluster_name = var.cluster_name
   vpc_id       = module.vpc-module.vpc_id
@@ -47,7 +47,7 @@ module "eks-module" {
 
 module "developer_iam_role" {
   source         = "../../IAM-role-module"
-  count                = var.enable_condition ? 1 : 0
+  count          = var.enable_condition ? 1 : 0
   environment    = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -57,7 +57,7 @@ module "developer_iam_role" {
 
 module "devops_iam_role" {
   source         = "../../IAM-role-module"
-  count                = var.enable_condition ? 1 : 0
+  count          = var.enable_condition ? 1 : 0
   environment    = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -67,7 +67,7 @@ module "devops_iam_role" {
 
 module "developer_prod_role" {
   source         = "../../IAM-role-module"
-  count                = var.enable_condition ? 1 : 0
+  count          = var.enable_condition ? 1 : 0
   environment    = "Prod"
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -77,7 +77,7 @@ module "developer_prod_role" {
 
 module "devops_prod_role" {
   source         = "../../IAM-role-module"
-  count                = var.enable_condition ? 1 : 0
+  count          = var.enable_condition ? 1 : 0
   environment    = "Prod"
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
