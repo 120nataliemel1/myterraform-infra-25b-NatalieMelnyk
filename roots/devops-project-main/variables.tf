@@ -95,9 +95,6 @@ variable "DeveloperAccessRolePolicy" {
 variable "name_prefix" {
   type = string
 }
-variable "node_security_group_id" {
-  type = string
-}
 variable "mongo_db_instance_class" {
   type = number
 }
