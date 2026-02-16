@@ -1,17 +1,17 @@
 greeting = "Hi"
 
 # AWS RDS MySQL Variables
-identifier                 = "versus-db-dev"
-engine                     = "mysql"
-engine_version             = "8.4"
-versus_app_instance_class  = "db.t4g.micro"
-db_name                    = "versus"
-username                   = "admin"
-parameter_group_name       = "default.mysql8.4"
-publicly_accessible        = false
-db_subnet_group_name       = "dev-subnet-group"
+identifier                = "versus-db-dev"
+engine                    = "mysql"
+engine_version            = "8.4"
+versus_app_instance_class = "db.t4g.micro"
+db_name                   = "versus"
+username                  = "admin"
+parameter_group_name      = "default.mysql8.4"
+publicly_accessible       = false
+db_subnet_group_name      = "dev-subnet-group"
 #db_subnet_ids              = ["subnet-0d43516578e7d7c7b", "subnet-06054cb3cddc77fe3", "subnet-053709f833b94529c"]
-db_security_group_name     = "versus-dev-rds-mysql-sg"
+db_security_group_name = "versus-dev-rds-mysql-sg"
 # vpc_id                     = "vpc-0ebb2e27ffc0e0584"
 # app_security_group_id      = "sg-011baa13c24c54a02"
 multi_az                   = false
