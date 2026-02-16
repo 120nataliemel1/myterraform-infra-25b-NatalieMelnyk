@@ -70,13 +70,13 @@ variable "name_prefix" {
 variable "node_security_group_id" {
   type = string
 }
-variable "instance_count" {
+variable "mongo_db_instance_class" {
   type = number
 }
 variable "instance_class" {
   type = string
 }
-variable "tags" {
+variable "tags_proshop" {
   type = map(string)
 }
 variable "master_username" {

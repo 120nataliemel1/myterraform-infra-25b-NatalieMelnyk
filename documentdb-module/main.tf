@@ -15,7 +15,7 @@ resource "random_id" "suffix" {
 resource "aws_secretsmanager_secret" "docdb" {
   name        = "${var.name_prefix}-${var.environment}-docdb-secret-${random_id.suffix.hex}"
   description = "DocumentDB credentials for ${var.environment} environment"
-  tags        = var.tags
+  tags        = var.tags_proshop
 }
 
 # Add a version of the secret with actual credentials
@@ -43,7 +43,7 @@ resource "aws_docdb_cluster_parameter_group" "docdb_tls_disabled" {
     value = "disabled"
   }
 
-  tags = var.tags
+  tags = var.tags_proshop
 }
 
 # DocumentDB Cluster
@@ -66,6 +66,6 @@ resource "aws_docdb_cluster_instance" "this" {
   count              = var.instance_count
   identifier         = "${var.name_prefix}-${var.environment}-docdb-instance-${count.index + 1}"
   cluster_identifier = aws_docdb_cluster.this.id
-  instance_class     = var.instance_class
+  instance_class     = var.mongo_db_instance_class
   apply_immediately  = true
 }

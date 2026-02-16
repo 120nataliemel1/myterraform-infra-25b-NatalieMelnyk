@@ -23,13 +23,13 @@ variable "node_security_group_id" {
   type        = string
 }
 
-variable "tags" {
+variable "tags_proshop" {
   description = "Common tags applied to all DocumentDB resources"
   type        = map(string)
   default     = {}
 }
 
-variable "instance_class" {
+variable "mongo_db_instance_class" {
   description = "Instance class for DocumentDB instances"
   type        = string
   default     = "db.t3.medium"

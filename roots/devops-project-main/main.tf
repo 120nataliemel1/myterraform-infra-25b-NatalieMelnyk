@@ -94,7 +94,7 @@ module "documentdb" {
   environment        = var.environment
   name_prefix        = var.name_prefix
   instance_count     = var.instance_count
-  instance_class     = var.instance_class
-  tags               = var.tags
+  instance_class     = var.mongo_db_instance_class
+  tags               = var.tags_proshop
   master_username    = var.master_username
 }
