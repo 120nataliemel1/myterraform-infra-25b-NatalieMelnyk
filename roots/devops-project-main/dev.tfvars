@@ -21,3 +21,13 @@ enable_addons = true
 trusted_parent_account_id = ["arn:aws:iam::879500880845:root"]
 DeveloperAccessRolePolicy = "DeveloperDevAccessRole.json"
 DevopAccessRolePolicy     = "DevopsDevAccessRole.json"
+
+#DocumentDb 
+master_username = "proshop_admin"
+name_prefix     = "proshop"
+mongo_db_instance_class = "db.t3.medium"
+instance_count = 1
+tags_proshop = {
+  Project     = "proshop"
+  Environment = "dev"
+}

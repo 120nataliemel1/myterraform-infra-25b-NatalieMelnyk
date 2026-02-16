@@ -91,6 +91,22 @@ variable "DeveloperAccessRolePolicy" {
   description = "Name of correct json file name"
 }
 
+# DocumentDB Module Variables
+variable "name_prefix" {
+  type = string
+}
+variable "node_security_group_id" {
+  type = string
+}
+variable "mongo_db_instance_class" {
+  type = number
+}
+variable "tags_proshop" {
+  type = map(string)
+}
+variable "master_username" {
+  type = string
+}
 variable "enable_addons" {
   type    = bool
   default = false
