@@ -4,9 +4,9 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    # bucket         = "project-x-state-bucket-staging"
-    key            = "terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraformlock"
+    # bucket       = "383585068161-state-bucket-dev"
+    # key          = "feature/MRP25BUBUN-2-eks-cluster.tfstate"
+    region       = "us-east-1"
+    use_lockfile = false
   }
 }
