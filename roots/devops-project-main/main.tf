@@ -15,7 +15,6 @@ module "module2" {
 
 module "vpc-module" {
   source               = "../../vpc-module"
-  count                = var.enable_condition ? 1 : 0
   project_name         = var.project_name
   vpc_cidr             = var.vpc_cidr
   azs                  = var.azs
@@ -26,7 +25,6 @@ module "vpc-module" {
 
 module "eks-module" {
   source            = "../../eks-module"
-  count             = var.enable_condition ? 1 : 0
   cluster_name      = var.cluster_name
   subnets           = module.vpc-module.public_subnet_ids
   ec2_types         = var.ec2_types
@@ -35,19 +33,8 @@ module "eks-module" {
 
 }
 
-module "hands-on-eks-module" {
-  source              = "../../hands-on-eks-module"
-  count               = var.enable_condition ? 1 : 0
-  cluster_name        = var.cluster_name
-  public_subnet_cidrs = var.public_subnet_cidrs
-  public_subnet_ids   = module.vpc-module.public_subnet_ids
-  vpc_id              = module.vpc-module.vpc_id
-}
-
-
 module "developer_iam_role" {
   source         = "../../IAM-role-module"
-  count          = var.enable_condition ? 1 : 0
   environment    = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -57,7 +44,6 @@ module "developer_iam_role" {
 
 module "devops_iam_role" {
   source         = "../../IAM-role-module"
-  count          = var.enable_condition ? 1 : 0
   environment    = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -67,7 +53,6 @@ module "devops_iam_role" {
 
 module "developer_prod_role" {
   source         = "../../IAM-role-module"
-  count          = var.enable_condition ? 1 : 0
   environment    = "Prod"
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -77,7 +62,6 @@ module "developer_prod_role" {
 
 module "devops_prod_role" {
   source         = "../../IAM-role-module"
-  count          = var.enable_condition ? 1 : 0
   environment    = "Prod"
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -87,7 +71,6 @@ module "devops_prod_role" {
 
 module "documentdb" {
   source             = "../../documentdb-module"
-  count              = var.enable_condition ? 1 : 0
   vpc_id             = module.vpc-module.vpc_id
   private_subnet_ids = module.vpc-module.private_subnet_ids
   eks_node_sg_id     = module.eks-module.node_security_group_id
