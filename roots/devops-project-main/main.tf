@@ -14,7 +14,6 @@ module "module2" {
 }
 
 module "vpc-module" {
-  count                = var.enable_condition ? 1 : 0
   source               = "../../vpc-module"
   project_name         = var.project_name
   vpc_cidr             = var.vpc_cidr
@@ -26,7 +25,6 @@ module "vpc-module" {
 }
 
 module "eks-module" {
-  count  = var.enable_condition ? 1 : 0
   source = "../../eks-module"
 
   cluster_name = var.cluster_name
@@ -46,7 +44,6 @@ module "eks-module" {
 }
 
 module "developer_iam_role" {
-  count          = var.enable_condition ? 1 : 0
   source         = "../../IAM-role-module"
   environment    = var.environment
   principal_type = "AWS"
@@ -56,7 +53,6 @@ module "developer_iam_role" {
 }
 
 module "devops_iam_role" {
-  count          = var.enable_condition ? 1 : 0
   source         = "../../IAM-role-module"
   environment    = var.environment
   principal_type = "AWS"
@@ -66,7 +62,6 @@ module "devops_iam_role" {
 }
 
 module "developer_prod_role" {
-  count          = var.enable_condition ? 1 : 0
   source         = "../../IAM-role-module"
   environment    = "Prod"
   principal_type = "AWS"
@@ -76,7 +71,6 @@ module "developer_prod_role" {
 }
 
 module "devops_prod_role" {
-  count          = var.enable_condition ? 1 : 0
   source         = "../../IAM-role-module"
   environment    = "Prod"
   principal_type = "AWS"
