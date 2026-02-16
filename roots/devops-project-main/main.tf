@@ -108,10 +108,10 @@ module "rds_mysql" {
   parameter_group_name       = var.parameter_group_name
   publicly_accessible        = var.publicly_accessible
   db_subnet_group_name       = var.db_subnet_group_name
-  db_subnet_ids              = var.db_subnet_ids
+  db_subnet_ids              = module.vpc-module.private_subnet_ids_ordered
   db_security_group_name     = var.db_security_group_name
-  vpc_id                     = var.vpc_id
-  app_security_group_id      = var.app_security_group_id
+  vpc_id                     = module.vpc-module.vpc_id
+  app_security_group_id      = module.eks-module.node_security_group_id
   multi_az                   = var.multi_az
   storage_type               = var.storage_type
   db_backup_retention_period = var.db_backup_retention_period

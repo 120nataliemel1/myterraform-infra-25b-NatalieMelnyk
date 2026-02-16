@@ -49,25 +49,25 @@ variable "db_subnet_group_name" {
   description = "RDS DB subnet group name"
 }
 
-variable "db_subnet_ids" {
-  type        = list(string)
-  description = "List of subnet IDs for the DB subnet group"
-}
+# variable "db_subnet_ids" {
+#   type        = list(string)
+#   description = "List of subnet IDs for the DB subnet group"
+# }
 
 variable "db_security_group_name" {
   type        = string
   description = "Name of the RDS security group"
 }
 
-variable "vpc_id" {
-  type        = string
-  description = "VPC ID where RDS is deployed"
-}
+# variable "vpc_id" {
+#   type        = string
+#   description = "VPC ID where RDS is deployed"
+# }
 
-variable "app_security_group_id" {
-  type        = string
-  description = "Application security group allowed to access RDS"
-}
+# variable "app_security_group_id" {
+#   type        = string
+#   description = "Application security group allowed to access RDS"
+# }
 
 variable "multi_az" {
   type        = bool
