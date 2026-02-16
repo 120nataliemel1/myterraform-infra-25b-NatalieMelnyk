@@ -17,6 +17,7 @@ resource "aws_secretsmanager_secret" "docdb" {
   description = "DocumentDB credentials for ${var.environment} environment"
   tags        = var.tags
 }
+
 # Add a version of the secret with actual credentials
 resource "aws_secretsmanager_secret_version" "docdb" {
   secret_id = aws_secretsmanager_secret.docdb.id
@@ -28,7 +29,6 @@ resource "aws_secretsmanager_secret_version" "docdb" {
     host     = aws_docdb_cluster.this.endpoint
     port     = 27017
     MONGO_URI = "mongodb://proshop_admin:${random_password.docdb_password.result}@${aws_docdb_cluster.this.endpoint}:27017/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false&directConnection=true"
-    # MONGO_URI = "mongodb://proshop_admin:${random_password.docdb_password.result}@${aws_docdb_cluster.this.endpoint}:27017/?tls=false"
   })
 }
 
