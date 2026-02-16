@@ -21,14 +21,14 @@ resource "aws_cloudwatch_metric_alarm" "rds_cpu_high" {
   alarm_actions = [aws_sns_topic.rds_alerts.arn]
   ok_actions    = [aws_sns_topic.rds_alerts.arn]
 
-  tags = var.tags
+  tags = var.tags_versus_app
 }
 
 # SNS Topic for RDS Alerts
 resource "aws_sns_topic" "rds_alerts" {
   name = var.rds_cpu_alerts
 
-  tags = var.tags
+  tags = var.tags_versus_app
 }
 
 # SNS Topic Subscription for Email Notifications

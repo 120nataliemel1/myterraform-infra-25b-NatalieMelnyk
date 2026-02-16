@@ -6,7 +6,7 @@ resource "aws_db_instance" "rds_mysql_versus" {
   identifier              = var.identifier
   engine                  = var.engine
   engine_version          = var.engine_version
-  instance_class          = var.instance_class
+  instance_class          = var.versus_app_instance_class
   db_name                 = var.db_name
   username                = var.username
   password                = random_password.db_password.result
@@ -22,7 +22,7 @@ resource "aws_db_instance" "rds_mysql_versus" {
   backup_window           = var.db_backup_window
   skip_final_snapshot     = true
 
-  tags = var.tags
+  tags = var.tags_versus_app
 }
 
 # Generate a random password for the RDS instance
@@ -33,10 +33,10 @@ resource "random_password" "db_password" {
 
 # Store the generated password in AWS Secrets Manager
 resource "aws_secretsmanager_secret" "db_secret" {
-  name        = "${var.identifier}-mysql-credentials"
+  name        = "${var.identifier}-mysql-db-credentials"
   description = "Access to database for Versus application"
 
-  tags = var.tags
+  tags = var.tags_versus_app
 }
 
 # Create a new version of the secret with the database credentials
@@ -58,7 +58,7 @@ resource "aws_db_subnet_group" "rds_mysql_versus_subnet_group" {
   description = "RDS subnet group for Versus app"
   subnet_ids  = var.db_subnet_ids
 
-  tags = var.tags
+  tags = var.tags_versus_app
 }
 
 resource "aws_security_group" "rds_mysql_versus_sg" {
@@ -82,5 +82,5 @@ resource "aws_security_group" "rds_mysql_versus_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = var.tags
+  tags = var.tags_versus_app
 }

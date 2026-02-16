@@ -19,7 +19,7 @@ variable "engine_version" {
   description = "Database engine version"
 }
 
-variable "instance_class" {
+variable "versus_app_instance_class" {
   type        = string
   description = "RDS instance class"
 }
@@ -99,7 +99,7 @@ variable "db_backup_window" {
   description = "Preferred backup window (UTC)"
 }
 
-variable "tags" {
+variable "tags_versus_app" {
   type        = map(string)
   description = "Tags applied to all resources"
 }

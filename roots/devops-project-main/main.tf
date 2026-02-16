@@ -17,13 +17,13 @@ module "module2" {
 # RDS MySQL
 ###########################################
 module "rds_mysql" {
-  source                     = "../../rds-mysql-module"
-  count                      = var.enable_condition ? 1 : 0
+  source = "../../rds-mysql-module"
+
   identifier                 = var.identifier
   allocated_storage          = var.allocated_storage
   engine                     = var.engine
   engine_version             = var.engine_version
-  instance_class             = var.instance_class
+  versus_app_instance_class  = var.versus_app_instance_class
   db_name                    = var.db_name
   username                   = var.username
   parameter_group_name       = var.parameter_group_name
@@ -39,19 +39,19 @@ module "rds_mysql" {
   deletion_protection        = var.deletion_protection
   db_backup_window           = var.db_backup_window
 
-  tags = var.tags
+  tags_versus_app = var.tags_versus_app
 }
 
 ###########################################
 # CloudWatch Alarms for RDS
 ###########################################
 module "rds_cloudwatch" {
-  source         = "../../rds-cloudwatch-module"
-  count          = var.enable_condition ? 1 : 0
+  source = "../../rds-cloudwatch-module"
+
   alarm_name     = var.alarm_name
   identifier     = var.identifier
   cpu_threshold  = var.cpu_threshold
   rds_cpu_alerts = var.rds_cpu_alerts
 
-  tags = var.tags
+  tags_versus_app = var.tags_versus_app
 }

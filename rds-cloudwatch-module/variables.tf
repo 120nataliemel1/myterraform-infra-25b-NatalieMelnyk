@@ -13,7 +13,7 @@ variable "cpu_threshold" {
   default = 80
 }
 
-variable "tags" {
+variable "tags_versus_app" {
   type        = map(string)
   description = "Tags applied to all resources"
 }
