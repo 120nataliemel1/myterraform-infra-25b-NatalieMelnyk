@@ -17,8 +17,8 @@ module "module2" {
 # RDS MySQL
 ###########################################
 module "rds_mysql" {
-  source = "../../rds-mysql-module"
-
+  source                     = "../../rds-mysql-module"
+  count                      = var.enable_condition ? 1 : 0
   identifier                 = var.identifier
   allocated_storage          = var.allocated_storage
   engine                     = var.engine
@@ -46,8 +46,8 @@ module "rds_mysql" {
 # CloudWatch Alarms for RDS
 ###########################################
 module "rds_cloudwatch" {
-  source = "../../rds-cloudwatch-module"
-
+  source         = "../../rds-cloudwatch-module"
+  count          = var.enable_condition ? 1 : 0
   alarm_name     = var.alarm_name
   identifier     = var.identifier
   cpu_threshold  = var.cpu_threshold
