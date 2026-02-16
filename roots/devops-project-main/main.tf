@@ -14,6 +14,7 @@ module "module2" {
 }
 
 module "vpc-module" {
+  count                = var.enable_condition ? 1 : 0
   source               = "../../vpc-module"
   project_name         = var.project_name
   vpc_cidr             = var.vpc_cidr
@@ -24,6 +25,7 @@ module "vpc-module" {
 }
 
 module "eks-module" {
+  count  = var.enable_condition ? 1 : 0
   source = "../../eks-module"
 
   cluster_name      = var.cluster_name
@@ -35,6 +37,7 @@ module "eks-module" {
 }
 
 module "hands-on-eks-module" {
+  count  = var.enable_condition ? 1 : 0
   source = "../../hands-on-eks-module"
 
   cluster_name        = var.cluster_name
@@ -45,6 +48,7 @@ module "hands-on-eks-module" {
 
 
 module "developer_iam_role" {
+  count          = var.enable_condition ? 1 : 0
   source         = "../../IAM-role-module"
   environment    = var.environment
   principal_type = "AWS"
@@ -54,6 +58,7 @@ module "developer_iam_role" {
 }
 
 module "devops_iam_role" {
+  count          = var.enable_condition ? 1 : 0
   source         = "../../IAM-role-module"
   environment    = var.environment
   principal_type = "AWS"
@@ -62,9 +67,8 @@ module "devops_iam_role" {
   policy_json    = var.DevopAccessRolePolicy
 }
 
-# FOR TEST PURPOSES ONLY NEXT IAM ROLE BLOCKS FOR PRODUCTION NEED TO BE REMOVED WHEN WE HAVE PRODUCTION ACCOUNT
-
 module "developer_prod_role" {
+  count          = var.enable_condition ? 1 : 0
   source         = "../../IAM-role-module"
   environment    = "Prod"
   principal_type = "AWS"
@@ -74,6 +78,7 @@ module "developer_prod_role" {
 }
 
 module "devops_prod_role" {
+  count          = var.enable_condition ? 1 : 0
   source         = "../../IAM-role-module"
   environment    = "Prod"
   principal_type = "AWS"
@@ -83,6 +88,7 @@ module "devops_prod_role" {
 }
 
 module "documentdb" {
+  count              = var.enable_condition ? 1 : 0
   source             = "../../documentdb-module"
   vpc_id             = module.vpc-module.vpc_id
   private_subnet_ids = module.vpc-module.private_subnet_ids
