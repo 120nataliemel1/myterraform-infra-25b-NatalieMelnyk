@@ -15,7 +15,6 @@ env:
   # ENVIRONMENT_STAGE: ${{ (github.ref == 'refs/heads/main' && 'production') || (github.ref == 'refs/heads/staging' && 'staging') || 'dev' }}
   # since production and staging are not ready, deploy only to dev for now
   ENVIRONMENT_STAGE: "dev"
-  enable_condition: ${{ github.ref == 'refs/heads/main' }}
   
 jobs:
   deploy-terraform:

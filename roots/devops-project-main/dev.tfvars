@@ -31,8 +31,8 @@ tags_versus_app = {
 alarm_name     = "versus-dev-rds-cpu-high"
 cpu_threshold  = 80
 rds_cpu_alerts = "versus-dev-rds-cpu-alerts"
-project_name = "projectx_ubuntu25b"
-cluster_name = "projectx_cluster_ubuntu25b"
+project_name   = "projectx_ubuntu25b"
+cluster_name   = "projectx_cluster_ubuntu25b"
 
 vpc_cidr = "10.0.0.0/16"
 azs      = ["us-east-1a", "us-east-1b", "us-east-1c"]

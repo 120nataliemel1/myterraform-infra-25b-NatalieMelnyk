@@ -123,11 +123,6 @@ variable "rds_cpu_alerts" {
   description = "Name of the SNS topic for RDS CPU alerts"
 }
 
-variable "enable_condition" {
-  description = "Set to true to enable provisioning of this module's resources; set to false to skip creation. Useful for controlling deployments in multi-module or multi-environment setups."
-  type        = bool
-  default     = false
-
 ### General/Global Variables ###
 
 variable "project_name" {

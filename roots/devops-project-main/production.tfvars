@@ -28,9 +28,9 @@ tags_versus_app = {
 }
 
 # AWS RDS MySQL CloudWatch Alarm Variables
-alarm_name     = "versus-prod-rds-cpu-high"
-cpu_threshold  = 80
-rds_cpu_alerts = "versus-prod-rds-cpu-alerts"
+alarm_name                = "versus-prod-rds-cpu-high"
+cpu_threshold             = 80
+rds_cpu_alerts            = "versus-prod-rds-cpu-alerts"
 environment               = "prod"
 trusted_parent_account_id = ["arn:aws:iam::879500880845:root"]
 DeveloperAccessRolePolicy = "DeveloperProdAccessRole.json"
