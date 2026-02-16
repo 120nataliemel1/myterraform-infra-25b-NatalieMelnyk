@@ -96,8 +96,3 @@ variable "enable_addons" {
   default = false
 }
 
-variable "enable_condition" {
-  description = "Set to true to enable provisioning of this module's resources; set to false to skip creation. Useful for controlling deployments in multi-module or multi-environment setups."
-  type        = bool
-  default     = false
-}

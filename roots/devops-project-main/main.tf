@@ -15,7 +15,6 @@ module "module2" {
 
 module "vpc-module" {
   source               = "../../vpc-module"
-  count                = var.enable_condition ? 1 : 0
   project_name         = var.project_name
   vpc_cidr             = var.vpc_cidr
   azs                  = var.azs
@@ -27,11 +26,10 @@ module "vpc-module" {
 
 module "eks-module" {
   source = "../../eks-module"
-  count  = var.enable_condition ? 1 : 0
 
   cluster_name = var.cluster_name
-  vpc_id       = module.vpc-module[0].vpc_id
-  subnets      = module.vpc-module[0].public_subnet_ids_ordered
+  vpc_id       = module.vpc-module.vpc_id
+  subnets = module.vpc-module.public_subnet_ids_ordered
 
   vpc_cidr     = var.vpc_cidr
   ec2_types    = var.ec2_types
@@ -47,7 +45,6 @@ module "eks-module" {
 
 module "developer_iam_role" {
   source         = "../../IAM-role-module"
-  count          = var.enable_condition ? 1 : 0
   environment    = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -57,7 +54,6 @@ module "developer_iam_role" {
 
 module "devops_iam_role" {
   source         = "../../IAM-role-module"
-  count          = var.enable_condition ? 1 : 0
   environment    = var.environment
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -67,7 +63,6 @@ module "devops_iam_role" {
 
 module "developer_prod_role" {
   source         = "../../IAM-role-module"
-  count          = var.enable_condition ? 1 : 0
   environment    = "Prod"
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
@@ -77,7 +72,6 @@ module "developer_prod_role" {
 
 module "devops_prod_role" {
   source         = "../../IAM-role-module"
-  count          = var.enable_condition ? 1 : 0
   environment    = "Prod"
   principal_type = "AWS"
   principal      = var.trusted_parent_account_id
