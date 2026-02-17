@@ -61,7 +61,6 @@ max_size         = 5
 desired_capacity = 2
 
 enable_addons = true
-environment            = "prod"
 
 ### used for EXTERNAL-DNS ###
 hosted_zone_names      = ["312ubuntu.com."]
