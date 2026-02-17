@@ -150,6 +150,7 @@ module "external_dns_irsa" {
   source = "../../external-dns-irsa"
 
   environment          = var.environment
+  cluster_name         = var.cluster_name
   hosted_zone_ids      = [for z in data.aws_route53_zone.selected : z.zone_id]
   oidc_arn             = data.aws_iam_openid_connect_provider.eks_cluster.arn
   oidc_url             = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer

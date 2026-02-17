@@ -27,3 +27,8 @@ variable "hosted_zone_ids" {
   description = "Route53 hosted zone ID external-dns can manage"
   type        = list(string)
 }
+
+variable "cluster_name" {
+  description = "EKS cluster name"
+  type        = string
+}

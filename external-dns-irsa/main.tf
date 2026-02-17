@@ -1,6 +1,6 @@
 # Creates a managed IAM policy in AWS using the JSON built below
 resource "aws_iam_policy" "external_dns" {
-  name        = "${var.environment}-external-dns-route53"
+  name        = "${var.environment}-${var.cluster_name}-external-dns-route53"
   description = "Allow external-dns to manage Route53 records in approved hosted zones"
   policy      = data.aws_iam_policy_document.external_dns_permissions.json
 }
@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "external_dns_permissions" {
 
 # creates the IAM role assumed by the Kubernetes ServiceAccount with trust policy (IRSA role)
 resource "aws_iam_role" "external_dns" {
-  name               = "${var.environment}-external-dns-irsa"
+  name               = "${var.environment}-${var.cluster_name}-external-dns-irsa"
   assume_role_policy = data.aws_iam_policy_document.external_dns_trust.json
 }
 
@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "external_dns_trust" {
       variable = "${replace(var.oidc_url, "https://", "")}:sub"
       values   = ["system:serviceaccount:${var.namespace}:${var.service_account_name}"]
     }
-    
+
     condition {
       test     = "StringEquals"
       variable = "${replace(var.oidc_url, "https://", "")}:aud"
