@@ -63,8 +63,7 @@ tags_proshop = {
   Environment = "dev"
 }
 
-environment            = "dev"
+### used for EXTERNAL-DNS ###
 hosted_zone_names      = ["312ubuntu.com."]
-cluster_name           = "temp-eks-cluster"
 external_dns_namespace = "external-dns"
 external_dns_sa_name   = "external-dns"

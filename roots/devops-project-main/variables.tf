@@ -172,6 +172,7 @@ variable "ec2_types" {
   type        = list(string)
   description = "Instance types for EKS worker nodes"
   default     = ["t3.medium"]
+}
   
 variable "hosted_zone_names" {
   type        = list(string)
@@ -236,5 +237,16 @@ variable "enable_addons" {
 }
 
 variable "instance_count" {
+  type = number
+}
+
+
+### used for EXTERNAL-DNS ###
+
+variable "external_dns_namespace" {
+  type = number
+}
+
+variable "external_dns_sa_name" {
   type = number
 }

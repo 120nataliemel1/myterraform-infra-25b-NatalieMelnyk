@@ -13,6 +13,11 @@ output "cluster_oidc_issuer" {
   value       = aws_eks_cluster.projectx_cluster.identity[0].oidc[0].issuer
 }
 
+output "oidc_provider_arn" {
+  description = "IAM OIDC provider ARN"
+  value       = aws_iam_openid_connect_provider.eks_oidc_provider.arn
+}
+
 output "cluster_security_group_id" {
   description = "AWS-managed EKS cluster security group ID"
   value       = aws_eks_cluster.projectx_cluster.vpc_config[0].cluster_security_group_id

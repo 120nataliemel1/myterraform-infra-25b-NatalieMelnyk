@@ -132,14 +132,11 @@ module "rds_cloudwatch" {
   rds_cpu_alerts = var.rds_cpu_alerts
 
   tags_versus_app = var.tags_versus_app
-  
-data "aws_eks_cluster" "eks_cluster" {
-  name = var.cluster_name
-}
-data "aws_iam_openid_connect_provider" "eks_cluster" {
-  url = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
 }
 
+#####################################################
+# EXTERNAL-DNS   
+#####################################################
 data "aws_route53_zone" "selected" {
   for_each     = toset(var.hosted_zone_names)
   name         = each.value
@@ -150,10 +147,10 @@ module "external_dns_irsa" {
   source = "../../external-dns-irsa"
 
   environment          = var.environment
-  cluster_name         = var.cluster_name
+  cluster_name         = module.eks-module.cluster_name
   hosted_zone_ids      = [for z in data.aws_route53_zone.selected : z.zone_id]
-  oidc_arn             = data.aws_iam_openid_connect_provider.eks_cluster.arn
-  oidc_url             = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
+  oidc_arn             = module.eks-module.oidc_provider_arn
+  oidc_url             = module.eks-module.cluster_oidc_issuer
   namespace            = var.external_dns_namespace
   service_account_name = var.external_dns_sa_name
 }
