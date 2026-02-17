@@ -132,4 +132,27 @@ module "rds_cloudwatch" {
   rds_cpu_alerts = var.rds_cpu_alerts
 
   tags_versus_app = var.tags_versus_app
+  
+data "aws_eks_cluster" "eks_cluster" {
+  name = var.cluster_name
+}
+data "aws_iam_openid_connect_provider" "eks_cluster" {
+  url = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
+}
+
+data "aws_route53_zone" "selected" {
+  for_each     = toset(var.hosted_zone_names)
+  name         = each.value
+  private_zone = false
+}
+
+module "external_dns_irsa" {
+  source = "../../external-dns-irsa"
+
+  environment          = var.environment
+  hosted_zone_ids      = [for z in data.aws_route53_zone.selected : z.zone_id]
+  oidc_arn             = data.aws_iam_openid_connect_provider.eks_cluster.arn
+  oidc_url             = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
+  namespace            = var.external_dns_namespace
+  service_account_name = var.external_dns_sa_name
 }

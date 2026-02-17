@@ -172,6 +172,10 @@ variable "ec2_types" {
   type        = list(string)
   description = "Instance types for EKS worker nodes"
   default     = ["t3.medium"]
+  
+variable "hosted_zone_names" {
+  type        = list(string)
+  description = "Hosted zone DNS names ExternalDNS can manage (e.g., 312ubuntu.com.)"
 }
 
 variable "desired_capacity" {

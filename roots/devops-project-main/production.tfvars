@@ -61,3 +61,8 @@ max_size         = 5
 desired_capacity = 2
 
 enable_addons = true
+environment            = "prod"
+hosted_zone_names        = ["312ubuntu.com."]
+cluster_name           = "temp-eks-cluster"
+external_dns_namespace = "external-dns"
+external_dns_sa_name   = "external-dns"
