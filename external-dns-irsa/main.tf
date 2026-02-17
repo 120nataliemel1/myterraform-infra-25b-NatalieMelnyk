@@ -58,6 +58,13 @@ data "aws_iam_policy_document" "external_dns_trust" {
       variable = "${replace(var.oidc_url, "https://", "")}:sub"
       values   = ["system:serviceaccount:${var.namespace}:${var.service_account_name}"]
     }
+    
+    condition {
+      test     = "StringEquals"
+      variable = "${replace(var.oidc_url, "https://", "")}:aud"
+      values   = ["sts.amazonaws.com"]
+
+    }
   }
 }
 
