@@ -202,4 +202,9 @@ module "karpenter_irsa" {
   service_account_name = var.karpenter_sa_name
   oidc_arn             = data.aws_iam_openid_connect_provider.eks_cluster.arn
   oidc_url             = data.aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
+  ##### delete the two data blocks and replace the above lines once merged into main and EKS module is available
+  # cluster_name         = module.eks-cluster.cluster_name
+  # oidc_arn             = module.eks-cluster.oidc_arn 
+  # oidc_url             = module.eks-cluster.cluster_oidc_issuer
+
 }
