@@ -61,3 +61,8 @@ max_size         = 5
 desired_capacity = 2
 
 enable_addons = true
+
+### used for EXTERNAL-DNS ###
+hosted_zone_names      = ["312ubuntu.com."]
+external_dns_namespace = "external-dns"
+external_dns_sa_name   = "external-dns"

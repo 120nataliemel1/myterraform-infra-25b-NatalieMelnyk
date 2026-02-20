@@ -1,6 +1,7 @@
 variable "greeting" {
   description = "A greeting phrase"
 }
+
 ##############################
 # AWS RDS MySQL Variables
 ##############################
@@ -173,6 +174,11 @@ variable "ec2_types" {
   default     = ["t3.medium"]
 }
 
+variable "hosted_zone_names" {
+  type        = list(string)
+  description = "Hosted zone DNS names ExternalDNS can manage (e.g., 312ubuntu.com.)"
+}
+
 variable "desired_capacity" {
   type        = number
   description = "Desired number of worker nodes in the EKS cluster"
@@ -232,4 +238,15 @@ variable "enable_addons" {
 
 variable "instance_count" {
   type = number
+}
+
+
+### used for EXTERNAL-DNS ###
+
+variable "external_dns_namespace" {
+  type = string
+}
+
+variable "external_dns_sa_name" {
+  type = string
 }
