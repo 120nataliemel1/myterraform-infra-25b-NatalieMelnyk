@@ -51,10 +51,14 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check
 
-      # Generates an execution plan for Terraform
-      - name: Terraform Plan
-        run: terraform plan -input=false -var-file=${ENVIRONMENT_STAGE}.tfvars 
+      # # Generates an execution plan for Terraform
+      # - name: Terraform Plan
+      #   run: terraform plan -input=false -var-file=${ENVIRONMENT_STAGE}.tfvars 
 
       # # # Build infrastructure according to Terraform configuration files
       # - name: Terraform Apply
       #   run: terraform apply -auto-approve -input=false -var-file=${ENVIRONMENT_STAGE}.tfvars
+
+      # Destroy all resources before merge into main branch
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve -input=false -var-file=${ENVIRONMENT_STAGE}.tfvars
