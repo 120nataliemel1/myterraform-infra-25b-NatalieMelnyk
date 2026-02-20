@@ -244,9 +244,9 @@ variable "instance_count" {
 ### used for EXTERNAL-DNS ###
 
 variable "external_dns_namespace" {
-  type = number
+  type = string
 }
 
 variable "external_dns_sa_name" {
-  type = number
+  type = string
 }
