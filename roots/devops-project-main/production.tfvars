@@ -62,15 +62,13 @@ desired_capacity = 2
 
 enable_addons = true
 
-<<<<<<< HEAD
 ### used for EXTERNAL-DNS ###
 hosted_zone_names      = ["312ubuntu.com."]
 external_dns_namespace = "external-dns"
 external_dns_sa_name   = "external-dns"
-=======
+
 # Kaprpenter module
 karpenter_namespace = "karpenter"
 karpenter_sa_name   = "karpenter"
 cluster_name        = "temp-eks-cluster"
 region              = "us-east-1"
->>>>>>> db4a7ca (add comments)
