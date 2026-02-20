@@ -194,7 +194,6 @@ module "karpenter_irsa" {
   namespace            = var.karpenter_namespace
   service_account_name = var.karpenter_sa_name
   cluster_name         = module.eks-cluster.cluster_name
-  oidc_arn             = module.eks-cluster.oidc_arn 
-  oidc_url             = module.eks-cluster.cluster_oidc_issuer
-
+  oidc_arn             = module.eks-module.oidc_provider_arn
+  oidc_url             = module.eks-module.cluster_oidc_issuer
 }
