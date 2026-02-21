@@ -67,3 +67,8 @@ DevopAccessRolePolicy     = "DevopsDevAccessRole.json"
 hosted_zone_names      = ["312ubuntu.com."]
 external_dns_namespace = "external-dns"
 external_dns_sa_name   = "external-dns"
+
+# Kaprpenter module
+karpenter_namespace = "karpenter"
+karpenter_sa_name   = "karpenter"
+region              = "us-east-1"

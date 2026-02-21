@@ -10,7 +10,7 @@ module "module2" {
   source = "../../dummy-module-2"
 
   input_from_module1 = module.module1.greeting_message
-  #  ... any other required variables for module2
+  # ... any other required variables for module2
 }
 
 module "vpc-module" {
@@ -180,3 +180,20 @@ module "external_dns_irsa" {
 #   namespace            = var.external_dns_namespace
 #   service_account_name = var.external_dns_sa_name
 # }
+
+####################################################
+# KARPENTER
+####################################################
+
+
+module "karpenter_irsa" {
+  source = "../../karpenter"
+
+  environment          = var.environment
+  region               = var.region
+  namespace            = var.karpenter_namespace
+  service_account_name = var.karpenter_sa_name
+  cluster_name         = module.eks-module.cluster_name
+  oidc_arn             = module.eks-module.oidc_provider_arn
+  oidc_url             = module.eks-module.cluster_oidc_issuer
+}

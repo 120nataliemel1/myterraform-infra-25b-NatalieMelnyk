@@ -67,3 +67,8 @@ tags_proshop = {
 hosted_zone_names      = ["312ubuntu.com."]
 external_dns_namespace = "external-dns"
 external_dns_sa_name   = "external-dns"
+
+### used for KARPENTER ###
+karpenter_namespace = "karpenter"
+karpenter_sa_name   = "karpenter"
+region              = "us-east-1"

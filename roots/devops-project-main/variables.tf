@@ -250,3 +250,20 @@ variable "external_dns_namespace" {
 variable "external_dns_sa_name" {
   type = string
 }
+
+variable "karpenter_namespace" {
+  description = "Kubernetes namespace where karpenter runs"
+  type        = string
+}
+
+### used for KARPENTER ### 
+
+variable "karpenter_sa_name" {
+  description = "ServiceAccount name for karpenter"
+  type        = string
+}
+
+variable "region" {
+  description = "."
+  type        = string
+}

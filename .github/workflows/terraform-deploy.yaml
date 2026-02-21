@@ -50,7 +50,7 @@ jobs:
       # Checks that all Terraform configuration files adhere to a canonical format
       - name: Terraform Format
         run: terraform fmt -check
-
+      
       # Generates an execution plan for Terraform
       - name: Terraform Plan
         run: terraform plan -input=false -var-file=${ENVIRONMENT_STAGE}.tfvars 
@@ -59,6 +59,7 @@ jobs:
       # - name: Terraform Apply
       #   run: terraform apply -auto-approve -input=false -var-file=${ENVIRONMENT_STAGE}.tfvars
 
-      # Destroy all resources before merge into main branch
+      # # Destroy all resources before merge into main branch
       # - name: Terraform Destroy
       #   run: terraform destroy -auto-approve -input=false -var-file=${ENVIRONMENT_STAGE}.tfvars
+
